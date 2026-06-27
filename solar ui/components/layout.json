@@ -5,53 +5,54 @@
   "components": [
     {
       "name": "Card",
-      "nodeId": "2257:1445",
+      "componentKey": "d6171ac69edc50cd61311a075d597bd21b7eff84",
       "description": "Surface conteneur avec CardHeader et CardFooter. Brique de base des layouts.",
-      "subParts": ["_CardHeader (2308:8241)", "_CardFooter (2308:8282)"],
+      "subParts": ["_CardHeader", "_CardFooter"],
       "doAndDont": { "do": ["Grouper du contenu lié", "Header pour titre, Footer pour actions"], "dont": ["Ne pas imbriquer trop de cards", "Pas de card sans contenu structuré"] }
     },
     {
       "name": "Accordion",
-      "nodeId": "2257:1420",
+      "componentKey": "0b36037c0d4d73f860c81b832c7feb2b45938552",
       "description": "Sections repliables empilées (révélation progressive).",
       "doAndDont": { "do": ["FAQ, contenu secondaire"], "dont": ["Ne pas cacher du contenu critique"] }
     },
     {
       "name": "Collapsible",
-      "nodeId": "2257:1396",
+      "componentKey": null,
+      "note": "Non publié comme composant de librairie (page de doc uniquement) — pas de componentKey instanciable. Utiliser Accordion pour un comportement repliable.",
       "description": "Conteneur unique repliable (un seul bloc révélable)."
     },
     {
       "name": "Dialog",
-      "nodeId": "2257:1402",
+      "componentKey": "8b291877bd8d7d535f43c386203c407dfa1ff0ad",
       "description": "Fenêtre modale centrée (formulaire, contenu focalisé).",
       "doAndDont": { "do": ["Tâche focalisée nécessitant attention"], "dont": ["Ne pas empiler plusieurs dialogs"] }
     },
     {
       "name": "Drawer",
-      "nodeId": "2257:1408",
+      "componentKey": "57394c978aaf52141ab061a3867254a72ff0a9d1",
       "description": "Panneau coulissant (souvent bas/mobile)."
     },
     {
       "name": "Sheet",
-      "nodeId": "2257:1414",
+      "componentKey": "a04a1203af46e1def99a109561bbb78ff2867432",
       "description": "Panneau latéral coulissant (paramètres, détails, navigation)."
     },
     {
       "name": "Command",
-      "nodeId": "2257:1473",
+      "componentKey": "6d3e5d8a822d1e3ea1e4b9a0ba1e0cc549a7f6b2",
       "description": "Palette de commandes / recherche (style cmd+k).",
       "doAndDont": { "do": ["Navigation/actions rapides au clavier"], "dont": ["Ne pas remplacer une navigation primaire visible"] }
     },
     {
       "name": "Separator",
-      "nodeId": "2257:1390",
+      "componentKey": "177ba1dd225e5223ef572ad03a3ddce46bbd9023",
       "description": "Trait séparateur. Orientation et placement du label configurables.",
       "variants": { "Orientation": ["Horizontal", "Vertical"], "Placement": ["Start", "Middle", "End"] }
     },
     {
       "name": "Empty",
-      "nodeId": "2257:1462",
+      "componentKey": "77a85d1682ee27eaebbb38fa469bc12442bf6f14",
       "description": "État vide : icône + message + action (aucune donnée à afficher).",
       "doAndDont": { "do": ["Expliquer pourquoi c'est vide + proposer une action"], "dont": ["Ne pas laisser un écran vide sans explication"] }
     }
