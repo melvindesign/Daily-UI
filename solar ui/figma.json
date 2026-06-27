@@ -15,12 +15,12 @@
   "pages": [
     { "id": "0:1",       "name": "Cover",        "role": "Couverture du fichier" },
     { "id": "2263:3105", "name": "Icons",        "role": "Bibliothèque d'icônes" },
-    { "id": "2135:636",  "name": "Action",       "role": "Composants d'action (Button, Toggle, Social Button…)", "spec": "components/Action.json" },
-    { "id": "13:851",    "name": "Form",         "role": "Composants de formulaire (Input, Checkbox, Select…)",  "spec": "components/Form.json" },
-    { "id": "2135:637",  "name": "Feedback",     "role": "Composants de feedback (Alert, Badge, Toast…)",        "spec": "components/Feedback.json" },
-    { "id": "2135:638",  "name": "Layout",       "role": "Composants de structure (Card, Dialog, Sheet…)",       "spec": "components/Layout.json" },
-    { "id": "2135:640",  "name": "Content",      "role": "Composants de contenu (Avatar, Calendar, Carousel…)",  "spec": "components/Content.json" },
-    { "id": "2135:642",  "name": "Data",         "role": "Composants de données (Table, Data Table, Item)",      "spec": "components/Data.json" },
+    { "id": "2135:636",  "name": "Action",       "role": "Composants d'action (Button, Toggle, Social Button…)", "spec": "components/action.json" },
+    { "id": "13:851",    "name": "Form",         "role": "Composants de formulaire (Input, Checkbox, Select…)",  "spec": "components/form.json" },
+    { "id": "2135:637",  "name": "Feedback",     "role": "Composants de feedback (Alert, Badge, Toast…)",        "spec": "components/feedback.json" },
+    { "id": "2135:638",  "name": "Layout",       "role": "Composants de structure (Card, Dialog, Sheet…)",       "spec": "components/layout.json" },
+    { "id": "2135:640",  "name": "Content",      "role": "Composants de contenu (Avatar, Calendar, Carousel…)",  "spec": "components/content.json" },
+    { "id": "2135:642",  "name": "Data",         "role": "Composants de données (Table, Data Table, Item)",      "spec": "components/data.json" },
     { "id": "2135:643",  "name": "Chart",        "role": "Graphiques" },
     { "id": "8913:243",  "name": "Landing page", "role": "Exemple de page d'atterrissage assemblée" }
   ],
@@ -62,7 +62,7 @@
         "modes": ["Light", "Dark"],
         "default": "Light",
         "published": false,
-        "note": "Contient les primitives de couleur Radix (792 variables masquées du publish). Ne jamais référencer ces primitives directement : passer par les tokens sémantiques Palette/* (Foundation/colors.json). Le mode Light/Dark détermine la luminance finale des couleurs.",
+        "note": "Contient les primitives de couleur Radix (792 variables masquées du publish). Ne jamais référencer ces primitives directement : passer par les tokens sémantiques Palette/* (foundation/colors.json). Le mode Light/Dark détermine la luminance finale des couleurs.",
         "controls": "Clair vs sombre : luminance réelle des couleurs."
       },
       "Screen": {
@@ -77,11 +77,11 @@
     "howToCombine": "Une maquette résulte du croisement Theme × Mode × Screen. Ex : 'Theme 1 + Dark + Desktop' = marque orange Geist, fond sombre, dimensions desktop. Pour les Daily UI, privilégier Theme 1 + Dark sauf indication contraire."
   },
   "foundations": {
-    "colors": "Foundation/colors.json",
-    "typography": "Foundation/typography.json",
-    "spacing": "Foundation/spacing.json",
-    "elevation": "Foundation/elevation.json",
-    "assets": "Foundation/assets.json"
+    "colors": "foundation/colors.json",
+    "typography": "foundation/typography.json",
+    "spacing": "foundation/spacing.json",
+    "elevation": "foundation/elevation.json",
+    "assets": "foundation/assets.json"
   },
   "usage": {
     "rules": [

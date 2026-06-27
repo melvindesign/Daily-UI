@@ -5,7 +5,6 @@
   "components": [
     {
       "name": "Button",
-      "nodeId": "2181:794",
       "componentKey": "84cb92752db85f0c91b0c48be30a2a93cdb426f7",
       "description": "Bouton ou élément ressemblant à un bouton. Composant de base de toute action.",
       "variants": {
@@ -28,7 +27,7 @@
     },
     {
       "name": "Button Group",
-      "nodeId": "2181:811",
+      "componentKey": "ecabb52b8fe6ec7e648997fe58325ef857fdc35c",
       "description": "Groupe de boutons accolés, horizontaux ou verticaux.",
       "variants": { "Orientation": ["Horizontal", "Vertical"] },
       "doAndDont": {
@@ -38,7 +37,7 @@
     },
     {
       "name": "Toggle",
-      "nodeId": "2181:1599",
+      "componentKey": "52132db278d160687b32adafe0c9b9dc7d564283",
       "description": "Bouton à deux états (actif/inactif), ex : gras dans un éditeur.",
       "variants": {
         "Variant": ["Default", "Outline"],
@@ -53,7 +52,7 @@
     },
     {
       "name": "Toggle Group",
-      "nodeId": "2181:1614",
+      "componentKey": "1f0d861cfa638110286cb417ac195140db5d07ac",
       "description": "Groupe de toggles (sélection unique ou multiple), ex : alignement texte.",
       "doAndDont": {
         "do": ["Sélection exclusive (alignement) ou multiple (formatage)"],
@@ -62,7 +61,7 @@
     },
     {
       "name": "Social Button",
-      "nodeId": "9348:8108",
+      "componentKey": "ecd21026ec019c4fddeafe4cef16159568fa8c1b",
       "description": "Bouton de connexion sociale (OAuth).",
       "variants": { "Providers": ["Apple", "Google"], "Variant": ["Primary", "Secondary"] },
       "doAndDont": {
