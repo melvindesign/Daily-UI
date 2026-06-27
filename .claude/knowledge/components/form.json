@@ -6,11 +6,11 @@
     {
       "name": "Input",
       "componentKey": "5b13618de870633fe13654f226def6e45ca199b2",
-      "description": "Champ de saisie texte sur une ligne.",
+      "description": "Champ de saisie texte nu (sans label ni wrapper). À utiliser uniquement comme brique interne dans un Field ou Input Group — jamais seul dans un formulaire.",
       "variants": { "State": ["Default", "Focus", "Disabled", "Invalid"], "Is Value": ["True", "False"] },
       "doAndDont": {
-        "do": ["Toujours associer un label (via Field ou Input Group block-start)", "Montrer l'état Invalid avec message d'erreur"],
-        "dont": ["Pas de champ sans label", "Ne pas utiliser le placeholder comme seul label"]
+        "do": ["Utiliser uniquement à l'intérieur d'un composant Field ou Input Group qui fournit le label et le message d'erreur."],
+        "dont": ["Ne jamais poser un Input directement dans un formulaire et ajouter manuellement un texte de label au-dessus — utilise Field ou Input Text à la place.", "Ne pas utiliser le placeholder comme seul label"]
       }
     },
     {
@@ -96,8 +96,11 @@
     {
       "name": "Field",
       "componentKey": "27e2a6665ce70f76448f87f54093a72538710608",
-      "description": "Wrapper de champ : label + contrôle + message d'erreur/helper. Structure recommandée pour tout champ de formulaire.",
-      "doAndDont": { "do": ["Encapsuler chaque champ pour label + erreur cohérents"], "dont": ["Ne pas réinventer la structure label/erreur"] }
+      "description": "Wrapper obligatoire pour tout champ de formulaire : label + contrôle + message d'erreur/helper. C'est le composant à instancier par défaut pour chaque champ. Input Text est l'alternative si un label flottant est préféré.",
+      "doAndDont": {
+        "do": ["Utiliser Field (ou Input Text) pour CHAQUE champ de formulaire — il gère label, required, erreur et helper de façon cohérente.", "Choisir Input Text si on veut un label flottant intégré au champ."],
+        "dont": ["Ne jamais recréer la structure label/champ/erreur manuellement en combinant un Input brut avec des nœuds texte — utilise Field.", "Ne pas se demander si Field est nécessaire : il l'est toujours dès qu'il y a un label."]
+      }
     }
   ]
 }

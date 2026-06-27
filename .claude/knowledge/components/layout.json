@@ -48,7 +48,11 @@
       "name": "Separator",
       "componentKey": "177ba1dd225e5223ef572ad03a3ddce46bbd9023",
       "description": "Trait séparateur. Orientation et placement du label configurables.",
-      "variants": { "Orientation": ["Horizontal", "Vertical"], "Placement": ["Start", "Middle", "End"] }
+      "variants": { "Orientation": ["Horizontal", "Vertical"], "Placement": ["Start", "Middle", "End"] },
+      "doAndDont": {
+        "do": ["Toujours instancier ce composant pour toute ligne de séparation horizontale ou verticale, qu'elle ait un label ou non."],
+        "dont": ["Ne jamais dessiner une ligne/rectangle pour séparer des sections — c'est le rôle du composant Separator. Jamais de formes 'from scratch'."]
+      }
     },
     {
       "name": "Empty",

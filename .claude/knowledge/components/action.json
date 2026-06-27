@@ -20,9 +20,14 @@
         "Destructive": "Action dangereuse/irréversible. Fond Error/9.",
         "Link": "Action ressemblant à un lien textuel."
       },
+      "slots": {
+        "description": "Le composant Button instancié contient par défaut des slots d'icône gauche et droite activés. Ces slots doivent être gérés explicitement.",
+        "Left Icon": "Icône à gauche du label. Si non utilisée, la désactiver (visible=false sur le slot ou choisir une variante sans icône).",
+        "Right Icon": "Icône à droite du label. Même règle : désactiver si non pertinente, ou remplacer par une icône adaptée au contexte."
+      },
       "doAndDont": {
-        "do": ["Une seule action Primary par écran", "Utiliser Destructive pour supprimer/annuler définitivement", "Ghost pour les actions répétées en toolbar"],
-        "dont": ["Pas plusieurs Primary côte à côte", "Pas de Destructive pour une action bénigne", "Ne pas redessiner un bouton : instancier le composant"]
+        "do": ["Une seule action Primary par écran", "Utiliser Destructive pour supprimer/annuler définitivement", "Ghost pour les actions répétées en toolbar", "Toujours vérifier et configurer explicitement les slots d'icônes après instanciation — désactiver ceux non utilisés, remplacer par une icône contextuelle si pertinent."],
+        "dont": ["Pas plusieurs Primary côte à côte", "Pas de Destructive pour une action bénigne", "Ne pas redessiner un bouton : instancier le composant", "Ne pas laisser les icônes par défaut du composant sans les avoir choisies délibérément — elles ne correspondent souvent pas au contexte."]
       }
     },
     {

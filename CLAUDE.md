@@ -23,6 +23,22 @@ https://www.figma.com/design/Oe0gTY9RsSmKMn8EcEiYan/Daily-UI--1---Sign-up
 
 Ne **jamais** consulter le contenu des itérations précédentes. Lire uniquement leur **position et dimensions** pour placer la nouvelle itération sans chevauchement. Chaque itération repart de zéro visuellement.
 
+## Structure locale des shots
+
+Les challenges sont organisés dans `shots/` :
+
+```
+shots/
+  #1-sign-up/
+    PRD.md
+  #2-checkout/
+    PRD.md
+  …
+```
+
+- **`/new-shot`** — crée le dossier et le PRD d'un nouveau challenge (specs fonctionnelles uniquement, sans détails visuels)
+- **`/design-shot`** — démarre ou continue une itération sur un challenge existant (lit le PRD, vérifie l'état Figma, demande un brief, puis lance le design)
+
 ## Solar UI Design System
 
 Contexte JSON local : `.claude/knowledge/` (manifeste `figma.json`, foundations, components).  

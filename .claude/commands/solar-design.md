@@ -43,11 +43,13 @@ Charge les deux skills suivants dans cet ordre **avant** tout appel `use_figma` 
 
 ### Couleurs & thème
 - Le système est basé sur **Radix UI color system** — utilise les variables sémantiques, jamais de valeurs hex hardcodées
+- Cette règle s'applique à **TOUS les nœuds avec un fill** : frame principal, frames enfants, conteneurs de sections, backgrounds internes. `#FFFFFF` ou `#000000` sont aussi interdits — utilise `Default/1` (fond page) ou `Default/2` (surface/card).
 - Propose toujours le **thème Dark** en priorité (contexte Daily UI)
 - Les variables de couleur sont dans la collection `Theme` du fichier Solar UI
 
 ### Spacing & Layout
 - Utilise les composants `Card`, `Separator`, `Accordion`, `Sheet`, `Dialog` pour la structure
+- **`Separator` est un composant** (componentKey dans layout.json) — ne jamais dessiner un trait ou rectangle pour séparer deux sections, toujours instancier `Separator`
 - Grid standard : 8pt grid system (multiples de 8 pour les espacements)
 
 ### États
