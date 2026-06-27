@@ -1,60 +1,56 @@
 {
-  "name": "Spacing & Sizing",
-  "description": "Échelle de tailles basée sur une unité de 16px (= Sizes/1). La nomenclature 'Sizes/N' correspond à N × 16px. Utilisée pour espacements, paddings, rayons, dimensions et hauteurs de composants.",
-  "baseUnit": 16,
-  "convention": "Sizes/{n} = n × 16px. Ex : Sizes/0,5 = 8px, Sizes/1 = 16px, Sizes/2 = 32px.",
-  "scale": {
-    "Sizes/0,125": 2,
-    "Sizes/0,25": 4,
-    "Sizes/0,375": 6,
-    "Sizes/0,50": 8,
-    "Sizes/0,75": 12,
-    "Sizes/1": 16,
-    "Sizes/1,25": 20,
-    "Sizes/1,50": 24,
-    "Sizes/1,75": 28,
-    "Sizes/2": 32,
-    "Sizes/2,25": 36,
-    "Sizes/2,5": 40,
-    "Sizes/2,75": 44,
-    "Sizes/3": 48,
-    "Sizes/3,25": 52,
-    "Sizes/3,5": 56,
-    "Sizes/3,75": 60,
-    "Sizes/4": 64,
-    "Sizes/4,25": 68,
-    "Sizes/4,50": 72,
-    "Sizes/4,75": 76,
-    "Sizes/5": 80,
-    "Sizes/6": 96,
-    "Sizes/7": 112,
-    "Sizes/8": 128,
-    "Sizes/9": 144,
-    "Sizes/10": 160
-  },
-  "layoutTokens": {
-    "note": "Tokens de layout sémantiques (collection Theme) qui pilotent les champs de formulaire. Theme 2 est plus arrondi et plus grand que Theme 1.",
-    "Layout/Field/Inner Radius":  { "Theme 1": 4, "Theme 2": 6,  "use": "Rayon interne des éléments dans un champ" },
-    "Layout/Field/Inner Padding": { "Theme 1": 4, "Theme 2": 6,  "use": "Padding interne des champs" },
-    "Layout/Field/Outter Radius": { "Theme 1": 8, "Theme 2": 12, "use": "Rayon externe des champs / cards" },
-    "Layout/Field/Height":        { "Theme 1": 36, "Theme 2": 40, "use": "Hauteur standard d'un champ (Size=Default)" }
-  },
   "commonUsage": {
-    "spacingInterne": "Padding de carte : 16-24px (Sizes/1 à Sizes/1,5). Gap entre champs : 12-16px.",
-    "spacingSection": "Entre sections : 32-48px (Sizes/2 à Sizes/3).",
-    "radius": "Boutons/champs : Outter Radius (8/12px). Cards : 8-12px. Petits éléments : Inner Radius (4/6px).",
-    "compact": "Composants Size=Compact réduisent hauteur (~30px) et paddings d'un cran."
+    "compact": "Composants Size=Compact réduisent paddings et gaps d'un cran.",
+    "spacingInterne": "Padding de carte : Sizes/1 à Sizes/1,5. Gap entre champs : Sizes/0,75 à Sizes/1.",
+    "spacingSection": "Entre sections : Sizes/2 à Sizes/3."
   },
+  "description": "Échelle de tokens d'espacement/dimension Sizes/* à lier aux gaps, paddings, rayons et tailles. Les valeurs réelles sont résolues automatiquement selon le Screen (desktop/mobile) — ne pas régler de valeur en dur. Choisir le token par magnitude relative (plus n est grand, plus l'espace est grand).",
   "doAndDont": {
     "do": [
-      "Utiliser les tokens Layout/Field/* pour les rayons et hauteurs de champs.",
-      "Espacer sur l'échelle (multiples de 4/8) — gap, padding via itemSpacing/paddingX.",
-      "Garder un rythme vertical cohérent (mêmes gaps entre éléments de même niveau)."
+      "Espacer uniquement via les tokens Sizes/* (gap, padding via itemSpacing/paddingX).",
+      "Choisir le token par magnitude relative, pas par une valeur px visée.",
+      "Garder un rythme vertical cohérent (mêmes gaps entre éléments de même niveau).",
+      "Imbriquer les radius en concentrique : rayon externe = rayon interne + padding."
     ],
     "dont": [
-      "Ne pas utiliser de valeurs arbitraires (13px, 27px) hors échelle.",
-      "Ne pas hardcoder un rayon : lier au token Layout/Field/Outter Radius.",
+      "Ne pas hardcoder une valeur en dur (px) — toujours lier un token Sizes/*.",
+      "Ne pas utiliser de valeurs arbitraires hors échelle.",
       "Ne pas coller les éléments (gap 0) ni sur-espacer (rompre la hiérarchie)."
     ]
-  }
+  },
+  "name": "Spacing & Sizing",
+  "radiusNesting": {
+    "example": "Bouton de rayon Sizes/0,25 dans une carte au padding Sizes/0,50 → rayon de la carte = Sizes/0,75 (les n s'additionnent : 0,25 + 0,50). Inversement, carte Sizes/0,75 avec padding Sizes/0,50 → enfant en Sizes/0,25.",
+    "inverse": "À l'inverse : rayon interne = rayon externe − padding. Si le résultat est ≤ 0, l'enfant reste à angles droits (rayon 0).",
+    "rule": "Rayon externe = rayon interne + padding. Quand un élément arrondi est imbriqué dans un conteneur arrondi, le rayon du conteneur doit valoir le rayon de l'enfant plus le padding qui les sépare, pour des coins concentriques (parallèles)."
+  },
+  "scale": [
+    "Sizes/0,125",
+    "Sizes/0,25",
+    "Sizes/0,375",
+    "Sizes/0,50",
+    "Sizes/0,75",
+    "Sizes/1",
+    "Sizes/1,25",
+    "Sizes/1,50",
+    "Sizes/1,75",
+    "Sizes/2",
+    "Sizes/2,25",
+    "Sizes/2,5",
+    "Sizes/2,75",
+    "Sizes/3",
+    "Sizes/3,25",
+    "Sizes/3,5",
+    "Sizes/3,75",
+    "Sizes/4",
+    "Sizes/4,25",
+    "Sizes/4,50",
+    "Sizes/4,75",
+    "Sizes/5",
+    "Sizes/6",
+    "Sizes/7",
+    "Sizes/8",
+    "Sizes/9",
+    "Sizes/10"
+  ]
 }
