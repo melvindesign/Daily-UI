@@ -5,20 +5,20 @@
   "components": [
     {
       "name": "Table",
-      "nodeId": "2258:2000",
+      "componentKey": "2900c4b2c84b6c39bf0a9473078fd39cc4190349",
       "description": "Tableau de données simple (header + body).",
-      "subParts": ["_Table Head (2308:7169)", "_Table Body (2308:7172)"],
+      "subParts": ["_Table Head", "_Table Body"],
       "doAndDont": { "do": ["Aligner les nombres à droite", "Header clair"], "dont": ["Ne pas surcharger de colonnes"] }
     },
     {
       "name": "Data Table",
-      "nodeId": "2258:1893",
+      "componentKey": "b9be0292d750014280185e0b03b7edb4ee11adaf",
       "description": "Tableau avancé (tri, filtres, sélection, pagination).",
       "doAndDont": { "do": ["Datasets nécessitant tri/filtre"], "dont": ["Ne pas l'utiliser pour une simple liste statique (préférer Table)"] }
     },
     {
       "name": "Item",
-      "nodeId": "2258:1965",
+      "componentKey": "b6ac7c8814e9f1019c8d6a49461d50bed253cc31",
       "description": "Ligne d'élément réutilisable (icône/avatar + titre + meta + action).",
       "variants": { "Variant": ["Default", "outline", "muted"] },
       "doAndDont": { "do": ["Listes, settings, résultats"], "dont": ["Ne pas mélanger les variantes dans une même liste"] }
