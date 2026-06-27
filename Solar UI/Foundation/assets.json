@@ -1,28 +1,25 @@
 {
   "name": "Assets",
-  "description": "Ressources graphiques de Solar UI : icônes et avatars.",
+  "description": "Ressources graphiques de Solar UI : icônes et avatars. Instancier les composants de la librairie Solar UI plutôt que d'importer des SVG/images externes.",
   "icons": {
-    "page": { "id": "2263:3105", "name": "Icons" },
-    "style": "Icônes linéaires fines, basées sur le set Phosphor / Lucide (cohérent shadcn/ui).",
+    "style": "Set Phosphor (icônes linéaires fines, cohérent shadcn/ui). Chaque icône est un composant nommé (ex. EyeSlash, LightningSlash).",
+    "howTo": "Ne pas s'appuyer sur une liste figée : chercher l'icône par nom dans la librairie Solar UI (search_design_system) puis l'instancier via sa clé. La page Icons (node 2263:3105) sert de référence pour parcourir le set.",
     "defaultSize": 14,
-    "sizesObserved": [14, 16, 24, 28],
-    "knownIcons": ["EyeSlash", "Icon (générique)"],
-    "usage": "Instancier les icônes depuis la page Icons ou via les slots Inline Start/End des Input Group. Taille par défaut 14px dans les champs."
+    "recommendedSizes": { "champs": 14, "boutons": "16-24", "actions denses": 16 }
   },
   "avatars": {
-    "component": { "name": "Avatar", "nodeId": "2257:1496" },
-    "sizes": { "Small": 24, "Default": 32, "Large": 40 },
-    "group": "AvatarGroup pour empiler plusieurs avatars",
-    "fallback": "Texte d'initiales (token Typography/Font Size/UI/Avatar Fallback/SM)"
+    "Avatar": { "componentKey": "eae992d0f048189108557374f4504b1cd8feb71a", "sizes": { "Small": 24, "Default": 32, "Large": 40 } },
+    "AvatarGroup": { "componentKey": "5e6cdef037ea7f1fb6815b624af1015bf5bdaace", "use": "Empiler plusieurs avatars" },
+    "fallback": "Initiales texte (token Typography/Font Size/UI/Avatar Fallback/SM)"
   },
   "doAndDont": {
     "do": [
-      "Réutiliser les icônes de la page Icons plutôt que d'importer des SVG externes.",
+      "Réutiliser les icônes de la librairie Solar UI plutôt que d'importer des SVG externes.",
       "Garder une taille d'icône cohérente avec le contexte (14px champs, 16-24px boutons).",
       "Utiliser le composant Avatar avec sa taille appropriée (Small/Default/Large)."
     ],
     "dont": [
-      "Ne pas mélanger plusieurs styles d'icônes (rester sur le set Solar UI).",
+      "Ne pas mélanger plusieurs styles d'icônes (rester sur le set Solar UI / Phosphor).",
       "Ne pas déformer les icônes (garder le ratio carré).",
       "Ne pas recréer un avatar à la main : utiliser le composant."
     ]
