@@ -1,0 +1,30 @@
+{
+  "name": "Assets",
+  "description": "Ressources graphiques de Solar UI : icônes et avatars.",
+  "icons": {
+    "page": { "id": "2263:3105", "name": "Icons" },
+    "style": "Icônes linéaires fines, basées sur le set Phosphor / Lucide (cohérent shadcn/ui).",
+    "defaultSize": 14,
+    "sizesObserved": [14, 16, 24, 28],
+    "knownIcons": ["EyeSlash", "Icon (générique)"],
+    "usage": "Instancier les icônes depuis la page Icons ou via les slots Inline Start/End des Input Group. Taille par défaut 14px dans les champs."
+  },
+  "avatars": {
+    "component": { "name": "Avatar", "nodeId": "2257:1496" },
+    "sizes": { "Small": 24, "Default": 32, "Large": 40 },
+    "group": "AvatarGroup pour empiler plusieurs avatars",
+    "fallback": "Texte d'initiales (token Typography/Font Size/UI/Avatar Fallback/SM)"
+  },
+  "doAndDont": {
+    "do": [
+      "Réutiliser les icônes de la page Icons plutôt que d'importer des SVG externes.",
+      "Garder une taille d'icône cohérente avec le contexte (14px champs, 16-24px boutons).",
+      "Utiliser le composant Avatar avec sa taille appropriée (Small/Default/Large)."
+    ],
+    "dont": [
+      "Ne pas mélanger plusieurs styles d'icônes (rester sur le set Solar UI).",
+      "Ne pas déformer les icônes (garder le ratio carré).",
+      "Ne pas recréer un avatar à la main : utiliser le composant."
+    ]
+  }
+}

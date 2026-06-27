@@ -1,0 +1,74 @@
+{
+  "category": "Feedback",
+  "page": { "id": "2135:637", "name": "Feedback" },
+  "description": "Composants communiquant un état, une information ou une notification à l'utilisateur.",
+  "components": [
+    {
+      "name": "Alert",
+      "nodeId": "2255:1227",
+      "description": "Message d'alerte inline (info ou erreur) avec icône, titre et description.",
+      "variants": { "Variant": ["Default", "Destructive"] },
+      "doAndDont": { "do": ["Default pour info, Destructive pour erreur grave"], "dont": ["Ne pas abuser des alertes (bruit visuel)"] }
+    },
+    {
+      "name": "Badge",
+      "nodeId": "2255:1233",
+      "componentKey": "d6171ac69edc50cd61311a075d597bd21b7eff84",
+      "description": "Étiquette compacte de statut, catégorie ou compteur.",
+      "variants": { "Variant": ["Default", "Primary", "Secondary", "Destructive", "Outline", "Ghost"] },
+      "extras": ["Status dot (8px)", "Compteur numérique (5, 88+)"],
+      "doAndDont": { "do": ["Status dot pour présence/état", "Compteur pour notifications"], "dont": ["Ne pas mettre de longs textes dans un badge"] }
+    },
+    {
+      "name": "Tooltip",
+      "nodeId": "2255:1209",
+      "description": "Info-bulle au survol d'un élément.",
+      "doAndDont": { "do": ["Texte court explicatif"], "dont": ["Pas d'info essentielle uniquement en tooltip (a11y)"] }
+    },
+    {
+      "name": "HoverCard",
+      "nodeId": "2255:1215",
+      "description": "Carte d'aperçu riche au survol (ex : profil utilisateur)."
+    },
+    {
+      "name": "Popover",
+      "nodeId": "2255:1221",
+      "description": "Conteneur flottant déclenché au clic (contenu interactif)."
+    },
+    {
+      "name": "Kbd",
+      "nodeId": "2255:1239",
+      "description": "Représentation d'une touche clavier (raccourci)."
+    },
+    {
+      "name": "Progress",
+      "nodeId": "2255:1245",
+      "description": "Barre de progression. Valeur de 0 à 100% par pas de 10, 6 couleurs sémantiques.",
+      "variants": { "Value": ["0%","10%","20%","30%","40%","50%","60%","70%","80%","90%","100%"], "Color": ["Default", "Brand", "Error", "Warning", "Success", "Info"] },
+      "doAndDont": { "do": ["Couleur sémantique selon le contexte (Success à 100%, Error si échec)"], "dont": ["Ne pas utiliser pour un chargement indéterminé (préférer Spinner)"] }
+    },
+    {
+      "name": "Skeleton",
+      "nodeId": "2255:1251",
+      "description": "Placeholder de chargement (forme grisée).",
+      "doAndDont": { "do": ["Refléter la forme du contenu à venir"], "dont": ["Ne pas laisser un skeleton indéfiniment"] }
+    },
+    {
+      "name": "Spinner",
+      "nodeId": "2255:1257",
+      "description": "Indicateur de chargement indéterminé."
+    },
+    {
+      "name": "Sonner",
+      "nodeId": "2255:1263",
+      "description": "Toast de notification temporaire (succès, erreur, info).",
+      "doAndDont": { "do": ["Message bref + action optionnelle", "Auto-dismiss"], "dont": ["Ne pas empiler trop de toasts"] }
+    },
+    {
+      "name": "AlertDialog",
+      "nodeId": "2255:1269",
+      "description": "Dialogue de confirmation bloquant (action critique).",
+      "doAndDont": { "do": ["Confirmer les actions destructrices"], "dont": ["Ne pas utiliser pour de l'info simple (préférer Sonner/Alert)"] }
+    }
+  ]
+}

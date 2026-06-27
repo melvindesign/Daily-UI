@@ -1,0 +1,81 @@
+{
+  "name": "Colors",
+  "description": "Système de couleurs sémantique basé sur l'échelle Radix UI à 12 steps. Chaque famille couvre tous les usages d'un composant (fond → bordure → solide → texte). Les valeurs réelles dépendent du Theme (1/2) et du Mode (Light/Dark).",
+  "model": {
+    "structure": "Palette/{Family}/{1-12 - Role}",
+    "scale12": {
+      "1":  { "role": "Background",       "use": "Fond d'application / page" },
+      "2":  { "role": "Bg Subtle",        "use": "Fond de surface subtile (cards, sections)" },
+      "3":  { "role": "Default Element",  "use": "Fond d'élément interactif au repos (input, ghost button)" },
+      "4":  { "role": "Hovered Element",  "use": "Fond d'élément au survol" },
+      "5":  { "role": "Active Element",   "use": "Fond d'élément actif / pressé / sélectionné" },
+      "6":  { "role": "Subtle Border",    "use": "Bordure subtile, séparateurs" },
+      "7":  { "role": "Default Border",   "use": "Bordure par défaut des éléments interactifs" },
+      "8":  { "role": "Hovered Border",   "use": "Bordure au survol, focus ring faible" },
+      "9":  { "role": "Solid",            "use": "Fond solide saturé (boutons primaires, badges). Couleur signature de la famille." },
+      "10": { "role": "Hovered Solid",    "use": "Fond solide au survol" },
+      "11": { "role": "Text Low",         "use": "Texte secondaire, low-contrast accessible" },
+      "12": { "role": "Text High",        "use": "Texte principal high-contrast" }
+    },
+    "radixGuidance": "Steps 1-2 = fonds, 3-5 = composants, 6-8 = bordures, 9-10 = solides, 11-12 = textes. Le step 9 a le meilleur contraste pour un fond solide avec texte blanc."
+  },
+  "families": {
+    "Default": {
+      "intent": "Neutre / gris — surfaces, textes, bordures par défaut",
+      "hue": { "Theme 1": "Gray", "Theme 2": "Slate" }
+    },
+    "Brand": {
+      "intent": "Action principale, accent de marque, éléments mis en avant",
+      "hue": { "Theme 1": "Sand/Orange", "Theme 2": "Slate/Blue" },
+      "solid9": { "Theme 1": "#f76b15", "Theme 2": "#0090ff" }
+    },
+    "Error": {
+      "intent": "Erreurs, états invalides, actions destructrices",
+      "hue": { "Theme 1": "Mauve/Red", "Theme 2": "Mauve/Tomato" },
+      "solid9": { "Theme 1": "#e5484d", "Theme 2": "(Tomato 9)" }
+    },
+    "Success": {
+      "intent": "Validation, confirmation, état positif",
+      "hue": { "Theme 1": "Sage/Green", "Theme 2": "Sage/Jade" },
+      "solid9": { "Theme 1": "#30a46c", "Theme 2": "(Jade 9)" }
+    },
+    "Warning": {
+      "intent": "Avertissement, attention requise",
+      "hue": { "Theme 1": "Sand/Amber", "Theme 2": "Sand/Orange" }
+    },
+    "Info": {
+      "intent": "Information neutre, messages informatifs",
+      "hue": { "Theme 1": "Slate/Sky", "Theme 2": "Slate/Cyan" }
+    },
+    "Link": {
+      "intent": "Liens hypertexte, navigation textuelle",
+      "hue": { "Theme 1": "Slate/Blue", "Theme 2": "Slate/Indigo" }
+    }
+  },
+  "neutralReference": {
+    "note": "Valeurs résolues du gris neutre (Default) pour repère rapide.",
+    "Theme 1 (Gray)": {
+      "1 Background": { "Light": "#fcfcfc", "Dark": "#111111" },
+      "12 Text High": { "Light": "#202020", "Dark": "#eeeeee" }
+    }
+  },
+  "scopes": {
+    "background (1-5, 9-10)": ["FRAME_FILL", "SHAPE_FILL"],
+    "border (6-8)": ["SHAPE_FILL", "STROKE_COLOR", "EFFECT_COLOR"],
+    "text (11-12)": ["SHAPE_FILL", "TEXT_FILL"]
+  },
+  "doAndDont": {
+    "do": [
+      "Lier les fills aux tokens Palette/* via setBoundVariableForPaint.",
+      "Utiliser le step adapté au rôle : 9 pour un bouton solide, 11/12 pour du texte, 6/7 pour une bordure.",
+      "Garder une seule famille par intention sémantique dans un même composant.",
+      "Compter sur Mode (Light/Dark) pour l'inversion automatique — ne pas dupliquer les couleurs."
+    ],
+    "dont": [
+      "Ne jamais hardcoder un hex (#f76b15) — toujours passer par le token Brand/9.",
+      "Ne jamais référencer une primitive masquée (Neutrals/Gray/9, Hue/Sand/Orange/9) directement.",
+      "Ne pas utiliser Brand pour signaler une erreur (utiliser Error).",
+      "Ne pas mélanger step de texte (11/12) comme fond solide ou inversement."
+    ]
+  }
+}

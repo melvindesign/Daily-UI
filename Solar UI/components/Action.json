@@ -1,0 +1,74 @@
+{
+  "category": "Action",
+  "page": { "id": "2135:636", "name": "Action" },
+  "description": "Composants déclenchant une action utilisateur. Tous suivent le pattern d'états Default/Hover/Focus/Disabled.",
+  "components": [
+    {
+      "name": "Button",
+      "nodeId": "2181:794",
+      "componentKey": "84cb92752db85f0c91b0c48be30a2a93cdb426f7",
+      "description": "Bouton ou élément ressemblant à un bouton. Composant de base de toute action.",
+      "variants": {
+        "Variant": ["Default", "Primary", "Secondary", "Ghost", "Destructive", "Link"],
+        "Size": ["Default", "Compact"],
+        "State": ["Default", "Hover", "Focus", "Disabled"]
+      },
+      "variantGuidance": {
+        "Primary": "Action principale d'un écran (1 seule par vue idéalement). Fond Brand/9.",
+        "Secondary": "Action secondaire, moins d'emphase. Fond Default subtil + bordure.",
+        "Default": "Neutre, fond Default.",
+        "Ghost": "Action discrète sans fond (toolbar, actions tertiaires).",
+        "Destructive": "Action dangereuse/irréversible. Fond Error/9.",
+        "Link": "Action ressemblant à un lien textuel."
+      },
+      "doAndDont": {
+        "do": ["Une seule action Primary par écran", "Utiliser Destructive pour supprimer/annuler définitivement", "Ghost pour les actions répétées en toolbar"],
+        "dont": ["Pas plusieurs Primary côte à côte", "Pas de Destructive pour une action bénigne", "Ne pas redessiner un bouton : instancier le composant"]
+      }
+    },
+    {
+      "name": "Button Group",
+      "nodeId": "2181:811",
+      "description": "Groupe de boutons accolés, horizontaux ou verticaux.",
+      "variants": { "Orientation": ["Horizontal", "Vertical"] },
+      "doAndDont": {
+        "do": ["Grouper des actions liées (ex : Annuler/Confirmer)", "Vertical pour les menus compacts"],
+        "dont": ["Ne pas grouper des actions sans rapport"]
+      }
+    },
+    {
+      "name": "Toggle",
+      "nodeId": "2181:1599",
+      "description": "Bouton à deux états (actif/inactif), ex : gras dans un éditeur.",
+      "variants": {
+        "Variant": ["Default", "Outline"],
+        "Size": ["Default", "Compact"],
+        "Active": ["True", "False"],
+        "State": ["Default", "Hover", "Active", "Focus", "Disabled"]
+      },
+      "doAndDont": {
+        "do": ["Utiliser pour un état on/off d'un seul bouton (formatage)", "Refléter clairement l'état Active"],
+        "dont": ["Ne pas confondre avec Switch (préférence/réglage) — Toggle = action immédiate"]
+      }
+    },
+    {
+      "name": "Toggle Group",
+      "nodeId": "2181:1614",
+      "description": "Groupe de toggles (sélection unique ou multiple), ex : alignement texte.",
+      "doAndDont": {
+        "do": ["Sélection exclusive (alignement) ou multiple (formatage)"],
+        "dont": ["Ne pas utiliser pour une navigation principale (préférer Tabs)"]
+      }
+    },
+    {
+      "name": "Social Button",
+      "nodeId": "9348:8108",
+      "description": "Bouton de connexion sociale (OAuth).",
+      "variants": { "Providers": ["Apple", "Google"], "Variant": ["Primary", "Secondary"] },
+      "doAndDont": {
+        "do": ["Respecter les guidelines de marque du provider", "Empiler verticalement si plusieurs providers"],
+        "dont": ["Ne pas altérer les logos des providers"]
+      }
+    }
+  ]
+}

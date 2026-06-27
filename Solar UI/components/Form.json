@@ -1,0 +1,103 @@
+{
+  "category": "Form",
+  "page": { "id": "13:851", "name": "Form" },
+  "description": "Composants de saisie. Pattern d'états étendu : Default/Focus/Disabled/Invalid. La plupart ont aussi une dimension 'Is Value' (rempli ou non).",
+  "components": [
+    {
+      "name": "Input",
+      "nodeId": "2181:1355",
+      "description": "Champ de saisie texte sur une ligne.",
+      "variants": { "State": ["Default", "Focus", "Disabled", "Invalid"], "Is Value": ["True", "False"] },
+      "doAndDont": {
+        "do": ["Toujours associer un label (via Field ou Input Group block-start)", "Montrer l'état Invalid avec message d'erreur"],
+        "dont": ["Pas de champ sans label", "Ne pas utiliser le placeholder comme seul label"]
+      }
+    },
+    {
+      "name": "Input Group",
+      "nodeId": "2181:1377",
+      "description": "Input enrichi avec slots : Inline Start/End (icônes, boutons, compteurs) et Block Start/End (labels, helper text). Couvre recherche, mot de passe, montant, commentaire, etc.",
+      "variants": { "Input Type": ["Input", "Textarea"], "State": ["Default", "Focus", "Disabled", "Invalid"], "Is Value": ["True", "False"] },
+      "slots": ["Block Start (label)", "Inline Start (icône)", "Input", "Inline End (icône/action/compteur)", "Block End (helper/compteur)"],
+      "doAndDont": {
+        "do": ["Utiliser Inline Start pour une icône de recherche", "Inline End pour toggle mot de passe / unité", "Block End pour compteur de caractères ou helper"],
+        "dont": ["Ne pas surcharger tous les slots à la fois", "Ne pas masquer le champ derrière trop d'ornements"]
+      }
+    },
+    {
+      "name": "Input OTP",
+      "nodeId": "2181:1391",
+      "description": "Saisie de code à usage unique (cases séparées).",
+      "variants": { "State": ["Default", "Focus", "Disabled", "Invalid"], "Is Value": ["True", "False"] },
+      "doAndDont": { "do": ["Utiliser un séparateur (_InputOTPSeparator) pour grouper"], "dont": ["Ne pas dépasser 6-8 cases"] }
+    },
+    {
+      "name": "Input Password",
+      "nodeId": "9314:8635",
+      "description": "Champ mot de passe avec toggle d'affichage, indicateur de force et règles de validation (helper card).",
+      "variants": { "State": ["Default", "Focus", "Disabled", "Invalid"], "New": ["True", "False"], "Show": ["True", "False"], "Filled": ["True", "False"] },
+      "doAndDont": {
+        "do": ["New=True pour la création (avec règles/force)", "Proposer le toggle Show pour révéler"],
+        "dont": ["Ne pas afficher les règles sur un champ de simple connexion (New=False)"]
+      }
+    },
+    {
+      "name": "Input Text",
+      "nodeId": "9341:11803",
+      "description": "Variante de champ texte avec label flottant.",
+      "variants": { "State": ["Default", "Focus", "Disabled", "Invalid"], "Filled": ["True", "False"] }
+    },
+    {
+      "name": "Textarea",
+      "nodeId": "2181:1405",
+      "description": "Zone de texte multi-lignes.",
+      "variants": { "State": ["Default", "Focus", "Disabled", "Invalid"], "is Value": ["True", "False"] },
+      "doAndDont": { "do": ["Permettre le redimensionnement vertical", "Compteur via Input Group si limite"], "dont": ["Ne pas utiliser pour une saisie courte (préférer Input)"] }
+    },
+    {
+      "name": "Checkbox",
+      "nodeId": "2181:1419",
+      "description": "Case à cocher (sélection multiple). Variante Card pour option cliquable pleine surface.",
+      "variants": { "Card": ["True", "False"], "Checked": ["True", "False"], "State": ["Default", "Checked", "Disabled", "Invalid"] },
+      "doAndDont": { "do": ["Utiliser pour sélection multiple", "Card=True pour des options riches"], "dont": ["Ne pas utiliser pour un choix exclusif (préférer Radio)"] }
+    },
+    {
+      "name": "Radio Group",
+      "nodeId": "2294:4776",
+      "description": "Boutons radio (sélection exclusive). Variante Card disponible.",
+      "variants": { "Card": ["True", "False"], "Checked": ["True", "False"], "State": ["Default", "Checked", "Disabled", "Invalid"] },
+      "doAndDont": { "do": ["Choix exclusif parmi 2-5 options"], "dont": ["Ne pas utiliser au-delà de ~6 options (préférer Select)"] }
+    },
+    {
+      "name": "Switch",
+      "nodeId": "2181:1447",
+      "description": "Interrupteur on/off pour un réglage à effet immédiat. Label positionnable.",
+      "variants": { "Card": ["True", "False"], "Checked": ["True", "False"], "Label Position": ["Right", "Left"], "State": ["Default", "Checked", "Disabled", "Invalid"] },
+      "doAndDont": { "do": ["Réglages/préférences à bascule immédiate"], "dont": ["Ne pas utiliser pour une action nécessitant validation (préférer Checkbox + submit)"] }
+    },
+    {
+      "name": "Slider",
+      "nodeId": "2181:1461",
+      "description": "Curseur de valeur sur une plage. Single ou Range, horizontal ou vertical.",
+      "variants": { "Type": ["Single", "Range"], "Direction": ["Horizontal", "Vertical"], "State": ["Default", "Hover", "Disabled"] }
+    },
+    {
+      "name": "Select",
+      "nodeId": "2181:1475",
+      "description": "Menu déroulant de sélection.",
+      "doAndDont": { "do": ["Utiliser pour >6 options exclusives"], "dont": ["Ne pas utiliser pour 2-3 options (préférer Radio/Toggle Group)"] }
+    },
+    {
+      "name": "Date Picker",
+      "nodeId": "2294:5573",
+      "description": "Sélecteur de date (champ + calendrier).",
+      "related": "Calendar (Content)"
+    },
+    {
+      "name": "Field",
+      "nodeId": "2181:1295",
+      "description": "Wrapper de champ : label + contrôle + message d'erreur/helper. Structure recommandée pour tout champ de formulaire.",
+      "doAndDont": { "do": ["Encapsuler chaque champ pour label + erreur cohérents"], "dont": ["Ne pas réinventer la structure label/erreur"] }
+    }
+  ]
+}

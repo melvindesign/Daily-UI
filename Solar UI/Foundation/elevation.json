@@ -1,0 +1,49 @@
+{
+  "name": "Elevation & Effects",
+  "description": "Styles d'effets (ombres et rings de focus) de Solar UI. Les ombres sont multi-couches pour un rendu réaliste. Les rings servent aux états focus/invalid.",
+  "effectStyles": {
+    "Shadow/Button": {
+      "use": "Ombre des boutons solides (relief subtil avec inner highlight)",
+      "layers": [
+        { "type": "INNER_SHADOW", "y": 2, "radius": 1, "spread": 0 },
+        { "type": "DROP_SHADOW",  "y": 3, "radius": 4, "spread": -1 }
+      ]
+    },
+    "Shadow/Switch": {
+      "use": "Ombre du thumb de switch (4 couches, profondeur douce)",
+      "layers": [
+        { "type": "DROP_SHADOW", "y": 0.49, "radius": 0.68, "spread": -0.37 },
+        { "type": "DROP_SHADOW", "y": 1.25, "radius": 1.75, "spread": -0.74 },
+        { "type": "DROP_SHADOW", "y": 4.75, "radius": 6.64, "spread": -1.48 },
+        { "type": "DROP_SHADOW", "y": 20.74, "radius": 29.04, "spread": -2.22 }
+      ]
+    },
+    "Ring/Focus": {
+      "use": "Anneau de focus clavier (accessibilité)",
+      "layers": [{ "type": "DROP_SHADOW", "radius": 0, "spread": 2 }]
+    },
+    "Ring/Invalid": {
+      "use": "Anneau d'état invalide (formulaire en erreur)",
+      "layers": [{ "type": "DROP_SHADOW", "radius": 0, "spread": 2 }]
+    },
+    "Ring/Focus/Toggle Active": {
+      "use": "Focus + état actif combinés pour les toggles",
+      "layers": [
+        { "type": "INNER_SHADOW", "y": 2, "radius": 3, "spread": 0 },
+        { "type": "DROP_SHADOW", "radius": 0, "spread": 2 }
+      ]
+    }
+  },
+  "doAndDont": {
+    "do": [
+      "Appliquer Shadow/Button aux boutons solides, Shadow/Switch au thumb de switch.",
+      "Utiliser Ring/Focus pour l'état focus clavier, Ring/Invalid pour les erreurs.",
+      "Garder les ombres subtiles — Solar UI privilégie un relief discret."
+    ],
+    "dont": [
+      "Ne pas créer d'ombres custom ad hoc : réutiliser les styles d'effet existants.",
+      "Ne pas empiler plusieurs ombres lourdes (perte de la sobriété du système).",
+      "Ne pas oublier le ring de focus sur les éléments interactifs (a11y)."
+    ]
+  }
+}

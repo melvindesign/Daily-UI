@@ -1,0 +1,59 @@
+{
+  "category": "Layout",
+  "page": { "id": "2135:638", "name": "Layout" },
+  "description": "Composants de structure et conteneurs : surfaces, overlays et organisation du contenu.",
+  "components": [
+    {
+      "name": "Card",
+      "nodeId": "2257:1445",
+      "description": "Surface conteneur avec CardHeader et CardFooter. Brique de base des layouts.",
+      "subParts": ["_CardHeader (2308:8241)", "_CardFooter (2308:8282)"],
+      "doAndDont": { "do": ["Grouper du contenu lié", "Header pour titre, Footer pour actions"], "dont": ["Ne pas imbriquer trop de cards", "Pas de card sans contenu structuré"] }
+    },
+    {
+      "name": "Accordion",
+      "nodeId": "2257:1420",
+      "description": "Sections repliables empilées (révélation progressive).",
+      "doAndDont": { "do": ["FAQ, contenu secondaire"], "dont": ["Ne pas cacher du contenu critique"] }
+    },
+    {
+      "name": "Collapsible",
+      "nodeId": "2257:1396",
+      "description": "Conteneur unique repliable (un seul bloc révélable)."
+    },
+    {
+      "name": "Dialog",
+      "nodeId": "2257:1402",
+      "description": "Fenêtre modale centrée (formulaire, contenu focalisé).",
+      "doAndDont": { "do": ["Tâche focalisée nécessitant attention"], "dont": ["Ne pas empiler plusieurs dialogs"] }
+    },
+    {
+      "name": "Drawer",
+      "nodeId": "2257:1408",
+      "description": "Panneau coulissant (souvent bas/mobile)."
+    },
+    {
+      "name": "Sheet",
+      "nodeId": "2257:1414",
+      "description": "Panneau latéral coulissant (paramètres, détails, navigation)."
+    },
+    {
+      "name": "Command",
+      "nodeId": "2257:1473",
+      "description": "Palette de commandes / recherche (style cmd+k).",
+      "doAndDont": { "do": ["Navigation/actions rapides au clavier"], "dont": ["Ne pas remplacer une navigation primaire visible"] }
+    },
+    {
+      "name": "Separator",
+      "nodeId": "2257:1390",
+      "description": "Trait séparateur. Orientation et placement du label configurables.",
+      "variants": { "Orientation": ["Horizontal", "Vertical"], "Placement": ["Start", "Middle", "End"] }
+    },
+    {
+      "name": "Empty",
+      "nodeId": "2257:1462",
+      "description": "État vide : icône + message + action (aucune donnée à afficher).",
+      "doAndDont": { "do": ["Expliquer pourquoi c'est vide + proposer une action"], "dont": ["Ne pas laisser un écran vide sans explication"] }
+    }
+  ]
+}

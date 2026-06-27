@@ -1,0 +1,63 @@
+{
+  "name": "Typography",
+  "description": "Échelle typographique pilotée par le Theme. Theme 1 utilise Geist + Major Second (1.125), Theme 2 utilise Inter/Poppins + Minor Third (1.2). Les tailles servent à la fois de font-size et de line-height (scope FONT_SIZE + LINE_HEIGHT).",
+  "fontFamilies": {
+    "Header": { "Theme 1": "Geist", "Theme 2": "Poppins", "use": "Titres Display et Title" },
+    "Body":   { "Theme 1": "Geist", "Theme 2": "Inter",   "use": "Corps de texte, labels, UI" },
+    "Mono":   { "Theme 1": "Geist Mono", "Theme 2": "Geist Mono", "use": "Code, valeurs monospace" }
+  },
+  "textStyles": {
+    "Display": {
+      "use": "Titres héros et grandes accroches marketing. Police Header.",
+      "items": [
+        { "name": "Display/Display 1", "key": "48dcd0f4b79790d70f324db54e584eea9988ac00", "html": "h1", "size": { "Theme 1": 41.04, "Theme 2": 68.81 } },
+        { "name": "Display/Display 2", "key": "2e8e842a059e4c1846b27b170edc4df2c29ac168", "html": "h2", "size": { "Theme 1": 36.48, "Theme 2": 57.34 } },
+        { "name": "Display/Display 3", "key": "2403ab8e844547ceb53ba14a806ab2ac7f8235d1", "html": "h3", "size": { "Theme 1": 32.43, "Theme 2": 47.78 } },
+        { "name": "Display/Display 4", "key": "d91c25ef6d562ec33245967ef5a6594ed2f2d9ed", "html": "h4", "size": { "Theme 1": 28.83, "Theme 2": 39.82 } },
+        { "name": "Display/Display 5", "key": "cbe51442f004fb5bea7e499e725540d816dde43d", "html": "h5", "size": { "Theme 1": 25.63, "Theme 2": 33.18 } },
+        { "name": "Display/Display 6", "key": "cde5c6b4b94f575dcdb74278407987e0b9f1ea67", "html": "h6", "size": { "Theme 1": 22.78, "Theme 2": 27.65 } }
+      ]
+    },
+    "Title": {
+      "use": "Titres de page et en-têtes de section. Police Header.",
+      "items": [
+        { "name": "Title/Title 1", "key": "5e4aea05d897bb579d60529f74c1f40e55583812", "html": "h1", "size": { "Theme 1": 28.83, "Theme 2": 39.82 } },
+        { "name": "Title/Title 2", "key": "eff65dff216bcab1825e66c254d9154d3a90d849", "html": "h2", "size": { "Theme 1": 25.63, "Theme 2": 33.18 } },
+        { "name": "Title/Title 3", "key": "a08abbca1c1a42f0a7d37a141254586d53bee016", "html": "h3", "size": { "Theme 1": 22.78, "Theme 2": 27.65 } },
+        { "name": "Title/Title 4", "key": "bcb302b1e3985e602513c0b8edda6b9634041945", "html": "h4", "size": { "Theme 1": 20.25, "Theme 2": 23.04 } },
+        { "name": "Title/Title 5", "key": "f7c2bd087c3356865629c4f95ebd672df1c6b6e6", "html": "h5", "size": { "Theme 1": 18, "Theme 2": 19.2 } },
+        { "name": "Title/Title 6", "key": "23c292d36b63951b38986548b2e17a7a7b75244e", "html": "h6", "size": { "Theme 1": 16, "Theme 2": 16 } }
+      ]
+    },
+    "Label": {
+      "use": "Labels de champs, métadonnées UI, annotations secondaires. Police Body.",
+      "items": [
+        { "name": "Label/Default", "key": "bc0160d9a1ccf2eb5755608bfe1fcbaedf92e506", "css": "label", "size": { "Theme 1": 14.22, "Theme 2": 13.33 } },
+        { "name": "Label/Compact", "key": "179a3044e11a38c4b7369eeb4a840c82ccf9bfba", "css": "label", "size": { "Theme 1": 12.44, "Theme 2": 11.11 } }
+      ]
+    }
+  },
+  "sizeTokens": {
+    "note": "Tokens de taille bruts (collection Theme). Body & Code partagent l'échelle, déclinés Default/Compact.",
+    "Body":  { "Default": { "Theme 1": 16, "Theme 2": 16 }, "Compact": { "Theme 1": 14.22, "Theme 2": 13.33 } },
+    "Code":  { "Default": { "Theme 1": 16, "Theme 2": 16 }, "Compact": { "Theme 1": 12.44, "Theme 2": 11.11 } }
+  },
+  "typeScales": {
+    "Theme 1 — Major Second (1.125)": [11.24, 12.44, 14.22, 16, 18, 20.25, 22.78, 25.63, 28.83, 32.43, 36.48, 41.04],
+    "Theme 2 — Minor Third (1.2)": [9.26, 11.11, 13.33, 16, 19.2, 23.04, 27.65, 33.18, 39.82, 47.78, 57.34, 68.81]
+  },
+  "doAndDont": {
+    "do": [
+      "Appliquer un style de texte existant (Display/Title/Label) via setTextStyleIdAsync.",
+      "Choisir Display pour le marketing/héros, Title pour les sections, Label pour les champs.",
+      "Laisser le Theme gérer la police et l'échelle — ne pas forcer une famille.",
+      "Utiliser Compact pour les contextes denses (tables, métadonnées)."
+    ],
+    "dont": [
+      "Ne pas régler font-size/line-height/family manuellement sur un nœud texte.",
+      "Ne pas créer de nouveau style typo pour une maquette Daily UI.",
+      "Ne pas mélanger Geist et Inter dans une même maquette (rester sur un Theme).",
+      "Ne pas utiliser Display pour du corps de texte courant."
+    ]
+  }
+}
