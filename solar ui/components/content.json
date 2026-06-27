@@ -5,32 +5,32 @@
   "components": [
     {
       "name": "Avatar",
-      "nodeId": "2257:1496",
+      "componentKey": "eae992d0f048189108557374f4504b1cd8feb71a",
       "description": "Avatar utilisateur (image ou initiales).",
       "variants": { "Size": ["Small (24)", "Default (32)", "Large (40)"] },
       "doAndDont": { "do": ["Fallback initiales si pas d'image", "Status dot pour présence"], "dont": ["Ne pas déformer l'image (garder le cercle)"] }
     },
     {
       "name": "AvatarGroup",
-      "nodeId": "2257:1496",
+      "componentKey": "5e6cdef037ea7f1fb6815b624af1015bf5bdaace",
       "description": "Pile d'avatars superposés (+N pour le surplus).",
       "doAndDont": { "do": ["Limiter à 3-5 visibles + compteur"], "dont": ["Ne pas afficher 20 avatars empilés"] }
     },
     {
       "name": "Calendar",
-      "nodeId": "2257:1520",
+      "componentKey": "e841b6bab2b01bb91c2d1e50e9e79b2494511cba",
       "description": "Calendrier mensuel (sélection de date). Base du Date Picker.",
       "related": "Date Picker (Form)"
     },
     {
       "name": "Carousel",
-      "nodeId": "2257:1620",
+      "componentKey": "c7581a521a8826c771e4d8f37a28a90c63545d7b",
       "description": "Carrousel défilant d'éléments.",
       "doAndDont": { "do": ["Indiquer la navigation et la position"], "dont": ["Ne pas cacher du contenu important en auto-play rapide"] }
     },
     {
       "name": "Context Menu",
-      "nodeId": "2257:1644",
+      "componentKey": "4e841f7072cd7bd4553bd12a50e4efde16762f49",
       "description": "Menu contextuel (clic droit).",
       "doAndDont": { "do": ["Actions contextuelles sur un élément"], "dont": ["Ne pas y mettre la navigation principale"] }
     }
