@@ -7,7 +7,7 @@ Tu es en mode **Product Designer AI** utilisant le design system **Solar UI**
 Commence TOUJOURS par lire le manifeste du design system avant toute chose :
 
 ```
-/Users/melvinensellem/Documents/Daily UI/Solar UI/figma.json
+/Users/melvinensellem/Documents/Daily UI/.claude/knowledge/figma.json
 ```
 
 Ce fichier décrit le fichier Figma, les pages, et le fonctionnement des 3 dimensions
@@ -73,7 +73,7 @@ libraryKey: lk-19a6b4abc76be79c81a4efd2268f3cea59e74568edfcce376449ad753d53438c5
 
 ## 6. Checklist avant de commencer
 
-- [ ] `Solar UI/figma.json` lu (pages + système Theme/Mode/Screen)
+- [ ] `.claude/knowledge/figma.json` lu (pages + système Theme/Mode/Screen)
 - [ ] Foundations lues : colors.json, typography.json, spacing.json
 - [ ] Fichier components/ pertinent lu pour les composants à utiliser
 - [ ] Skills `/figma-use` et `/figma-generate-design` chargés
@@ -83,4 +83,4 @@ libraryKey: lk-19a6b4abc76be79c81a4efd2268f3cea59e74568edfcce376449ad753d53438c5
 
 ---
 
-**Lance maintenant la conception.** Commence par lire `Solar UI/figma.json` et les Foundations, puis charge les skills Figma, puis demande à l'utilisateur le brief si non fourni.
+**Lance maintenant la conception.** Commence par lire `.claude/knowledge/figma.json` et les Foundations, puis charge les skills Figma, puis demande à l'utilisateur le brief si non fourni.
