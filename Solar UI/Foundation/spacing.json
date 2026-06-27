@@ -1,29 +1,6 @@
 {
-  "commonUsage": {
-    "compact": "Composants Size=Compact réduisent paddings et gaps d'un cran.",
-    "spacingInterne": "Padding de carte : Sizes/1 à Sizes/1,5. Gap entre champs : Sizes/0,75 à Sizes/1.",
-    "spacingSection": "Entre sections : Sizes/2 à Sizes/3."
-  },
-  "description": "Échelle de tokens d'espacement/dimension Sizes/* à lier aux gaps, paddings, rayons et tailles. Les valeurs réelles sont résolues automatiquement selon le Screen (desktop/mobile) — ne pas régler de valeur en dur. Choisir le token par magnitude relative (plus n est grand, plus l'espace est grand).",
-  "doAndDont": {
-    "do": [
-      "Espacer uniquement via les tokens Sizes/* (gap, padding via itemSpacing/paddingX).",
-      "Choisir le token par magnitude relative, pas par une valeur px visée.",
-      "Garder un rythme vertical cohérent (mêmes gaps entre éléments de même niveau).",
-      "Imbriquer les radius en concentrique : rayon externe = rayon interne + padding."
-    ],
-    "dont": [
-      "Ne pas hardcoder une valeur en dur (px) — toujours lier un token Sizes/*.",
-      "Ne pas utiliser de valeurs arbitraires hors échelle.",
-      "Ne pas coller les éléments (gap 0) ni sur-espacer (rompre la hiérarchie)."
-    ]
-  },
   "name": "Spacing & Sizing",
-  "radiusNesting": {
-    "example": "Bouton de rayon Sizes/0,25 dans une carte au padding Sizes/0,50 → rayon de la carte = Sizes/0,75 (les n s'additionnent : 0,25 + 0,50). Inversement, carte Sizes/0,75 avec padding Sizes/0,50 → enfant en Sizes/0,25.",
-    "inverse": "À l'inverse : rayon interne = rayon externe − padding. Si le résultat est ≤ 0, l'enfant reste à angles droits (rayon 0).",
-    "rule": "Rayon externe = rayon interne + padding. Quand un élément arrondi est imbriqué dans un conteneur arrondi, le rayon du conteneur doit valoir le rayon de l'enfant plus le padding qui les sépare, pour des coins concentriques (parallèles)."
-  },
+  "description": "Échelle de tokens d'espacement/dimension Sizes/* à lier aux gaps, paddings, rayons et tailles. Les valeurs réelles sont résolues automatiquement selon le Screen (desktop/mobile) — ne pas régler de valeur en dur. Choisir le token par magnitude relative (plus n est grand, plus l'espace est grand).",
   "scale": [
     "Sizes/0,125",
     "Sizes/0,25",
@@ -52,5 +29,30 @@
     "Sizes/8",
     "Sizes/9",
     "Sizes/10"
-  ]
+  ],
+  "radiusNesting": {
+    "rule": "Rayon externe = rayon interne + padding. Quand un élément arrondi est imbriqué dans un conteneur arrondi, le rayon du conteneur doit valoir le rayon de l'enfant plus le padding qui les sépare, pour des coins concentriques (parallèles).",
+    "inverse": "À l'inverse : rayon interne = rayon externe − padding. Si le résultat est ≤ 0, l'enfant reste à angles droits (rayon 0).",
+    "example": "Bouton de rayon Sizes/0,25 dans une carte au padding Sizes/0,50 → rayon de la carte = Sizes/0,75 (les n s'additionnent : 0,25 + 0,50). Inversement, carte Sizes/0,75 avec padding Sizes/0,50 → enfant en Sizes/0,25."
+  },
+  "commonUsage": {
+    "spacingInterne": "Padding de carte : Sizes/1 à Sizes/1,5. Gap entre champs : Sizes/0,75 à Sizes/1.",
+    "spacingSection": "Entre sections : Sizes/2 à Sizes/3.",
+    "compact": "Composants Size=Compact réduisent paddings et gaps d'un cran."
+  },
+  "exception": "Par défaut, n'utiliser que des tokens Sizes/*. Mais pour les dimensions de conteneurs, privilégier d'abord les modes de redimensionnement auto-layout — fill container (s'étirer au parent) ou hug content (s'adapter au contenu) — plutôt qu'une taille en dur. Si aucun de ces modes ni un token ne convient (ex. une dimension de carte réellement fixe, une largeur spécifique), l'agent peut alors déroger et poser une valeur en dur s'il l'estime nécessaire. Les tokens restent toujours à privilégier pour les gaps, paddings et rayons, mais aussi pour width/height quand une taille de l'échelle tombe juste.",
+  "doAndDont": {
+    "do": [
+      "Espacer via les tokens Sizes/* (gap, padding via itemSpacing/paddingX).",
+      "Choisir le token par magnitude relative, pas par une valeur px visée.",
+      "Garder un rythme vertical cohérent (mêmes gaps entre éléments de même niveau).",
+      "Imbriquer les radius en concentrique : rayon externe = rayon interne + padding.",
+      "Pour les dimensions de conteneurs, préférer fill container / hug content ; valeur en dur en dernier recours, voir 'exception'."
+    ],
+    "dont": [
+      "Ne pas hardcoder gaps, paddings ou rayons — toujours lier un token Sizes/*.",
+      "Ne pas utiliser de valeurs arbitraires hors échelle par confort (réserver aux tailles fixes sans token).",
+      "Ne pas coller les éléments (gap 0) ni sur-espacer (rompre la hiérarchie)."
+    ]
+  }
 }
