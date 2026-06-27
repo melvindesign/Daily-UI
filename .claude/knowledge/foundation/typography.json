@@ -50,12 +50,14 @@
     "do": [
       "Appliquer un style de texte existant (Display/Title/Label) via setTextStyleIdAsync.",
       "Choisir Display pour le marketing/héros, Title pour les sections, Label pour les champs.",
-      "Utiliser Compact pour les contextes denses (tables, métadonnées)."
+      "Utiliser Compact pour les contextes denses (tables, métadonnées).",
+      "Vérifier après création que textStyleId est non vide — un nœud texte sans style est hors DS."
     ],
     "dont": [
-      "Ne pas régler font-size/line-height/family manuellement sur un nœud texte.",
+      "Ne pas régler font-size/line-height/family/letterSpacing manuellement sur un nœud texte.",
       "Ne pas créer de nouveau style typo pour une maquette Daily UI.",
-      "Ne pas utiliser Display pour du corps de texte courant."
+      "Ne pas utiliser Display pour du corps de texte courant.",
+      "Ne pas utiliser une fonte système (Inter, SF Pro, Roboto…) directement — utiliser la variable Typography/Font Family/* via un style Solar UI."
     ]
   }
 }

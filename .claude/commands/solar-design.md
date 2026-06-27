@@ -39,13 +39,19 @@ Charge les deux skills suivants dans cet ordre **avant** tout appel `use_figma` 
 - Titres de page / héros : `Display/Display 1` ou `Display/Display 2`
 - Titres de sections : `Title/Title 1` à `Title/Title 3`
 - Labels de formulaires : `Label/Default` ou `Label/Compact`
-- Ne crée jamais de styles typographiques custom — utilise uniquement les styles Solar UI
+- Ne crée jamais de styles typographiques custom — applique toujours un style Solar UI via `setTextStyleIdAsync` (voir `typography.json`)
+- Après avoir créé un nœud texte, vérifie que `textStyleId` est bien appliqué (non vide) — un texte sans style est hors DS
 
 ### Couleurs & thème
 - Le système est basé sur **Radix UI color system** — utilise les variables sémantiques, jamais de valeurs hex hardcodées
 - Cette règle s'applique à **TOUS les nœuds avec un fill** : frame principal, frames enfants, conteneurs de sections, backgrounds internes. `#FFFFFF` ou `#000000` sont aussi interdits — utilise `Default/1` (fond page) ou `Default/2` (surface/card).
 - Propose toujours le **thème Dark** en priorité (contexte Daily UI)
 - Les variables de couleur sont dans la collection `Theme` du fichier Solar UI
+
+### Sizing & Auto-layout
+- Les frames et conteneurs utilisent **toujours** `hug-content` (`primaryAxisSizingMode / counterAxisSizingMode = "AUTO"`) ou `fill-container` (`layoutGrow = 1`) avec du padding — jamais de `width`/`height` fixes (sauf le frame racine de l'itération et les composants à taille imposée comme les boutons)
+- Les nœuds texte multi-lignes : `textAutoResize = "HEIGHT"` (largeur fill-container, hauteur hug)
+- Règle de vérification : si tu te retrouves à écrire `node.resize(w, h)` sur un conteneur intermédiaire, c'est un signal d'erreur — utilise auto-layout à la place
 
 ### Spacing & Layout
 - Utilise les composants `Card`, `Separator`, `Accordion`, `Sheet`, `Dialog` pour la structure
