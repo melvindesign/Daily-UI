@@ -23,5 +23,8 @@ Permettre à l'utilisateur de créer un compte via un fournisseur d'identité ti
 - L'email doit être au format valide
 - Le mot de passe doit respecter un niveau de sécurité minimal
 
+## Format
+- Page au format mobile
+
 ## Hors scope
 - Toute considération visuelle ou de design
