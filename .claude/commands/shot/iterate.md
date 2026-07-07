@@ -16,9 +16,20 @@ Lis `shots/#X-name/PRD.md` pour comprendre le besoin **fonctionnel** du challeng
 
 ## Étape 3 — État actuel dans Figma
 
-Interroge le fichier Daily UI (`get_metadata` ou `get_design_context` avec le fileKey ci-dessus) pour :
-- Vérifier que la page `#X - Name` existe
-- Lire la liste des sections enfants de la page en n'exploitant que leur **nom** et leur **`x`, `y`, `width`, `height`** (jamais leur contenu visuel — voir Règles de process)
+> ⚠️ **Ne JAMAIS utiliser `get_metadata` / `get_design_context` sans `nodeId` pour lister les pages.**
+> Sans `nodeId`, ces outils ne renvoient que la **page active** du fichier — or ce fichier s'ouvre systématiquement sur la page **Cover**. La page `#X - Name` serait alors invisible, à chaque itération. C'est le piège à éviter.
+
+**3a — Résoudre l'id de la page (méthode fiable).** Énumère TOUTES les pages via `use_figma` (indépendant de la page active) :
+
+```js
+return figma.root.children.map(p => ({ id: p.id, name: p.name, childrenCount: p.children.length }));
+```
+
+Repère la page dont le `name` correspond exactement à `#X - Name` et récupère son `id`. (Si elle n'existe pas → il faudra la créer à l'étape 5, itération 1.)
+
+**3b — Lire les sections de la page.** Avec l'`id` obtenu, appelle `get_metadata` **en passant ce `nodeId`** (ou continue en `use_figma`) pour :
+- Confirmer l'existence de la page
+- Lire la liste des sections enfants en n'exploitant que leur **nom** et leur **`x`, `y`, `width`, `height`** (jamais leur contenu visuel — voir Règles de process)
 - Déduire le numéro de la prochaine itération (dernière + 1)
 
 ## Étape 4 — Brief complémentaire
