@@ -1,0 +1,88 @@
+{
+  "category": "Navigation",
+  "page": { "id": "2135:641", "name": "Navigation" },
+  "description": "Composants de navigation : fil d'Ariane, pagination, onglets, liens, menus.",
+  "components": [
+    {
+      "name": "Breadcrumb",
+      "componentKey": "8fd81f8dd7b2d55dc3a5f5e8c1f7f1f08eca91bd",
+      "description": "Fil d'Ariane indiquant la position dans une hiérarchie de pages, séparé par des chevrons.",
+      "doAndDont": {
+        "do": ["Toujours terminer par la page courante (non cliquable, texte high-contrast)", "Utiliser pour une hiérarchie de navigation profonde (≥ 2 niveaux)"],
+        "dont": ["Ne pas utiliser pour une navigation à plat (préférer Tabs ou NavigationMenu)"]
+      }
+    },
+    {
+      "name": "Pagination",
+      "componentKey": "8a900b5ae598df30fb2070ee6bf2e6a4afa8c9d0",
+      "description": "Navigation entre pages de contenu : liens précédent/suivant et pages numérotées. Composé de Button (Compact) instanciés dans un slot.",
+      "doAndDont": {
+        "do": ["Indiquer la page active (état actif visuellement distinct)", "Toujours proposer Précédent/Suivant en plus des numéros"],
+        "dont": ["Ne pas afficher un nombre excessif de pages sans ellipsis"]
+      }
+    },
+    {
+      "name": "Tabs",
+      "componentKey": "9deee45b1ddeacc1293fcd02ea23e786abfc9a92",
+      "description": "Panneaux empilés horizontalement ou verticalement, commutés via des déclencheurs d'onglet (TabsList + tab triggers).",
+      "doAndDont": {
+        "do": ["Un seul onglet actif à la fois (fond blanc + ombre légère vs texte low-contrast pour les inactifs)"],
+        "dont": ["Ne pas utiliser pour une navigation principale entre pages distinctes (préférer NavigationMenu)"]
+      }
+    },
+    {
+      "name": "Link",
+      "componentKey": "725c4705020b4a2a32f8922020a79bc5ae03f501",
+      "description": "Lien textuel simple (hors bouton), pour un mot ou groupe de mots isolé au sein d'un paragraphe ou d'un contexte informatif.",
+      "variants": {
+        "State": ["Default", "Hover"],
+        "Visited": ["False", "True"],
+        "Compact": ["False", "True"]
+      },
+      "variantGuidance": {
+        "Visited=False": "Couleur Link/11 (text-low, ex. #0d74ce) — lien non visité.",
+        "Visited=True": "Couleur Link/12 (text-high, ex. #113264) — lien déjà visité.",
+        "State=Hover": "Ajoute un soulignement (underline) au texte.",
+        "Compact=True": "Taille de texte body/compact au lieu de body/default."
+      },
+      "doAndDont": {
+        "do": ["Utiliser dans du texte courant ou pour un lien isolé hors bouton (ex. dans un article, une note de bas de champ)", "Toujours lier la couleur aux tokens sémantiques Palette/Link/*"],
+        "dont": ["Ne pas utiliser pour une action déclenchant un effet de bord (préférer Button Variant=Link, cf. action.json)", "Ne pas redessiner un lien : instancier le composant"]
+      }
+    },
+    {
+      "name": "Dropdown Menu",
+      "componentKey": "3775fdf3c8c0bb6ae90fa32ebfe3a3e01b5099f7",
+      "description": "Menu déroulant déclenché par un bouton, listant des actions ou options (avec raccourcis clavier optionnels).",
+      "doAndDont": {
+        "do": ["Grouper les actions liées avec un séparateur (Line)", "Mettre en évidence l'item par défaut/recommandé (fond subtil)"],
+        "dont": ["Ne pas y mettre plus d'une dizaine d'items sans grouping"]
+      }
+    },
+    {
+      "name": "Menubar",
+      "componentKey": "ad32be02141013199717f52bf22a9a28bd97871c",
+      "description": "Barre de menus horizontale de type application desktop (File, Edit, View…), chaque item ouvrant un DropdownMenu.",
+      "doAndDont": {
+        "do": ["Réserver aux interfaces de type application/outil (éditeur, dashboard avancé)"],
+        "dont": ["Ne pas utiliser pour une navigation web classique (préférer NavigationMenu)"]
+      }
+    },
+    {
+      "name": "Navigation Menu",
+      "componentKey": "d6aeed9c2a2df4a0ac4a115afd0bb5828b4f79bd",
+      "description": "Navigation principale horizontale avec triggers déroulants (_NavigationMenuItem, Variant=Trigger avec chevron) et liens simples (Variant=Link).",
+      "variants": {
+        "_NavigationMenuItem": {
+          "State": ["Default", "Hover", "Focus", "Disabled", "Active"],
+          "Variant": ["Trigger", "Link"],
+          "Open": ["False", "True"]
+        }
+      },
+      "doAndDont": {
+        "do": ["Utiliser Variant=Trigger pour un sous-menu déroulant, Variant=Link pour un lien direct"],
+        "dont": ["Ne pas mélanger plus de 5-6 items en top-level (surcharge cognitive)"]
+      }
+    }
+  ]
+}

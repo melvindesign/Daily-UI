@@ -1,0 +1,61 @@
+{
+  "category": "Chart",
+  "page": { "id": "2135:643", "name": "Chart" },
+  "description": "Graphiques de données, basés sur des primitives de visualisation (barres, lignes, aires, donut, radar, radial).",
+  "components": [
+    {
+      "name": "Bar",
+      "componentKey": "c4a01b0dca137170ea508f8678cc6a80b4b667db",
+      "description": "Graphique en barres (Chart Bar) — comparaison de valeurs entre catégories.",
+      "doAndDont": {
+        "do": ["Trier les barres par valeur quand l'ordre n'a pas de sens intrinsèque (temps, alphabet)"],
+        "dont": ["Ne pas tronquer l'axe des valeurs (biais visuel)"]
+      }
+    },
+    {
+      "name": "Line",
+      "componentKey": "3f4a0353e078cc73f3f13f8891796d5329f0056c",
+      "description": "Graphique en ligne (Chart Line) — évolution d'une ou plusieurs valeurs dans le temps.",
+      "doAndDont": {
+        "do": ["Réserver aux séries continues/temporelles"],
+        "dont": ["Ne pas relier des catégories discrètes sans relation d'ordre"]
+      }
+    },
+    {
+      "name": "Area",
+      "componentKey": "8d0fea6d86c0e5c8218ea53ddbfc63cbee4a22c9",
+      "description": "Graphique en aire (Chart Area) — variante de Line avec remplissage, utile pour montrer un volume cumulé.",
+      "doAndDont": {
+        "do": ["Utiliser pour une seule série ou peu de séries empilées"],
+        "dont": ["Ne pas superposer trop de séries semi-transparentes (illisible)"]
+      }
+    },
+    {
+      "name": "Donut",
+      "componentKey": "96ad62b96167ef5e213dd06ec93c03232d596798",
+      "description": "Graphique en anneau (Chart Pie) — répartition proportionnelle d'un tout en catégories.",
+      "doAndDont": {
+        "do": ["Limiter à 5-6 segments max, regrouper le reste en \"Autres\""],
+        "dont": ["Ne pas utiliser pour comparer des valeurs précises (préférer Bar)"]
+      }
+    },
+    {
+      "name": "Radar",
+      "componentKey": "4b6db76f343e680b8820e7f4748d352901170898",
+      "description": "Graphique radar (Chart Radar) — comparaison multi-critères d'une ou plusieurs entités sur des axes radiaux.",
+      "doAndDont": {
+        "do": ["Utiliser pour 3 à 8 axes/critères"],
+        "dont": ["Ne pas superposer plus de 2-3 entités (lisibilité)"]
+      }
+    },
+    {
+      "name": "Radial",
+      "componentKey": "7a2f012daea603d5764edb22c784e11d790e5b3c",
+      "description": "Graphique radial (Chart Radial) — progression ou proportion affichée sous forme d'arc(s) circulaire(s), proche d'une jauge.",
+      "doAndDont": {
+        "do": ["Utiliser pour une métrique unique de type progression/pourcentage"],
+        "dont": ["Ne pas empiler trop d'anneaux radiaux (préférer Bar/Donut au-delà de 2-3 valeurs)"]
+      }
+    }
+  ]
+}

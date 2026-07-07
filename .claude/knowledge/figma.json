@@ -19,9 +19,10 @@
     { "id": "13:851",    "name": "Form",         "role": "Composants de formulaire (Input, Checkbox, Select…)",  "spec": "components/form.json" },
     { "id": "2135:637",  "name": "Feedback",     "role": "Composants de feedback (Alert, Badge, Toast…)",        "spec": "components/feedback.json" },
     { "id": "2135:638",  "name": "Layout",       "role": "Composants de structure (Card, Dialog, Sheet…)",       "spec": "components/layout.json" },
+    { "id": "2135:641",  "name": "Navigation",   "role": "Composants de navigation (Breadcrumb, Pagination, Tabs, Link, Dropdown Menu, Menubar, Navigation Menu)", "spec": "components/navigation.json" },
     { "id": "2135:640",  "name": "Content",      "role": "Composants de contenu (Avatar, Calendar, Carousel…)",  "spec": "components/content.json" },
     { "id": "2135:642",  "name": "Data",         "role": "Composants de données (Table, Data Table, Item)",      "spec": "components/data.json" },
-    { "id": "2135:643",  "name": "Chart",        "role": "Graphiques" },
+    { "id": "2135:643",  "name": "Chart",        "role": "Graphiques (Bar, Line, Area, Donut, Radar, Radial)", "spec": "components/chart.json" },
     { "id": "8913:243",  "name": "Landing page", "role": "Exemple de page d'atterrissage assemblée" }
   ],
   "system": {
