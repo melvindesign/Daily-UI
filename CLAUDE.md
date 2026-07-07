@@ -36,12 +36,12 @@ shots/
   …
 ```
 
-- **`/new-shot`** — crée le dossier et le PRD d'un nouveau challenge (specs fonctionnelles uniquement, sans détails visuels)
-- **`/design-shot`** — démarre ou continue une itération sur un challenge existant (lit le PRD, vérifie l'état Figma, demande un brief, puis lance le design)
+- **`/shot:new`** — crée le dossier et le PRD d'un nouveau challenge (specs fonctionnelles uniquement, sans détails visuels)
+- **`/shot:iterate`** — démarre ou continue une itération sur un challenge existant (lit le PRD, vérifie l'état Figma, demande un brief, puis lance le design)
 
 ## Solar UI Design System
 
 Contexte JSON local : `.claude/knowledge/` (manifeste `figma.json`, foundations, components).  
-Les règles de design, la checklist et les clés Figma sont dans le skill `/solar-design`.
+Les règles de design, la checklist et l'exploitation de la knowledge sont dans le skill `/stellar-figma-use`.
 
-**Toujours invoquer `/solar-design` avant tout travail de design dans Figma.**
+**Toujours invoquer `/stellar-figma-use` avant tout travail de design dans Figma.**
