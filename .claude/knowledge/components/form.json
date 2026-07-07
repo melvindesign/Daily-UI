@@ -1,106 +1,243 @@
 {
   "category": "Form",
-  "page": { "id": "13:851", "name": "Form" },
-  "description": "Composants de saisie. Pattern d'états étendu : Default/Focus/Disabled/Invalid. La plupart ont aussi une dimension 'Is Value' (rempli ou non).",
   "components": [
     {
-      "name": "Input",
-      "componentKey": "5b13618de870633fe13654f226def6e45ca199b2",
-      "description": "Champ de saisie texte nu (sans label ni wrapper). À utiliser uniquement comme brique interne dans un Field ou Input Group — jamais seul dans un formulaire.",
-      "variants": { "State": ["Default", "Focus", "Disabled", "Invalid"], "Is Value": ["True", "False"] },
-      "doAndDont": {
-        "do": ["Utiliser uniquement à l'intérieur d'un composant Field ou Input Group qui fournit le label et le message d'erreur."],
-        "dont": ["Ne jamais poser un Input directement dans un formulaire et ajouter manuellement un texte de label au-dessus — utilise Field ou Input Text à la place.", "Ne pas utiliser le placeholder comme seul label"]
-      }
-    },
-    {
-      "name": "Input Group",
-      "componentKey": "2fcb7c5c1aa0f38fa110ce31e51771ef4fe5ba13",
-      "description": "Input enrichi avec slots : Inline Start/End (icônes, boutons, compteurs) et Block Start/End (labels, helper text). Couvre recherche, mot de passe, montant, commentaire, etc.",
-      "variants": { "Input Type": ["Input", "Textarea"], "State": ["Default", "Focus", "Disabled", "Invalid"], "Is Value": ["True", "False"] },
-      "slots": ["Block Start (label)", "Inline Start (icône)", "Input", "Inline End (icône/action/compteur)", "Block End (helper/compteur)"],
-      "doAndDont": {
-        "do": ["Utiliser Inline Start pour une icône de recherche", "Inline End pour toggle mot de passe / unité", "Block End pour compteur de caractères ou helper"],
-        "dont": ["Ne pas surcharger tous les slots à la fois", "Ne pas masquer le champ derrière trop d'ornements"]
-      }
-    },
-    {
-      "name": "Input OTP",
       "componentKey": "1113ed176829cc33c835595507c0b76b6b6b98ca",
       "description": "Saisie de code à usage unique (cases séparées).",
-      "variants": { "State": ["Default", "Focus", "Disabled", "Invalid"], "Is Value": ["True", "False"] },
-      "doAndDont": { "do": ["Utiliser un séparateur (_InputOTPSeparator) pour grouper"], "dont": ["Ne pas dépasser 6-8 cases"] }
+      "doAndDont": {
+        "do": [
+          "Utiliser un séparateur (_InputOTPSeparator) pour grouper"
+        ],
+        "dont": [
+          "Ne pas dépasser 6-8 cases"
+        ]
+      },
+      "name": "Input OTP",
+      "variants": {
+        "Is Value": [
+          "True",
+          "False"
+        ],
+        "State": [
+          "Default",
+          "Focus",
+          "Disabled",
+          "Invalid"
+        ]
+      }
     },
     {
-      "name": "Input Password",
       "componentKey": "6a3408cc7124772782b69468b69732736bd7e526",
       "description": "Champ mot de passe avec toggle d'affichage, indicateur de force et règles de validation (helper card).",
-      "variants": { "State": ["Default", "Focus", "Disabled", "Invalid"], "New": ["True", "False"], "Show": ["True", "False"], "Filled": ["True", "False"] },
       "doAndDont": {
-        "do": ["New=True pour la création (avec règles/force)", "Proposer le toggle Show pour révéler"],
-        "dont": ["Ne pas afficher les règles sur un champ de simple connexion (New=False)"]
+        "do": [
+          "New=True pour la création (avec règles/force)",
+          "Proposer le toggle Show pour révéler"
+        ],
+        "dont": [
+          "Ne pas afficher les règles sur un champ de simple connexion (New=False)"
+        ]
+      },
+      "name": "Input Password",
+      "variants": {
+        "Filled": [
+          "True",
+          "False"
+        ],
+        "New": [
+          "True",
+          "False"
+        ],
+        "Show": [
+          "True",
+          "False"
+        ],
+        "State": [
+          "Default",
+          "Focus",
+          "Disabled",
+          "Invalid"
+        ]
       }
     },
     {
-      "name": "Input Text",
       "componentKey": "0ba2848bab50860ca9f7a2b063f5d614fe0af947",
       "description": "Variante de champ texte avec label flottant.",
-      "variants": { "State": ["Default", "Focus", "Disabled", "Invalid"], "Filled": ["True", "False"] }
+      "name": "Input Text",
+      "variants": {
+        "Filled": [
+          "True",
+          "False"
+        ],
+        "State": [
+          "Default",
+          "Focus",
+          "Disabled",
+          "Invalid"
+        ]
+      }
     },
     {
-      "name": "Textarea",
       "componentKey": "2a3ad42246886005740f4b22ad0faa87e6abe318",
       "description": "Zone de texte multi-lignes.",
-      "variants": { "State": ["Default", "Focus", "Disabled", "Invalid"], "is Value": ["True", "False"] },
-      "doAndDont": { "do": ["Permettre le redimensionnement vertical", "Compteur via Input Group si limite"], "dont": ["Ne pas utiliser pour une saisie courte (préférer Input)"] }
+      "doAndDont": {
+        "do": [
+          "Permettre le redimensionnement vertical",
+          "Compteur via Input Group si limite"
+        ],
+        "dont": [
+          "Ne pas utiliser pour une saisie courte (préférer Input)"
+        ]
+      },
+      "name": "Textarea",
+      "variants": {
+        "is Value": [
+          "True",
+          "False"
+        ],
+        "State": [
+          "Default",
+          "Focus",
+          "Disabled",
+          "Invalid"
+        ]
+      }
     },
     {
-      "name": "Checkbox",
       "componentKey": "119c2d3eb5fc42cb3f789826eb52f21459648d59",
       "description": "Case à cocher (sélection multiple). Variante Card pour option cliquable pleine surface.",
-      "variants": { "Card": ["True", "False"], "Checked": ["True", "False"], "State": ["Default", "Checked", "Disabled", "Invalid"] },
-      "doAndDont": { "do": ["Utiliser pour sélection multiple", "Card=True pour des options riches"], "dont": ["Ne pas utiliser pour un choix exclusif (préférer Radio)"] }
+      "doAndDont": {
+        "do": [
+          "Utiliser pour sélection multiple",
+          "Card=True pour des options riches"
+        ],
+        "dont": [
+          "Ne pas utiliser pour un choix exclusif (préférer Radio)"
+        ]
+      },
+      "name": "Checkbox",
+      "variants": {
+        "Card": [
+          "True",
+          "False"
+        ],
+        "Checked": [
+          "True",
+          "False"
+        ],
+        "State": [
+          "Default",
+          "Checked",
+          "Disabled",
+          "Invalid"
+        ]
+      }
     },
     {
-      "name": "Radio Group",
       "componentKey": "6baa232ef5de6060a38884f94d4e475fbe57c933",
       "description": "Boutons radio (sélection exclusive). Variante Card disponible.",
-      "variants": { "Card": ["True", "False"], "Checked": ["True", "False"], "State": ["Default", "Checked", "Disabled", "Invalid"] },
-      "doAndDont": { "do": ["Choix exclusif parmi 2-5 options"], "dont": ["Ne pas utiliser au-delà de ~6 options (préférer Select)"] }
+      "doAndDont": {
+        "do": [
+          "Choix exclusif parmi 2-5 options"
+        ],
+        "dont": [
+          "Ne pas utiliser au-delà de ~6 options (préférer Select)"
+        ]
+      },
+      "name": "Radio Group",
+      "variants": {
+        "Card": [
+          "True",
+          "False"
+        ],
+        "Checked": [
+          "True",
+          "False"
+        ],
+        "State": [
+          "Default",
+          "Checked",
+          "Disabled",
+          "Invalid"
+        ]
+      }
     },
     {
-      "name": "Switch",
       "componentKey": "02245df2c707bf804a60b910062d9a8964a072f7",
       "description": "Interrupteur on/off pour un réglage à effet immédiat. Label positionnable.",
-      "variants": { "Card": ["True", "False"], "Checked": ["True", "False"], "Label Position": ["Right", "Left"], "State": ["Default", "Checked", "Disabled", "Invalid"] },
-      "doAndDont": { "do": ["Réglages/préférences à bascule immédiate"], "dont": ["Ne pas utiliser pour une action nécessitant validation (préférer Checkbox + submit)"] }
+      "doAndDont": {
+        "do": [
+          "Réglages/préférences à bascule immédiate"
+        ],
+        "dont": [
+          "Ne pas utiliser pour une action nécessitant validation (préférer Checkbox + submit)"
+        ]
+      },
+      "name": "Switch",
+      "variants": {
+        "Card": [
+          "True",
+          "False"
+        ],
+        "Checked": [
+          "True",
+          "False"
+        ],
+        "Label Position": [
+          "Right",
+          "Left"
+        ],
+        "State": [
+          "Default",
+          "Checked",
+          "Disabled",
+          "Invalid"
+        ]
+      }
     },
     {
-      "name": "Slider",
       "componentKey": "d724e6791d99ac1bbeda723ef48faa80f6501dba",
       "description": "Curseur de valeur sur une plage. Single ou Range, horizontal ou vertical.",
-      "variants": { "Type": ["Single", "Range"], "Direction": ["Horizontal", "Vertical"], "State": ["Default", "Hover", "Disabled"] }
+      "name": "Slider",
+      "variants": {
+        "Direction": [
+          "Horizontal",
+          "Vertical"
+        ],
+        "State": [
+          "Default",
+          "Hover",
+          "Disabled"
+        ],
+        "Type": [
+          "Single",
+          "Range"
+        ]
+      }
     },
     {
-      "name": "Select",
       "componentKey": "28181bd79d935e540abcb60da9876644acb2f253",
       "description": "Menu déroulant de sélection.",
-      "doAndDont": { "do": ["Utiliser pour >6 options exclusives"], "dont": ["Ne pas utiliser pour 2-3 options (préférer Radio/Toggle Group)"] }
+      "doAndDont": {
+        "do": [
+          "Utiliser pour >6 options exclusives"
+        ],
+        "dont": [
+          "Ne pas utiliser pour 2-3 options (préférer Radio/Toggle Group)"
+        ]
+      },
+      "name": "Select"
     },
     {
-      "name": "Date Picker",
       "componentKey": "e4ccdc6e62f01e0e92606011553a74fbfff6fb5c",
       "description": "Sélecteur de date (champ + calendrier).",
+      "name": "Date Picker",
       "related": "Calendar (Content)"
-    },
-    {
-      "name": "Field",
-      "componentKey": "27e2a6665ce70f76448f87f54093a72538710608",
-      "description": "Wrapper obligatoire pour tout champ de formulaire : label + contrôle + message d'erreur/helper. C'est le composant à instancier par défaut pour chaque champ. Input Text est l'alternative si un label flottant est préféré.",
-      "doAndDont": {
-        "do": ["Utiliser Field (ou Input Text) pour CHAQUE champ de formulaire — il gère label, required, erreur et helper de façon cohérente.", "Choisir Input Text si on veut un label flottant intégré au champ."],
-        "dont": ["Ne jamais recréer la structure label/champ/erreur manuellement en combinant un Input brut avec des nœuds texte — utilise Field.", "Ne pas se demander si Field est nécessaire : il l'est toujours dès qu'il y a un label."]
-      }
     }
-  ]
+  ],
+  "description": "Composants de saisie. Pattern d'états étendu : Default/Focus/Disabled/Invalid. La plupart ont aussi une dimension 'Is Value' (rempli ou non).",
+  "page": {
+    "id": "13:851",
+    "name": "Form"
+  }
 }
