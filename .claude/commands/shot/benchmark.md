@@ -28,19 +28,38 @@ Interroge le MCP Mobbin pour trouver des références connues correspondant au c
 - Formule des requêtes en langage naturel, **une intention par requête** (ne combine pas plusieurs flux).
 - Utilise la bonne `platform` déduite à l'étape 2.
 - Lance **plusieurs requêtes** pour couvrir : le flux principal + les flux alternatifs / états critiques du PRD.
-- **Examine réellement les images** renvoyées (ne te fie pas aux seules métadonnées) pour comprendre ce que font ces produits.
+- **Sur-échantillonne** : récupère nettement plus de candidates que le nombre visé (au moins 2 à 3×), car beaucoup seront rejetées au filtrage visuel de l'étape 4.
 
-## Étape 4 — Enregistrement des références
+## Étape 4 — Vérification visuelle & filtrage (critique)
+
+⚠️ **Ne jamais retenir une référence sur la foi de ses métadonnées Mobbin.** Le titre du flow (ex. « Creating an account ») ne garantit **pas** que l'écran renvoyé montre l'inscription : Mobbin renvoie souvent un écran quelconque du parcours (réglages, dashboard, profil, onboarding de contenu). Chaque candidate doit passer un **gate visuel**.
+
+### Gate visuel — pour CHAQUE candidate
+
+1. **Ouvre réellement l'image** (télécharge-la puis lis-la avec l'outil Read) et regarde les pixels. N'écris rien avant de l'avoir vue.
+2. **Classe l'écran** d'après ce qui est visible, pas d'après son titre. Pour un challenge sign-up, ne sont **pertinents** que les écrans du parcours de création de compte :
+   - écran d'entrée / welcome / landing SSO,
+   - formulaire d'inscription (email, nom, mot de passe…),
+   - création / critères / force de mot de passe,
+   - consentement (T&C), vérification (OTP/email),
+   - états critiques : erreur inline, chargement, succès.
+3. **Rejette** explicitement tout écran qui n'est pas dans ce parcours, **même si le flow Mobbin le prétend** : pages de réglages / « Your Account », dashboards d'accueil, profils, listes de contenu, onboarding produit, paywalls, etc.
+4. **Vérifie la cohérence description ↔ image** : ce que tu comptes écrire (« erreur inline », « jauge de force »…) doit être **effectivement visible** à l'écran. Si tu ne le vois pas, ne l'écris pas.
+
+Répète les recherches de l'étape 3 si le filtrage laisse moins de 4 références valides.
+
+### Enregistrement des références retenues
 
 Crée le dossier `shots/#X-name/ref/`.
 
-Pour chaque référence pertinente retenue (vise 4 à 8 références) :
+Pour chaque référence ayant **passé le gate visuel** (vise 4 à 8 références) :
 - Enregistre l'image dans `shots/#X-name/ref/` (nommage : `NN-app-name.webp`, ex. `01-revolut-signup.webp`)
 - Conserve son `mobbin_url` pour la citation
+- Note en une phrase **ce que tu as réellement vu** dans l'image (sert de base à l'analyse)
 
 ## Étape 5 — Analyse fonctionnelle (jamais visuelle)
 
-Compare le PRD aux références. Concentre-toi **uniquement sur le fonctionnel** :
+Appuie-toi **exclusivement sur ce que tu as réellement observé** à l'étape 4 (jamais sur les titres de flow). Compare le PRD aux références. Concentre-toi **uniquement sur le fonctionnel** :
 - Étapes du flux (ordre, découpage, progressive disclosure)
 - Champs demandés (présence, absence, regroupement, moment de la demande)
 - Méthodes alternatives (SSO, magic link, passkey, téléphone…)
