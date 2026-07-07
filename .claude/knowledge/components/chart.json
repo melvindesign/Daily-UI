@@ -57,5 +57,14 @@
         "dont": ["Ne pas empiler trop d'anneaux radiaux (préférer Bar/Donut au-delà de 2-3 valeurs)"]
       }
     }
-  ]
+  ],
+  "instanceSchemas": {
+    "_note": "Snapshot 2026-07-07 des propriétés d'instanciation. Tous les charts s'instancient via figma.importComponentByKeyAsync(componentKey).createInstance() et n'exposent pas de propriétés setProperties (données gérées via édition interne des instances).",
+    "Bar": { "instantiate": "component", "properties": {} },
+    "Line": { "instantiate": "component", "properties": {} },
+    "Area": { "instantiate": "component", "properties": {} },
+    "Donut": { "instantiate": "component", "properties": {} },
+    "Radar": { "instantiate": "component", "properties": {} },
+    "Radial": { "instantiate": "component", "properties": {} }
+  }
 }

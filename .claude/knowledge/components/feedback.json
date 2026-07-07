@@ -69,5 +69,19 @@
       "description": "Dialogue de confirmation bloquant (action critique).",
       "doAndDont": { "do": ["Confirmer les actions destructrices"], "dont": ["Ne pas utiliser pour de l'info simple (préférer Sonner/Alert)"] }
     }
-  ]
+  ],
+  "instanceSchemas": {
+    "_note": "Snapshot 2026-07-07 des propriétés d'instanciation. `instantiate`: componentSet → figma.importComponentSetByKeyAsync(componentKey) puis set.defaultVariant.createInstance(); component → figma.importComponentByKeyAsync(componentKey).createInstance(). Passer les clés de `properties` telles quelles à instance.setProperties({...}). VARIANT: valeur = une des `options`.",
+    "Alert": { "instantiate": "componentSet", "defaultVariant": "Variant=Default", "properties": { "Title#2303:66": {"type":"TEXT","default":"Title"}, "Description#2303:69": {"type":"TEXT","default":"Description"}, "Show Icon#2303:72": {"type":"BOOLEAN","default":true}, "Variant": {"type":"VARIANT","options":["Default","Destructive"]} } },
+    "Badge": { "instantiate": "componentSet", "defaultVariant": "Variant=Default", "properties": { "Variant": {"type":"VARIANT","options":["Default","Primary","Secondary","Destructive","Outline","Ghost"]} } },
+    "Tooltip": { "instantiate": "component", "properties": { "Text#2303:63": {"type":"TEXT","default":"Tooltip text"} } },
+    "HoverCard": { "instantiate": "component", "properties": { "Slot#2303:64": {"type":"SLOT"} } },
+    "Popover": { "instantiate": "component", "properties": { "Slot#2303:65": {"type":"SLOT"} } },
+    "Kbd": { "instantiate": "component", "properties": {} },
+    "Progress": { "instantiate": "componentSet", "defaultVariant": "Value=0%, Color=Default", "properties": { "Value": {"type":"VARIANT","options":["0%","10%","20%","30%","40%","50%","60%","70%","80%","90%","100%"]}, "Color": {"type":"VARIANT","options":["Default","Brand","Error","Warning","Success","Info"]} } },
+    "Skeleton": { "instantiate": "component", "properties": {} },
+    "Spinner": { "instantiate": "component", "properties": {} },
+    "Sonner": { "instantiate": "component", "properties": { "Label#2308:89": {"type":"TEXT","default":"Notification"}, "Description#2308:90": {"type":"TEXT","default":"Your request has been received."} } },
+    "AlertDialog": { "instantiate": "component", "properties": {} }
+  }
 }

@@ -24,6 +24,22 @@ Ce manifeste décrit le fichier Figma du design system, sa structure, ses conven
 
 La knowledge est la **seule source de vérité** pour les valeurs, noms de tokens, styles, variants et conventions. Ne présume jamais d'un nom ou d'une valeur : va le vérifier dans les fichiers pointés par le manifeste.
 
+### Cache de clés local — à consulter AVANT tout appel MCP
+
+La knowledge contient un **snapshot des clés de bibliothèque** (stables) pour éviter les allers-retours `search_design_system` / import-pour-inspection :
+
+- **Variables couleur** → `foundation/colors.json` → objet `tokens` (nom `Palette/*` → `key`).
+- **Variables d'espacement** → `foundation/spacing.json` → objet `tokens` (nom `Sizes/*` → `key`).
+- **Styles typo** → `foundation/typography.json` → `textStyles[*].items[*].key`.
+- **Schéma d'instanciation des composants** → chaque `components/*.json` → objet `instanceSchemas` (par composant : `instantiate` = `componentSet`|`component`, `defaultVariant`, et `properties` = les clés exactes à passer à `instance.setProperties({...})` avec leurs `options` de variant).
+
+**Procédure :** lis d'abord ces objets dans le knowledge. Import direct par clé :
+- Variable : `await figma.variables.importVariableByKeyAsync(key)` puis `setBoundVariableForPaint` (couleur) ou `node.setBoundVariable('itemSpacing'|'paddingLeft'|'topLeftRadius'|…, variable)` (espacement).
+- Style : `await figma.importStyleByKeyAsync(key)`, charger `style.fontName`, puis `setTextStyleIdAsync`.
+- Composant : `importComponentSetByKeyAsync(componentKey).defaultVariant.createInstance()` (si `componentSet`) ou `importComponentByKeyAsync(componentKey).createInstance()` (si `component`).
+
+**Ne repasse par le MCP (`search_design_system`, `teamLibrary`, import-pour-lire-les-props) que si** la clé n'est pas dans le cache, ou si un import/`setProperties` échoue (le DS a pu changer depuis le snapshot). Dans ce cas, récupère la valeur à jour via MCP **et mets à jour le fichier de cache** pour la fois suivante.
+
 ## 2. Charge les skills Figma d'exécution
 
 Assure-toi que ces skills sont chargés **avant** tout appel `use_figma`, dans cet ordre :

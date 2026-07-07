@@ -60,5 +60,16 @@
       "description": "État vide : icône + message + action (aucune donnée à afficher).",
       "doAndDont": { "do": ["Expliquer pourquoi c'est vide + proposer une action"], "dont": ["Ne pas laisser un écran vide sans explication"] }
     }
-  ]
+  ],
+  "instanceSchemas": {
+    "_note": "Snapshot 2026-07-07 des propriétés d'instanciation. `instantiate`: componentSet → figma.importComponentSetByKeyAsync(componentKey) puis set.defaultVariant.createInstance(); component → figma.importComponentByKeyAsync(componentKey).createInstance(). Passer les clés de `properties` telles quelles à instance.setProperties({...}). Les propriétés SLOT (CardContent, Content…) reçoivent du contenu enfant, pas une valeur setProperties. Collapsible non instanciable (componentKey null).",
+    "Card": { "instantiate": "component", "properties": { "CardContent#2308:94": {"type":"SLOT"} } },
+    "Accordion": { "instantiate": "component", "properties": {} },
+    "Dialog": { "instantiate": "component", "properties": { "Content#2307:79": {"type":"SLOT"}, "Title#2307:80": {"type":"TEXT","default":"Dialog Title"}, "Subtitle#2307:81": {"type":"TEXT","default":"Make changes to your profile here. Click save when you're done."} } },
+    "Drawer": { "instantiate": "component", "properties": { "Content#2304:77": {"type":"SLOT"} } },
+    "Sheet": { "instantiate": "component", "properties": { "Content#2304:78": {"type":"SLOT"} } },
+    "Command": { "instantiate": "component", "properties": {} },
+    "Separator": { "instantiate": "componentSet", "defaultVariant": "Orientation=Horizontal, Placement=Start", "properties": { "↳ Label#9361:2": {"type":"TEXT","default":"Label"}, "Label#9361:3": {"type":"BOOLEAN","default":true}, "Orientation": {"type":"VARIANT","options":["Horizontal","Vertical"]}, "Placement": {"type":"VARIANT","options":["Start","Middle","End"]} } },
+    "Empty": { "instantiate": "component", "properties": {} }
+  }
 }

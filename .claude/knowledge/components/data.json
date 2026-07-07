@@ -23,5 +23,11 @@
       "variants": { "Variant": ["Default", "outline", "muted"] },
       "doAndDont": { "do": ["Listes, settings, résultats"], "dont": ["Ne pas mélanger les variantes dans une même liste"] }
     }
-  ]
+  ],
+  "instanceSchemas": {
+    "_note": "Snapshot 2026-07-07 des propriétés d'instanciation. `instantiate`: componentSet → figma.importComponentSetByKeyAsync(componentKey) puis set.defaultVariant.createInstance(); component → figma.importComponentByKeyAsync(componentKey).createInstance(). Passer les clés de `properties` telles quelles à instance.setProperties({...}). VARIANT: valeur = une des `options`.",
+    "Table": { "instantiate": "component", "properties": {} },
+    "Data Table": { "instantiate": "component", "properties": {} },
+    "Item": { "instantiate": "componentSet", "defaultVariant": "Variant=Default", "properties": { "Slot#2308:86": {"type":"SLOT"}, "Variant": {"type":"VARIANT","options":["Default","outline","muted"]} } }
+  }
 }

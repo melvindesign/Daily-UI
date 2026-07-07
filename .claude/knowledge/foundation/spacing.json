@@ -73,5 +73,35 @@
     "Sizes/8",
     "Sizes/9",
     "Sizes/10"
-  ]
+  ],
+  "tokens": {
+    "_note": "Clés de bibliothèque des variables Sizes/* (collection Screen). À passer à figma.variables.importVariableByKeyAsync(key), puis lier via node.setBoundVariable('itemSpacing' | 'paddingLeft' | 'topLeftRadius' | …, variable). Snapshot 2026-07-07 — si un import échoue, revérifier via search_design_system / teamLibrary.",
+    "Sizes/0,125": "69709f13dbe4e2bed6276cef9f8e976062bdadc3",
+    "Sizes/0,25": "46692a8fd872cc10dd657a2b105d831f14f3c383",
+    "Sizes/0,375": "d53e47d43a22561e9c35b068199f36f59177e6fd",
+    "Sizes/0,50": "61abe507e8b19ec370640d14304fd15d869a099c",
+    "Sizes/0,75": "c907f17485abe99bc26cf8247bea8feae0690e1c",
+    "Sizes/1": "e607a6ef86e5b8198f792d2cfdbbd397a8019833",
+    "Sizes/1,25": "f3c82f2f76da54af143d664efea55be2f6d923ce",
+    "Sizes/1,50": "a928d1abde327326f0926fa1be6305b0e58fc7c9",
+    "Sizes/1,75": "6f67194c7835cae80502343305111266c47656c3",
+    "Sizes/2": "4c8e64fb823f7cbae7ce5d945e69d008ea67716a",
+    "Sizes/2,25": "9237272ff4330aa34291e75c880009a4a52f2319",
+    "Sizes/2,5": "fd46fc3871c3420a5159bab96dfef3846f8da5d8",
+    "Sizes/2,75": "da6b4d113123f1e4a4b7d76a4e97c76412fb33ba",
+    "Sizes/3": "16c49e6992c4950dcb7e33084d40fdf99f61e5a5",
+    "Sizes/3,25": "e5faca244e353dfcaabf1b4ad982556e2f40ce7a",
+    "Sizes/3,5": "4d9dda437afccb4f2268e5a5799632f1bc41f224",
+    "Sizes/3,75": "9da54ff03a0e9331f66ce6a738c7dd0813c94e2c",
+    "Sizes/4": "242456cfcef48d7ba424a54cc06b625593433fe5",
+    "Sizes/4,25": "64252c422d6b7feed49f54a4054b02d96f8ab5d5",
+    "Sizes/4,50": "903d434b1135c25219758df3f37059267f2e7b52",
+    "Sizes/4,75": "979e81e6513cb4a6ddf16d120097abef5456ae0d",
+    "Sizes/5": "15846ecdf4844e1c42ada2638f65979fe63acd26",
+    "Sizes/6": "1fdaa10ab8e61a418b1277a33cd1522824d04f6f",
+    "Sizes/7": "8c7e2f7efa66b35f526ef62670c8b6ce3e0d9bbf",
+    "Sizes/8": "6a89ec893e90226b5bf0a4edc86f6e5e061177e1",
+    "Sizes/9": "cd664c01d61eba9d42d5e23b64061800c2023f9d",
+    "Sizes/10": "af147cd3e97cfe9cda8bf8aafb2a4f1569b37521"
+  }
 }

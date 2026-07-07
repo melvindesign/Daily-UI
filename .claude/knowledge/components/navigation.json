@@ -84,5 +84,15 @@
         "dont": ["Ne pas mélanger plus de 5-6 items en top-level (surcharge cognitive)"]
       }
     }
-  ]
+  ],
+  "instanceSchemas": {
+    "_note": "Snapshot 2026-07-07 des propriétés d'instanciation. `instantiate`: componentSet → figma.importComponentSetByKeyAsync(componentKey) puis set.defaultVariant.createInstance(); component → figma.importComponentByKeyAsync(componentKey).createInstance(). Passer les clés de `properties` telles quelles à instance.setProperties({...}). VARIANT: valeur = une des `options`.",
+    "Breadcrumb": { "instantiate": "component", "properties": { "Slot#2304:75": {"type":"SLOT"} } },
+    "Pagination": { "instantiate": "component", "properties": { "Slot#2304:76": {"type":"SLOT"} } },
+    "Tabs": { "instantiate": "componentSet", "defaultVariant": "Format=Stroke, Weight=Regular", "properties": { "Format": {"type":"VARIANT","options":["Outline","Stroke"]}, "Weight": {"type":"VARIANT","options":["Bold","Duotone","Fill","Light","Regular","Thin"]} } },
+    "Link": { "instantiate": "componentSet", "defaultVariant": "[State]=Default, Visited=False, Compact=False", "properties": { "Text#9314:22": {"type":"TEXT","default":"Forgot password ?"}, "[State]": {"type":"VARIANT","options":["Default","Hover"]}, "Visited": {"type":"VARIANT","options":["False","True"]}, "Compact": {"type":"VARIANT","options":["False","True"]} } },
+    "Dropdown Menu": { "instantiate": "component", "properties": {} },
+    "Menubar": { "instantiate": "component", "properties": {} },
+    "Navigation Menu": { "instantiate": "component", "properties": { "NavigationMenuList#2264:135": {"type":"SLOT"} } }
+  }
 }

@@ -74,5 +74,13 @@
         "dont": ["Ne pas altérer les logos des providers"]
       }
     }
-  ]
+  ],
+  "instanceSchemas": {
+    "_note": "Snapshot 2026-07-07 des propriétés d'instanciation. `instantiate`: componentSet → figma.importComponentSetByKeyAsync(componentKey) puis set.defaultVariant.createInstance(); component → figma.importComponentByKeyAsync(componentKey).createInstance(). Passer les clés de `properties` telles quelles à instance.setProperties({...}). VARIANT: valeur = une des `options`. En cas d'échec, revérifier via get_metadata sur l'instance.",
+    "Button": { "instantiate": "componentSet", "defaultVariant": "[State]=Default, Variant=Default, Size=Default", "properties": { "↳ Label#2168:3": {"type":"TEXT","default":"Button"}, "Label#8990:49": {"type":"BOOLEAN","default":true}, "↳ End Icon#9348:0": {"type":"INSTANCE_SWAP","default":"5:124"}, "↳ Start Icon#9348:49": {"type":"INSTANCE_SWAP","default":"5:162"}, "End Icon#9348:98": {"type":"BOOLEAN","default":true}, "Start Icon#9348:147": {"type":"BOOLEAN","default":true}, "[State]": {"type":"VARIANT","options":["Default","Hover","Focus","Disabled"]}, "Variant": {"type":"VARIANT","options":["Default","Primary","Secondary","Ghost","Destructive","Link"]}, "Size": {"type":"VARIANT","options":["Default","Compact"]} } },
+    "Button Group": { "instantiate": "componentSet", "defaultVariant": "Orientation=Horizontal", "properties": { "Slot#2172:0": {"type":"SLOT"}, "Orientation": {"type":"VARIANT","options":["Horizontal","Vertical"]} } },
+    "Toggle": { "instantiate": "componentSet", "defaultVariant": "[State]=Default, Variant=Default, Size=Default, Active=False", "properties": { "Slot#8990:98": {"type":"SLOT"}, "Show Label#8990:127": {"type":"BOOLEAN","default":true}, "Label#8990:156": {"type":"TEXT","default":"Button"}, "Icon#8990:185": {"type":"INSTANCE_SWAP","default":"5:168"}, "[State]": {"type":"VARIANT","options":["Default","Hover","Active","Disabled","Focus"]}, "Variant": {"type":"VARIANT","options":["Default","Outline"]}, "Size": {"type":"VARIANT","options":["Default","Compact"]}, "Active": {"type":"VARIANT","options":["False","True"]} } },
+    "Toggle Group": { "instantiate": "component", "properties": { "Slot#2181:23": {"type":"SLOT"} } },
+    "Social Button": { "instantiate": "componentSet", "defaultVariant": "Providers=Apple, Variant=Primary", "properties": { "Show Label#9320:0": {"type":"BOOLEAN","default":true}, "Providers": {"type":"VARIANT","options":["Google","Apple"]}, "Variant": {"type":"VARIANT","options":["Primary","Secondary"]} } }
+  }
 }

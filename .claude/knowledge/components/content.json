@@ -34,5 +34,13 @@
       "description": "Menu contextuel (clic droit).",
       "doAndDont": { "do": ["Actions contextuelles sur un élément"], "dont": ["Ne pas y mettre la navigation principale"] }
     }
-  ]
+  ],
+  "instanceSchemas": {
+    "_note": "Snapshot 2026-07-07 des propriétés d'instanciation. `instantiate`: componentSet → figma.importComponentSetByKeyAsync(componentKey) puis set.defaultVariant.createInstance(); component → figma.importComponentByKeyAsync(componentKey).createInstance(). Passer les clés de `properties` telles quelles à instance.setProperties({...}). VARIANT: valeur = une des `options`.",
+    "Avatar": { "instantiate": "componentSet", "defaultVariant": "Size=Small", "properties": { "Label#2297:59": {"type":"TEXT","default":"AA"}, "Size": {"type":"VARIANT","options":["Default","Small","Large"]} } },
+    "AvatarGroup": { "instantiate": "component", "properties": {} },
+    "Calendar": { "instantiate": "component", "properties": {} },
+    "Carousel": { "instantiate": "component", "properties": {} },
+    "Context Menu": { "instantiate": "component", "properties": {} }
+  }
 }
