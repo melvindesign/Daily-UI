@@ -75,4 +75,4 @@ Le PRD décrit **uniquement le besoin fonctionnel** — ce que l'utilisateur doi
 Une fois le dossier et le PRD créés, confirme à l'utilisateur :
 - Le chemin du dossier créé
 - Un résumé en 2-3 lignes du PRD
-- Rappelle qu'il peut lancer `/design-shot` pour commencer à designer ce challenge
+- Rappelle qu'il peut lancer `/shot:iterate` pour commencer à designer ce challenge

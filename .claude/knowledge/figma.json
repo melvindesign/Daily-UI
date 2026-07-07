@@ -1,88 +1,144 @@
 {
   "$schema": "solar-ui/figma",
-  "name": "Solar UI",
-  "description": "Design system personnel de Melvin. Fork du Solar UI open-source : parité 1:1 avec shadcn/ui, système de couleurs Radix UI. Conçu pour les challenges Daily UI en vibe design.",
+  "description": "Design system personnel de Melvin. Fork de shadcn/ui, système de couleurs Radix UI.",
   "extractedAt": "2026-06-27",
   "file": {
     "fileKey": "KQX5vjBuHyYU3SwWGZnhX1",
-    "url": "https://www.figma.com/design/KQX5vjBuHyYU3SwWGZnhX1/Solar-UI",
     "library": {
-      "name": "Solar UI",
       "key": "lk-19a6b4abc76be79c81a4efd2268f3cea59e74568edfcce376449ad753d53438c581d77de034940c48271abf575fe6f35fdeb23b37a5c5d3114dfcc85b90f9fad",
+      "name": "Solar UI",
       "source": "team"
-    }
+    },
+    "url": "https://www.figma.com/design/KQX5vjBuHyYU3SwWGZnhX1/Solar-UI"
   },
+  "foundations": {
+    "assets": "foundation/assets.json",
+    "colors": "foundation/colors.json",
+    "elevation": "foundation/elevation.json",
+    "spacing": "foundation/spacing.json",
+    "typography": "foundation/typography.json"
+  },
+  "name": "Solar UI",
   "pages": [
-    { "id": "0:1",       "name": "Cover",        "role": "Couverture du fichier" },
-    { "id": "2263:3105", "name": "Icons",        "role": "Bibliothèque d'icônes" },
-    { "id": "2135:636",  "name": "Action",       "role": "Composants d'action (Button, Toggle, Social Button…)", "spec": "components/action.json" },
-    { "id": "13:851",    "name": "Form",         "role": "Composants de formulaire (Input, Checkbox, Select…)",  "spec": "components/form.json" },
-    { "id": "2135:637",  "name": "Feedback",     "role": "Composants de feedback (Alert, Badge, Toast…)",        "spec": "components/feedback.json" },
-    { "id": "2135:638",  "name": "Layout",       "role": "Composants de structure (Card, Dialog, Sheet…)",       "spec": "components/layout.json" },
-    { "id": "2135:641",  "name": "Navigation",   "role": "Composants de navigation (Breadcrumb, Pagination, Tabs, Link, Dropdown Menu, Menubar, Navigation Menu)", "spec": "components/navigation.json" },
-    { "id": "2135:640",  "name": "Content",      "role": "Composants de contenu (Avatar, Calendar, Carousel…)",  "spec": "components/content.json" },
-    { "id": "2135:642",  "name": "Data",         "role": "Composants de données (Table, Data Table, Item)",      "spec": "components/data.json" },
-    { "id": "2135:643",  "name": "Chart",        "role": "Graphiques (Bar, Line, Area, Donut, Radar, Radial)", "spec": "components/chart.json" },
-    { "id": "8913:243",  "name": "Landing page", "role": "Exemple de page d'atterrissage assemblée" }
+    {
+      "id": "0:1",
+      "name": "Cover",
+      "role": "Couverture du fichier"
+    },
+    {
+      "id": "2263:3105",
+      "name": "Icons",
+      "role": "Bibliothèque d'icônes"
+    },
+    {
+      "id": "2135:636",
+      "name": "Action",
+      "role": "Composants d'action (Button, Toggle, Social Button…)",
+      "spec": "components/action.json"
+    },
+    {
+      "id": "13:851",
+      "name": "Form",
+      "role": "Composants de formulaire (Input, Checkbox, Select…)",
+      "spec": "components/form.json"
+    },
+    {
+      "id": "2135:637",
+      "name": "Feedback",
+      "role": "Composants de feedback (Alert, Badge, Toast…)",
+      "spec": "components/feedback.json"
+    },
+    {
+      "id": "2135:638",
+      "name": "Layout",
+      "role": "Composants de structure (Card, Dialog, Sheet…)",
+      "spec": "components/layout.json"
+    },
+    {
+      "id": "2135:641",
+      "name": "Navigation",
+      "role": "Composants de navigation (Breadcrumb, Pagination, Tabs, Link, Dropdown Menu, Menubar, Navigation Menu)",
+      "spec": "components/navigation.json"
+    },
+    {
+      "id": "2135:640",
+      "name": "Content",
+      "role": "Composants de contenu (Avatar, Calendar, Carousel…)",
+      "spec": "components/content.json"
+    },
+    {
+      "id": "2135:642",
+      "name": "Data",
+      "role": "Composants de données (Table, Data Table, Item)",
+      "spec": "components/data.json"
+    },
+    {
+      "id": "2135:643",
+      "name": "Chart",
+      "role": "Graphiques (Bar, Line, Area, Donut, Radar, Radial)",
+      "spec": "components/chart.json"
+    }
   ],
   "system": {
-    "description": "Solar UI s'articule autour de 3 dimensions indépendantes, chacune contrôlée par une collection de variables Figma à modes.",
-    "dimensions": {
-      "Theme": {
-        "collection": "Theme",
-        "collectionId": "VariableCollectionId:1:762",
-        "variableSetKey": "3bb10a00687c3a1cafad60aa663cad3fa75a67d9",
-        "modes": ["Theme 1", "Theme 2"],
-        "default": "Theme 1",
-        "published": true,
-        "controls": "La marque : mapping des couleurs Palette vers les teintes Radix, famille de police, échelle typographique et rayons de bordure.",
-        "presets": {
-          "Theme 1": {
-            "fontHeader": "Geist",
-            "fontBody": "Geist",
-            "fontMono": "Geist Mono",
-            "typeScale": "Major Second (ratio 1.125)",
-            "brandHue": "Sand / Orange (#f76b15 solid)",
-            "neutralHue": "Gray",
-            "radiusFeel": "Compact (champs ~4-8px)"
-          },
-          "Theme 2": {
-            "fontHeader": "Poppins",
-            "fontBody": "Inter",
-            "fontMono": "Geist Mono",
-            "typeScale": "Minor Third (ratio 1.2)",
-            "brandHue": "Slate / Blue (#0090ff solid)",
-            "neutralHue": "Slate",
-            "radiusFeel": "Soft (champs ~6-12px)"
-          }
-        }
-      },
+    "description": "Solar UI s'appuie sur 3 collections de variables Figma indépendantes, chacune à plusieurs modes. Le croisement de leurs modes produit une variante de maquette.",
+    "collections": {
       "Mode": {
         "collection": "Mode",
         "collectionId": "VariableCollectionId:1:8",
-        "modes": ["Light", "Dark"],
+        "controls": "Clair vs sombre : luminance réelle des couleurs.",
         "default": "Light",
-        "published": false,
+        "modes": [
+          "Light",
+          "Dark"
+        ],
         "note": "Contient les primitives de couleur Radix (792 variables masquées du publish). Ne jamais référencer ces primitives directement : passer par les tokens sémantiques Palette/* (foundation/colors.json). Le mode Light/Dark détermine la luminance finale des couleurs.",
-        "controls": "Clair vs sombre : luminance réelle des couleurs."
+        "published": false
       },
       "Screen": {
         "collection": "Screen",
         "collectionId": "VariableCollectionId:2145:1050",
-        "modes": ["Desktop", "Mobile"],
+        "controls": "Tailles responsives (51 variables masquées du publish).",
         "default": "Desktop",
-        "published": false,
-        "controls": "Tailles responsives (51 variables masquées du publish)."
+        "modes": [
+          "Desktop",
+          "Mobile"
+        ],
+        "published": false
+      },
+      "Theme": {
+        "collection": "Theme",
+        "collectionId": "VariableCollectionId:1:762",
+        "controls": "La marque : mapping des couleurs Palette vers les teintes Radix, famille de police, échelle typographique et rayons de bordure.",
+        "default": "Theme 1",
+        "modes": [
+          "Theme 1",
+          "Theme 2"
+        ],
+        "presets": {
+          "Theme 1": {
+            "brandHue": "Sand / Orange (#f76b15 solid)",
+            "fontBody": "Geist",
+            "fontHeader": "Geist",
+            "fontMono": "Geist Mono",
+            "neutralHue": "Gray",
+            "radiusFeel": "Compact (champs ~4-8px)",
+            "typeScale": "Major Second (ratio 1.125)"
+          },
+          "Theme 2": {
+            "brandHue": "Slate / Blue (#0090ff solid)",
+            "fontBody": "Inter",
+            "fontHeader": "Poppins",
+            "fontMono": "Geist Mono",
+            "neutralHue": "Slate",
+            "radiusFeel": "Soft (champs ~6-12px)",
+            "typeScale": "Minor Third (ratio 1.2)"
+          }
+        },
+        "published": true,
+        "variableSetKey": "3bb10a00687c3a1cafad60aa663cad3fa75a67d9"
       }
     },
-    "howToCombine": "Une maquette résulte du croisement Theme × Mode × Screen. Ex : 'Theme 1 + Dark + Desktop' = marque orange Geist, fond sombre, dimensions desktop. Pour les Daily UI, privilégier Theme 1 + Dark sauf indication contraire."
-  },
-  "foundations": {
-    "colors": "foundation/colors.json",
-    "typography": "foundation/typography.json",
-    "spacing": "foundation/spacing.json",
-    "elevation": "foundation/elevation.json",
-    "assets": "foundation/assets.json"
+    "howToCombine": "Une maquette résulte du croisement des modes des 3 collections (Theme × Mode × Screen). Ex : 'Theme 1 + Dark + Desktop' = marque orange Geist, fond sombre, tailles desktop."
   },
   "usage": {
     "rules": [
