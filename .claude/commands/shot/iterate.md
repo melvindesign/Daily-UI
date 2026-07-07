@@ -54,7 +54,13 @@ Charge le skill `/stellar-figma-use`.
 
 ### Placement
 
-À partir des dimensions lues à l'étape 3, place la nouvelle itération **à droite de la dernière**, avec un gap ≥ 200px. Si la page est vide, commence à `x: 0, y: 0`.
+À partir des dimensions lues à l'étape 3, place la nouvelle **section** d'itération sans chevauchement avec la précédente, avec un gap ≥ 200px. Si la page est vide, commence à `x: 0, y: 0`.
+
+> ⚠️ **Coordonnées d'un enfant de SECTION = RELATIVES à la section, PAS absolues.**
+> Le piège récurrent : après `section.appendChild(frame)`, si tu fais `frame.y = <valeur absolue de la page>` (ex. la même valeur que `section.y`, genre `21907`), Figma l'interprète comme un **offset depuis le coin haut-gauche de la section** → la frame part très loin (des milliers de px plus bas). 
+> **Règle :** positionne toujours l'enfant avec un **petit offset relatif** (ex. `frame.x = 100 ; frame.y = 100`). Ne réutilise jamais la position absolue de la section pour l'enfant.
+
+> ⚠️ **Dimensionne la section EN DERNIER.** Une section **hug automatiquement son contenu** : si tu la crées en 3200×3200 puis ajoutes des enfants, elle se re-dimensionne à leur bounding box (souvent < 3000 → checklist non respectée). Donc, **après avoir placé tout le contenu**, applique `section.resizeWithoutConstraints(3200, 3200)` en dernier — ça tient et ça ne déplace pas les enfants.
 
 Conçois directement en conformité avec la checklist ci-dessous — c'est la spec de sortie de l'itération.
 
