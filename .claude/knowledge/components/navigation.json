@@ -46,8 +46,8 @@
         "Compact=True": "Taille de texte body/compact au lieu de body/default."
       },
       "doAndDont": {
-        "do": ["Utiliser dans du texte courant ou pour un lien isolé hors bouton (ex. dans un article, une note de bas de champ)", "Toujours lier la couleur aux tokens sémantiques Palette/Link/*"],
-        "dont": ["Ne pas utiliser pour une action déclenchant un effet de bord (préférer Button Variant=Link, cf. action.json)", "Ne pas redessiner un lien : instancier le composant"]
+        "do": ["Utiliser quand le lien est à la suite ou à l'intérieur d'une phrase (inline dans du texte courant), ex. « Déjà un compte ? Se connecter », « Mot de passe oublié ? », « …vous acceptez les CGU »", "Utiliser pour un lien isolé au sein d'un contexte informatif (article, note de bas de champ)", "Toujours lier la couleur aux tokens sémantiques Palette/Link/*"],
+        "dont": ["Ne pas utiliser quand le lien est un élément d'interface autonome (dans une card, collé/aligné à un bouton, en pied de formulaire hors phrase) → préférer Button Variant=Link (cf. action.json)", "Ne pas redessiner un lien : instancier le composant"]
       }
     },
     {

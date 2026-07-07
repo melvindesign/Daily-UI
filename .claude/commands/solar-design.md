@@ -30,23 +30,21 @@ Charge les deux skills suivants dans cet ordre **avant** tout appel `use_figma` 
 ## 3. Règles de conception Solar UI
 
 ### Composants
-- **Utilise TOUJOURS** les composants Solar UI depuis la bibliothèque (jamais de formes "from scratch")
-- Référence les composants par leur `componentKey` ou via `search_design_system` avec le `libraryKey` Solar UI
-- Respecte les **variants** définis : `Variant=Primary` pour l'action principale, `Variant=Secondary` pour les secondaires, `Variant=Destructive` pour les actions dangereuses
-- Respecte les **tailles** : `Size=Default` standard, `Size=Compact` pour les espaces restreints
+- **Utilise TOUJOURS** les composants du design system depuis la bibliothèque (jamais de formes "from scratch", ne jamais redessiner un composant existant)
+- Référence les composants par leur `componentKey` ou via `search_design_system` avec le `libraryKey`
+- Choisis le bon composant, le bon variant et la bonne taille selon le **rôle et le contexte d'usage**. Les composants disponibles, leurs variants et leurs règles do/don't sont documentés dans `components/*.json` : lis le(s) fichier(s) pertinent(s) et réfère-t'y pour arbitrer (ex. quel variant pour l'action principale, quel composant utiliser pour un lien selon son contexte)
 
 ### Typographie
-- Titres de page / héros : `Display/Display 1` ou `Display/Display 2`
-- Titres de sections : `Title/Title 1` à `Title/Title 3`
-- Labels de formulaires : `Label/Default` ou `Label/Compact`
-- Ne crée jamais de styles typographiques custom — applique toujours un style Solar UI via `setTextStyleIdAsync` (voir `typography.json`)
+- Ne crée jamais de style typographique custom — applique toujours un style du design system via `setTextStyleIdAsync`
+- Choisis le style selon le **rôle sémantique** du texte (titre de page/héros, titre de section, label, corps…). Les styles disponibles, leur nomenclature et leur usage sont dans `typography.json` : réfère-t'y avant de choisir
 - Après avoir créé un nœud texte, vérifie que `textStyleId` est bien appliqué (non vide) — un texte sans style est hors DS
 
 ### Couleurs & thème
-- Le système est basé sur **Radix UI color system** — utilise les variables sémantiques, jamais de valeurs hex hardcodées
-- Cette règle s'applique à **TOUS les nœuds avec un fill** : frame principal, frames enfants, conteneurs de sections, backgrounds internes. `#FFFFFF` ou `#000000` sont aussi interdits — utilise `Default/1` (fond page) ou `Default/2` (surface/card).
+- **Jamais de valeur de couleur en dur** (hex, `#FFFFFF`, `#000000`…) — lie toujours chaque couleur à une variable sémantique du design system. La palette, ses conventions et la collection de variables sont décrites dans `colors.json` : réfère-t'y
+- Cette règle s'applique à **TOUS les nœuds avec un fill** : frame racine, frames enfants, conteneurs de sections, backgrounds internes
+- **Piège `createFrame`** : Figma applique un fill blanc opaque par défaut à chaque frame créé. Ne le laisse jamais tel quel — soit le frame est transparent (aucun fill), soit son fill est lié à une variable de fond sémantique (cf. `colors.json`)
+- Après avoir créé un frame, **vérifie son fill** : aucun, ou une variable sémantique. Un fill blanc/noir non lié à une variable = hors DS (casse notamment le thème Dark)
 - Propose toujours le **thème Dark** en priorité (contexte Daily UI)
-- Les variables de couleur sont dans la collection `Theme` du fichier Solar UI
 
 ### Sizing & Auto-layout
 - Les frames et conteneurs utilisent **toujours** `hug-content` (`primaryAxisSizingMode / counterAxisSizingMode = "AUTO"`) ou `fill-container` (`layoutGrow = 1`) avec du padding — jamais de `width`/`height` fixes (sauf le frame racine de l'itération et les composants à taille imposée comme les boutons)
@@ -54,32 +52,14 @@ Charge les deux skills suivants dans cet ordre **avant** tout appel `use_figma` 
 - Règle de vérification : si tu te retrouves à écrire `node.resize(w, h)` sur un conteneur intermédiaire, c'est un signal d'erreur — utilise auto-layout à la place
 
 ### Spacing & Layout
-- Utilise les composants `Card`, `Separator`, `Accordion`, `Sheet`, `Dialog` pour la structure
-- **`Separator` est un composant** (componentKey dans layout.json) — ne jamais dessiner un trait ou rectangle pour séparer deux sections, toujours instancier `Separator`
-- Grid standard : 8pt grid system (multiples de 8 pour les espacements)
+- **Jamais de valeur d'espacement en dur** (gap, padding, rayon de coin, tailles fixes) — lie chaque valeur à un token d'espacement du design system. L'échelle, ses conventions et les règles associées (ex. rayons concentriques) sont dans `spacing.json` : réfère-t'y. Les valeurs réelles se résolvent automatiquement selon le Screen (desktop/mobile)
+- Pour structurer, instancie les composants prévus à cet effet (séparateur, carte, feuille, dialogue…) plutôt que des formes dessinées — ne jamais dessiner un trait ou un rectangle pour séparer deux sections, toujours instancier le composant séparateur correspondant (cf. `components/*.json`)
 
 ### États
 - Toujours montrer au minimum l'état **Default** du composant
 - Pour les formulaires : prévoir les états `Default` + `Invalid` + `Disabled`
 
-## 4. Structure d'une itération Daily UI
-
-Pour chaque Daily UI, crée le design sur la **page "Iterations"** du fichier correspondant (`Daily UI #X - Name`).
-
-Structure recommandée de l'itération :
-1. Un **frame principal** nommé `Iteration 4` avec le numéro en header
-2. Décompose en **sections logiques** (Header, Body, Footer si applicable)
-3. Assemble **section par section** avec `use_figma`
-4. Utilise `search_design_system` pour trouver les bons composants avant chaque insertion
-
-## 5. Informations de fichier Solar UI
-
-```
-fileKey: KQX5vjBuHyYU3SwWGZnhX1
-libraryKey: lk-19a6b4abc76be79c81a4efd2268f3cea59e74568edfcce376449ad753d53438c581d77de034940c48271abf575fe6f35fdeb23b37a5c5d3114dfcc85b90f9fad
-```
-
-## 6. Checklist avant de commencer
+## 4. Checklist avant de commencer
 
 - [ ] `.claude/knowledge/figma.json` lu (pages + système Theme/Mode/Screen)
 - [ ] Foundations lues : colors.json, typography.json, spacing.json
@@ -88,6 +68,10 @@ libraryKey: lk-19a6b4abc76be79c81a4efd2268f3cea59e74568edfcce376449ad753d53438c5
 - [ ] Fichier Figma de destination identifié (Daily UI #X)
 - [ ] Page "Iterations" ouverte dans Figma desktop
 - [ ] Prompt de design reçu et analysé en sections
+
+**Contrôles de conformité pendant la conception :**
+- [ ] Aucun fill par défaut laissé : chaque frame est transparent ou lié à une variable de fond (cf. `colors.json`)
+- [ ] Aucune valeur en dur : couleurs, typographies et espacements liés à des variables / styles / tokens (cf. `colors.json`, `typography.json`, `spacing.json`)
 
 ---
 
