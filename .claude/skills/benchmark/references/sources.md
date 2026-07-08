@@ -1,8 +1,6 @@
 # Source-layer — acquérir des références quelle que soit la source
 
 Ce fichier décrit **d'où** viennent les références et **comment** les acquérir.
-C'est le cœur générique du skill : un utilisateur a le MCP Mobbin, un autre non —
-la méthode d'analyse ne change pas, seule l'**acquisition** change.
 
 ## Principe : toutes les sources convergent
 
@@ -26,7 +24,7 @@ Choisir la **meilleure source disponible**, dans cet ordre :
 2. **URLs / captures fournies par l'utilisateur** — fallback **universel**,
    toujours possible même sans aucun MCP. À privilégier aussi quand l'utilisateur
    a déjà une short-list de références en tête.
-3. **Autre MCP design** (Pencil, bibliothèque interne, etc.) — si un MCP fournit
+3. **Autre MCP design** (bibliothèque interne, etc.) — si un MCP fournit
    des designs de référence exportables en image. Voir §Point d'extension.
 
 Si **aucune** source ne fournit d'images → le benchmark ne peut pas se faire à

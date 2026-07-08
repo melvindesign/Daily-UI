@@ -18,7 +18,7 @@ et **s'arrêter dès qu'on peut rédiger** sans supposer.
 
 ## Conduite de l'élicitation
 
-- **Pars de ce qui est déjà fourni** (description initiale de `/shot:new`, brief).
+- **Pars de ce qui est déjà fourni** (description initiale, brief...).
   Ne repose pas des questions dont tu as déjà la réponse.
 - **Groupe les questions** et vas-y par petites salves ; n'inonde pas.
 - **N'invente jamais** un champ, une règle ou un flux : si c'est flou, demande.

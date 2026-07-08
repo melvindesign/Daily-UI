@@ -19,8 +19,8 @@ espacements, couleurs, ombres, typographie, design system, tokens.
   simple » → non vérifiable. Reformuler en critère : « Le formulaire ne demande que
   l'email et le mot de passe. »
 - **Trop lourd** = une spec de plusieurs pages qui anticipe tout. Le PRD n'est pas
-  exhaustif : il pose l'intention claire. Les détails du marché viendront de
-  `/benchmark`, le visuel de `/shot:iterate`.
+  exhaustif : il pose l'intention claire, sans figer les partis-pris qui restent
+  ouverts.
 
 Viser **une page**. Couper ce qui n'aide pas à comprendre le besoin.
 
@@ -45,12 +45,12 @@ flux clé (pas une liste fleuve).
 C'est ici qu'on absorbe les anciennes « règles fonctionnelles » : une règle
 fonctionnelle **est** un critère d'acceptation.
 
-## Règle 5 — Couplage avec le benchmark
+## Règle 5 — Ne pas figer les partis-pris ouverts
 
-Le PRD est un **premier jet d'intention**, pas une vérité de marché. **Ne
-sur-spécule pas** sur les partis-pris discutables (nombre de champs, ordre des
-étapes, consentement implicite/explicite…) : pose ton choix, et laisse `/benchmark`
-le confronter à des références réelles et proposer des enrichissements.
+Le PRD pose une intention claire, pas une vérité arrêtée. **Ne sur-spécule pas**
+sur les partis-pris discutables (nombre de champs, ordre des étapes, consentement
+implicite/explicite…) : pose un choix quand il est nécessaire, et laisse
+explicitement ouvert ce qui n'a pas à être tranché à ce stade.
 
 ## Rappel — Hors scope
 

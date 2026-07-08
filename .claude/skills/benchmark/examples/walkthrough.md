@@ -1,17 +1,17 @@
 # Walkthrough — benchmark d'un écran de Sign Up (lentille UX, source Mobbin)
 
-Exemple bout-en-bout appliqué au workflow Daily UI, avec le MCP Mobbin disponible.
+Exemple bout-en-bout avec le MCP Mobbin disponible.
 
 ## 1. Brief
 
-- **Sujet** : parcours d'inscription (sign up) mobile.
+- **Sujet** : parcours d'inscription (sign up) mobile — fourni par l'appelant
+  (nom: `#1 - sign-up` + description).
 - **Plateforme** : `ios`.
-- **Lentille** : UX (l'objectif est de challenger un PRD fonctionnel).
-- **Dossier de sortie** : `shots/#1-sign-up/` (contexte Daily UI → lecture du PRD).
+- **Lentille** : UX (objectif : défricher le terrain de jeu fonctionnel).
 
-Lecture de `shots/#1-sign-up/PRD.md` : formulaire manuel prénom + nom + email +
-mot de passe sur un écran, critères de mot de passe temps réel, erreur inline,
-consentement implicite, SSO en tête.
+L'appelant a désigné `shots/#1-sign-up/` comme sortie → le benchmark
+écrira un fichier. En invocation directe dans le chat, il restituerait plutôt
+l'analyse sans écrire de fichier.
 
 ## 2. Choix de la source & acquisition
 
@@ -43,18 +43,19 @@ En s'appuyant uniquement sur l'observé :
 
 - **Conventions** (≥3 réfs) : SSO en tête avant le formulaire ; progressive
   disclosure du mot de passe ; erreur inline sous le champ ; lien « déjà un compte ».
-- **Différenciation** : le PRD met 4 champs sur un écran → à contre-courant ;
-  découper (email d'abord, mot de passe dédié) est la norme.
+- **Différenciation** : entasser prénom + nom + email + mot de passe sur un seul
+  écran est à contre-courant ; le découpage (email d'abord, mot de passe dédié) est
+  la norme — un point à trancher lors du cadrage.
 
 ## 5. Restitution
 
-Écriture de `shots/#1-sign-up/BENCHMARK.md` d'après le template : références
-citées (`[App](mobbin_url) — ref/NN.webp — observé`), conventions, enseignements
-UX, opportunités de différenciation, recommandations.
+Un fichier de sortie ayant été désigné, écriture de `shots/#1-sign-up/BENCHMARK.md`
+d'après le template : références citées (`[App](mobbin_url) — ref/NN.webp — observé`),
+conventions, enseignements UX, opportunités de différenciation, recommandations. Les
+8 réfs sont enregistrées dans `shots/#1-sign-up/ref/`.
 
-Puis **proposition** de MAJ du `PRD.md` (fonctionnelle uniquement) — appliquée
-seulement après validation de l'utilisateur. Confirmation finale : 8 réfs dans
-`ref/`, chemin du `BENCHMARK.md`, rappel de `/shot:iterate`.
+Le skill s'arrête là : il restitue les enseignements à l'appelant et ne rédige aucune
+spec — c'est le cadrage/PRD en aval qui les exploitera.
 
 ---
 

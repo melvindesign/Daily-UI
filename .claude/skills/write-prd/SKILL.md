@@ -5,8 +5,7 @@ description: >
   ce que l'utilisateur doit pouvoir faire, pas comment c'est réalisé visuellement.
   Guide l'élicitation du besoin (bonnes questions), la structuration (objectif,
   user stories, flux, critères d'acceptation légers, hors-scope) et le contrôle
-  qualité (fonctionnel-only, ni trop vague ni trop lourd). Pensé pour être
-  challengé ensuite par des références réelles. À charger quand l'utilisateur veut « rédiger
+  qualité (fonctionnel-only, ni trop vague ni trop lourd). À charger quand l'utilisateur veut « rédiger
   un PRD », « spécifier une fonctionnalité », « écrire une spec », « cadrer le
   besoin fonctionnel » ou « créer le document de spécification » d'un écran/parcours.
 ---
@@ -25,9 +24,9 @@ décrit le **quoi** (ce que l'utilisateur doit pouvoir accomplir), jamais le
 deux choses : il ne laisse pas de zone d'ombre fonctionnelle, et il tient sur une
 page.
 
-Le PRD est un **premier jet d'intention** : il sera ensuite **challengé** (par
-confrontation à des références réelles), puis designé. Ne sur-spécule donc pas ;
-pose une base claire.
+Le PRD pose une **base d'intention claire**, pas un cahier exhaustif. Ne sur-spécule
+pas : exploite le contexte fourni (description, éléments passés par l'appelant) et
+laisse les partis-pris discutables ouverts plutôt que de les figer arbitrairement.
 
 ## Ordre de travail
 
@@ -46,8 +45,7 @@ pose une base claire.
    trop lourd, chaque critère d'acceptation réellement vérifiable, user stories
    orientées bénéfice.
 
-4. **Enchaînement.** Rappeler la suite : challenger le PRD avec des références
-   réelles (p. ex. `/benchmark` si disponible), puis passer au design.
+4. **Enchaînement.** Rappeler la suite : passer au design.
 
 ## Sortie
 
@@ -69,7 +67,8 @@ Le détail est dans [references/writing-rules.md](references/writing-rules.md). 
   qu'on peut trancher vrai/faux.
 - **SHOULD — rester court.** Viser une page ; couper le superflu.
 - **SHOULD — user stories orientées bénéfice** (« afin de… »), pas solution.
-- **SHOULD — ne pas sur-spéculer** sur les partis-pris : c'est le rôle de `/benchmark`.
+- **SHOULD — ne pas sur-spéculer** sur les partis-pris discutables : poser un choix
+  clair sans figer arbitrairement ce qui reste ouvert.
 
 ## Checklist avant de conclure
 
@@ -79,4 +78,4 @@ Le détail est dans [references/writing-rules.md](references/writing-rules.md). 
 - [ ] Chaque critère d'acceptation est vérifiable
 - [ ] Tient sur une page ; rien de superflu
 - [ ] Dossier/fichier de sortie confirmé (jamais présumé)
-- [ ] Suite rappelée : challenge par références réelles, puis design
+- [ ] Suite rappelée : passage au design

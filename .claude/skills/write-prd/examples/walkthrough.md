@@ -4,8 +4,9 @@ Exemple bout-en-bout appliqué au workflow Daily UI, appelé par `/shot:new`.
 
 ## 1. Élicitation
 
-Contexte fourni par `/shot:new` : `#1`, `sign-up`, description « inscription mobile
-avec email/mot de passe et SSO ». On complète juste les trous, par petites salves :
+Contexte : "inscription mobile avec email/mot de passe et SSO"
+
+On complète juste les trous, par petites salves :
 
 - **Objectif** → « L'utilisateur doit pouvoir créer un compte rapidement. »
 - **Acteurs** → nouvel utilisateur non connecté.
@@ -52,10 +53,9 @@ Une page, fonctionnel, chaque critère vérifiable.
 
 ## 3. Enchaînement
 
-Le PRD est un **premier jet d'intention**. On ne fige pas les partis-pris
-discutables (SSO d'abord ? un ou deux écrans ? consentement ?) : on enchaîne sur
-`/benchmark`, qui les confronte à des références réelles et propose des
-enrichissements fonctionnels, puis `/shot:iterate` pour designer.
+Le PRD pose une **intention claire** sans figer les partis-pris discutables (SSO
+d'abord ? un ou deux écrans ? consentement ?) : ceux-ci restent ouverts. On enchaîne
+sur `/shot:iterate` pour designer.
 
 ---
 

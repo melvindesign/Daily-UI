@@ -41,9 +41,6 @@ diverger.
    - **Lentille(s)** : **UX** (fonctionnel), **UI** (visuel), ou **les deux**.
      Par défaut, si l'objectif est de nourrir une spec/PRD → UX ; si l'objectif est
      l'inspiration visuelle → UI. En cas de doute, demander.
-   - **Dossier de sortie** : où écrire `BENCHMARK.md` et le sous-dossier `ref/`.
-     **Paramètre générique** — ne jamais présumer `shots/`. (Voir §Intégration
-     Daily UI pour le cas de ce repo.)
 
 2. **Choisir la source et acquérir les références** → [references/sources.md](references/sources.md).
    Détecter les sources disponibles, prendre la meilleure (MCP Mobbin > URLs/captures
@@ -59,30 +56,19 @@ diverger.
    Ne s'appuyer **que sur ce qui a été réellement observé** à l'étape 3. Extraire
    les **conventions** et les **opportunités de différenciation**.
 
-5. **Restituer.** Écrire `<sortie>/BENCHMARK.md` d'après [templates/BENCHMARK.md](templates/BENCHMARK.md).
-   Enregistrer chaque référence retenue dans `<sortie>/ref/` (nommage
-   `NN-app-name.webp`) et citer sa source (URL) par ligne. N'inclure que les
-   sections de lentille effectivement traitées.
+5. **Restituer** l'analyse d'après [templates/BENCHMARK.md](templates/BENCHMARK.md) :
+   références citées (source/URL), conventions, opportunités de différenciation, en
+   ne gardant que les sections de lentille effectivement traitées. Deux cas de sortie :
+   - **Un appelant a désigné un fichier de sortie** (p. ex. une commande qui délègue) :
+     y écrire le `BENCHMARK.md` et enregistrer chaque référence retenue dans un
+     sous-dossier `ref/` (nommage `NN-app-name.webp`), source citée par ligne.
+   - **Sinon** (invocation directe) : restituer directement dans le chat, sans écrire
+     de fichier.
+
+Ce skill produit l'analyse et s'arrête là : il ne rédige ni n'édite aucune spec.
+L'exploitation des enseignements (cadrage, PRD, design) appartient à l'appelant.
 
 Un exemple complet de bout en bout : [examples/walkthrough.md](examples/walkthrough.md).
-
-## Intégration Daily UI (workflow `shots/`)
-
-Ce skill **remplace** l'ancienne commande `/shot:benchmark`. Quand le sujet est un
-Daily UI challenge (contexte `shots/#X-name/`) :
-
-1. Déduire le dossier `shots/#X-name/` (demander le numéro/nom si absent).
-2. Lire `shots/#X-name/PRD.md` pour le besoin **fonctionnel** ; en déduire la
-   plateforme (`ios` si mobile, `web` sinon).
-3. Lentille **par défaut = UX** (le PRD est fonctionnel). Ajouter la lentille UI
-   seulement si l'utilisateur le demande.
-4. Sauver dans `shots/#X-name/ref/`, écrire `shots/#X-name/BENCHMARK.md`.
-5. **Proposer** ensuite une mise à jour du `PRD.md` :
-   - N'éditer le PRD **que si l'utilisateur valide**.
-   - Ajouts **fonctionnels uniquement** (mêmes règles que `/shot:new` : pas de
-     visuel, pas de design system).
-6. Confirmer : nombre de réfs dans `ref/`, chemin du `BENCHMARK.md`, résumé des
-   changements PRD si validés, et rappeler `/shot:iterate` pour designer ensuite.
 
 ## Règles condensées
 
@@ -96,17 +82,18 @@ Le détail est dans les fichiers `references/`. En condensé :
   « jauge de force ») doit être **effectivement visible** dans l'image.
 - **MUST — distinguer convention vs choix isolé.** Un motif présent chez une seule
   référence n'est pas une convention.
-- **MUST — ne pas éditer un PRD/une spec sans accord** de l'utilisateur.
+- **MUST — rester dans le périmètre du benchmark.** Produire `BENCHMARK.md` et les
+  réfs ; ne pas rédiger ni éditer de spec/PRD — c'est le rôle de l'appelant.
 - **SHOULD — une intention par requête** de recherche, et couvrir le flux principal
   **et** les états critiques / alternatives.
 - **SHOULD — citer chaque référence** par sa source (URL) et son fichier `ref/`.
 
 ## Checklist avant de conclure
 
-- [ ] Brief cadré : sujet, plateforme, lentille(s), dossier de sortie
+- [ ] Brief cadré : sujet, plateforme, lentille(s)
 - [ ] Source choisie selon disponibilité (Mobbin > URLs/captures > autre MCP)
 - [ ] ≥ 4 références ont **réellement** passé le gate visuel
 - [ ] Analyse fondée sur l'observé, pas sur les titres de flow
 - [ ] Conventions (≥3 réfs) séparées des opportunités de différenciation
-- [ ] `BENCHMARK.md` écrit + images dans `ref/` + sources citées
-- [ ] (Daily UI) MAJ du PRD **proposée**, appliquée seulement si validée
+- [ ] Restitution faite : dans le chat, ou `BENCHMARK.md` + `ref/` si un fichier de sortie est désigné
+- [ ] Aucune spec/PRD rédigée ou éditée : enseignements restitués à l'appelant
