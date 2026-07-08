@@ -80,7 +80,6 @@
     }
   ],
   "system": {
-    "description": "Solar UI s'appuie sur 3 collections de variables Figma indépendantes, chacune à plusieurs modes. Le croisement de leurs modes produit une variante de maquette.",
     "collections": {
       "Mode": {
         "collection": "Mode",
@@ -138,15 +137,7 @@
         "variableSetKey": "3bb10a00687c3a1cafad60aa663cad3fa75a67d9"
       }
     },
+    "description": "Solar UI s'appuie sur 3 collections de variables Figma indépendantes, chacune à plusieurs modes. Le croisement de leurs modes produit une variante de maquette.",
     "howToCombine": "Une maquette résulte du croisement des modes des 3 collections (Theme × Mode × Screen). Ex : 'Theme 1 + Dark + Desktop' = marque orange Geist, fond sombre, tailles desktop."
-  },
-  "usage": {
-    "rules": [
-      "TOUJOURS instancier des composants de la bibliothèque Solar UI — jamais redessiner from scratch.",
-      "TOUJOURS lier les couleurs aux tokens sémantiques Palette/* — jamais de hex hardcodé.",
-      "TOUJOURS utiliser les styles de texte (Display/Title/Label) — jamais de réglages typo manuels.",
-      "Respecter l'échelle d'espacement (multiples de la base) définie dans spacing.json.",
-      "Une seule famille sémantique par intention : Brand=action principale, Error=danger, Success=validation, Warning=attention, Info=neutre informatif, Link=liens."
-    ]
   }
 }

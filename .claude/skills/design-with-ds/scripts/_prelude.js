@@ -1,22 +1,19 @@
 // =============================================================================
-// PRELUDE Solar UI — à COLLER EN TÊTE d'un appel use_figma, puis appeler les
-// helpers dans ton code. use_figma est isolé : rien ne persiste entre appels,
-// donc ce bloc doit être présent dans CHAQUE script qui utilise les helpers.
+// PRELUDE — mécaniques DS génériques à COLLER EN TÊTE d'un appel use_figma,
+// puis appeler les helpers dans ton code. use_figma est isolé : rien ne persiste
+// entre appels, donc ce bloc doit être présent dans CHAQUE script qui les utilise.
 //
-// Les `key` viennent du cache .claude/knowledge/ :
-//   couleur  -> foundation/colors.json     -> tokens['Palette/…'].key
-//   spacing  -> foundation/spacing.json    -> tokens['Sizes/…'].key
-//   typo     -> foundation/typography.json -> textStyles[Famille].items[i].key
-//   composant-> components/*.json          -> components[].componentKey
-//                                          + instanceSchemas[name] (type/props)
+// Les `key` viennent de la knowledge (voir ../references/knowledge-cache.md) :
+// chaque token de couleur / d'espacement, chaque style de texte et chaque
+// composant y porte sa propre clé d'import. Résous-la par rôle sémantique.
 //
 // Rappels use_figma : couleurs en 0–1, fills = tableaux read-only (cloner),
 // charger la font avant toute mutation de texte, tout Promise `await`é,
 // et `return` les IDs créés/mutés.
 // =============================================================================
 
-// Lie une couleur sémantique (clé Palette/*) au fill (défaut) ou au stroke d'un nœud.
-// field: 'fills' | 'strokes'. Renvoie l'id de la variable liée.
+// Lie une couleur sémantique (clé d'un token de couleur du DS) au fill (défaut)
+// ou au stroke d'un nœud. field: 'fills' | 'strokes'. Renvoie l'id de la variable.
 async function applyColor(node, colorKey, field = 'fills') {
   const variable = await figma.variables.importVariableByKeyAsync(colorKey);
   const current = Array.isArray(node[field]) ? node[field] : [];
@@ -29,8 +26,8 @@ async function applyColor(node, colorKey, field = 'fills') {
   return variable.id;
 }
 
-// Applique un style de texte du DS (clé textStyles[*].items[*].key) à un nœud TEXT.
-// Charge la font du style avant application. Renvoie l'id du style.
+// Applique un style de texte du DS (clé d'un style de texte de la knowledge) à un
+// nœud TEXT. Charge la font du style avant application. Renvoie l'id du style.
 async function applyText(node, styleKey) {
   const style = await figma.importStyleByKeyAsync(styleKey);
   await figma.loadFontAsync(style.fontName); // évite "Cannot write to node with unloaded font"
@@ -38,7 +35,8 @@ async function applyText(node, styleKey) {
   return style.id;
 }
 
-// Lie un token d'espacement/rayon (clé Sizes/*) à une propriété d'un nœud.
+// Lie un token d'espacement/rayon (clé d'un token d'espacement du DS) à une
+// propriété d'un nœud.
 // prop: 'itemSpacing' | 'paddingLeft' | 'paddingRight' | 'paddingTop'
 //     | 'paddingBottom' | 'topLeftRadius' | 'topRightRadius'
 //     | 'bottomLeftRadius' | 'bottomRightRadius' | … . Renvoie l'id de la variable.
@@ -48,10 +46,10 @@ async function bindSpacing(node, prop, spacingKey) {
   return variable.id;
 }
 
-// Instancie un composant du DS depuis le cache.
-//   componentKey : components[].componentKey
-//   kind         : instanceSchemas[name].instantiate ('componentSet' | 'component')
-//   properties   : objet passé à setProperties (clés de instanceSchemas[name].properties)
+// Instancie un composant du DS depuis la knowledge.
+//   componentKey : clé d'import du composant (résolue dans la knowledge)
+//   kind         : type d'instanciation ('componentSet' | 'component')
+//   properties   : objet passé à setProperties (clés déclarées par la knowledge)
 // Renvoie l'instance (pense à l'appendChild puis à return son id).
 async function instantiate({ componentKey, kind = 'componentSet', properties }) {
   let inst;
@@ -69,19 +67,19 @@ async function instantiate({ componentKey, kind = 'componentSet', properties }) 
 // -----------------------------------------------------------------------------
 // EXEMPLE d'usage (à adapter, puis à coller sous le prelude) :
 //
-// const card = figma.createAutoLayout('VERTICAL', { name: 'Sign up card' });
+// const card = figma.createAutoLayout('VERTICAL', { name: 'Card' });
 // figma.currentPage.appendChild(card);
-// await applyColor(card, 'CLE_PALETTE_BACKGROUND');            // fond de carte
-// await bindSpacing(card, 'itemSpacing', 'CLE_SIZES_GAP');     // gap vertical
-// await bindSpacing(card, 'paddingTop', 'CLE_SIZES_PADDING');  // padding
+// await applyColor(card, 'CLE_COULEUR_FOND');                 // fond de carte
+// await bindSpacing(card, 'itemSpacing', 'CLE_ESPACEMENT_GAP');   // gap vertical
+// await bindSpacing(card, 'paddingTop', 'CLE_ESPACEMENT_PADDING'); // padding
 //
 // const title = figma.createText();
 // card.appendChild(title);
-// await applyText(title, 'CLE_TITLE_1');
-// title.characters = 'Create your account';
+// await applyText(title, 'CLE_STYLE_TITRE');
+// title.characters = 'Titre de la carte';
 //
 // const input = await instantiate({
-//   componentKey: 'CLE_INPUT_TEXT',
+//   componentKey: 'CLE_COMPOSANT_CHAMP',
 //   kind: 'componentSet',
 //   properties: { 'Label#9341:8': 'Email', '[State]': 'Default' },
 // });

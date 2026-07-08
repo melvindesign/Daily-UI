@@ -58,6 +58,8 @@ Charge les skills :
 
 À partir des dimensions lues à l'étape 3, place la nouvelle **section** d'itération sans chevauchement avec la précédente, avec un gap ≥ 200px. Si la page est vide, commence à `x: 0, y: 0`.
 
+> Script canonique : colle [`new-iteration-section.js`](new-iteration-section.js) dans un `use_figma`, avec `PAGE_ID` = l'id de page résolu à l'étape 3a. Il lit le numéro de challenge sur la page, calcule le numéro d'itération, empile la nouvelle section sous le contenu existant (sans lire son contenu visuel) et renvoie `sectionId`.
+
 > ⚠️ **Coordonnées d'un enfant de SECTION = RELATIVES à la section, PAS absolues.**
 > Le piège récurrent : après `section.appendChild(frame)`, si tu fais `frame.y = <valeur absolue de la page>` (ex. la même valeur que `section.y`, genre `21907`), Figma l'interprète comme un **offset depuis le coin haut-gauche de la section** → la frame part très loin (des milliers de px plus bas). 
 > **Règle :** positionne toujours l'enfant avec un **petit offset relatif** (ex. `frame.x = 100 ; frame.y = 100`). Ne réutilise jamais la position absolue de la section pour l'enfant.

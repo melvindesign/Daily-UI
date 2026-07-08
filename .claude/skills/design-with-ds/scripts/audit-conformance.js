@@ -1,7 +1,7 @@
 // =============================================================================
-// AUDIT DE CONFORMITÉ — à lancer avant de conclure une itération
-// À coller dans un appel use_figma. Renseigne ROOT_ID (id de la section ou du
-// frame racine de l'itération). Renvoie les violations aux règles du DS :
+// AUDIT DE CONFORMITÉ — à lancer avant de conclure un écran / une maquette
+// À coller dans un appel use_figma. Renseigne ROOT_ID (id du nœud racine de la
+// zone à auditer : section ou frame). Renvoie les violations aux règles du DS :
 //   - texte sans style (textStyleId vide)
 //   - fill SOLID visible non lié à une variable
 //   - espacement/padding en dur (auto-layout non lié à un token)

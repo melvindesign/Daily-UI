@@ -35,18 +35,14 @@
   },
   "doAndDont": {
     "do": [
-      "Lier les fills aux tokens Palette/* via setBoundVariableForPaint.",
       "Utiliser le step adapté au rôle : 9 pour un bouton solide, 11/12 pour du texte, 6/7 pour une bordure.",
       "Garder une seule famille par intention sémantique dans un même composant.",
-      "Compter sur le token pour l'inversion Light/Dark automatique — ne pas dupliquer les couleurs.",
-      "Appliquer les tokens à TOUS les nœuds qui ont un fill : frame principal, frames enfants, conteneurs de sections, cartes, backgrounds internes."
+      "Compter sur le token pour l'inversion Light/Dark automatique — ne pas dupliquer les couleurs."
     ],
     "dont": [
-      "Ne jamais hardcoder un hex — toujours passer par le token (ex. Brand/9). Cela vaut même pour #FFFFFF ou #000000.",
       "Ne jamais référencer une primitive masquée directement — uniquement les tokens Palette/*.",
       "Ne pas utiliser Brand pour signaler une erreur (utiliser Error).",
-      "Ne pas mélanger step de texte (11/12) comme fond solide ou inversement.",
-      "Ne pas laisser un fill #FFFFFF sur un frame interne sous prétexte que le frame parent a déjà le bon background — chaque frame avec un fill doit utiliser un token (ex. Default/1 pour fond page, Default/2 pour une surface/card)."
+      "Ne pas mélanger step de texte (11/12) comme fond solide ou inversement."
     ]
   },
   "tokens": {

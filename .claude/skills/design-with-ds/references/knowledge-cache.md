@@ -12,38 +12,34 @@ Il décrit le fichier Figma du design system, sa structure, ses conventions de t
 
 À partir du manifeste :
 
-- **Fondations** — lis les fichiers de fondation déclarés ; au minimum couleurs, typographie et espacement avant de designer.
-- **Spécifications de composants** — si le manifeste en déclare (descriptions, variants, règles do/don't), lis celle(s) pertinente(s) pour l'écran à produire.
+- **Fondations** — la section qui mappe chaque rôle de fondation à son fichier (couleur, typographie, espacement, élévation…). Lis les fondations déclarées ; au minimum couleurs, typographie et espacement avant de designer.
+- **Spécifications de composants** — si le manifeste déclare des specs (descriptions, variants, règles do/don't), lis celle(s) pertinente(s) pour l'écran à produire.
 
 La knowledge est la **seule source de vérité** pour valeurs, noms de tokens, styles, variants et conventions. Ne présume jamais d'un nom ou d'une valeur : va le vérifier dans les fichiers pointés par le manifeste.
 
-## 2. Cache de clés local — à consulter AVANT tout appel MCP
+## 2. Résoudre une clé d'import — la knowledge est auto-descriptive
 
-La knowledge contient un **snapshot des clés de bibliothèque** (stables) pour éviter les allers-retours `search_design_system` / import-pour-inspection. Emplacements exacts (Solar UI) :
+La knowledge contient un **snapshot des clés de bibliothèque** (stables) pour éviter les allers-retours `search_design_system` / import-pour-inspection. **Tu n'as pas à connaître d'avance où vivent les clés** : le manifeste te mène au bon fichier, et **chaque token / style / composant y porte sa propre clé d'import**.
 
-| Ressource | Fichier | Où trouver la clé |
-|---|---|---|
-| Variable couleur | `foundation/colors.json` | `tokens['Palette/…']` → `key` (string) |
-| Variable d'espacement / rayon | `foundation/spacing.json` | `tokens['Sizes/…']` → `key` (string) |
-| Style typo | `foundation/typography.json` | `textStyles[Famille].items[i].key` |
-| Composant (clé d'import) | `components/*.json` | `components[]` → objet avec `componentKey`, `name`, `variants` |
-| Schéma d'instanciation | `components/*.json` | `instanceSchemas[name]` → `instantiate` (`componentSet`\|`component`), `defaultVariant`, `properties` |
+Procédure générique :
 
-> Les objets `tokens` contiennent une clé `_note` (rappel d'usage) en plus des tokens réels — ignore-la lors de l'itération.
+1. Depuis le manifeste, ouvre la fondation ou la spec pertinente (couleur, espacement, typo, composant).
+2. Dans ce fichier, repère la ressource par son **rôle sémantique** (le rôle du texte, l'intention de couleur, la magnitude d'espace, le composant recherché).
+3. Lis la **clé d'import** portée par cette ressource. La forme exacte est propre au DS : chaque fichier documente sa convention dans son champ `_note` (et, le cas échéant, sa `description`). Réfère-t'y plutôt que de deviner.
 
-**Pour instancier un composant, il faut croiser les deux objets** : `components[]` donne la `componentKey` à importer, `instanceSchemas[name]` donne le type d'import, le `defaultVariant` et les clés de `properties` à passer à `setProperties`.
+> Certains objets contiennent une clé `_note` (rappel d'usage / convention de clés) en plus des ressources réelles — ignore-la lors du parcours des entrées.
 
 ## 3. Procédure d'import direct par clé
 
-Une fois la clé lue dans le cache, importe directement (pas de MCP) :
+Une fois la clé lue dans la knowledge, importe directement (pas de MCP) :
 
 - **Variable** : `await figma.variables.importVariableByKeyAsync(key)` puis
   - couleur → `figma.variables.setBoundVariableForPaint(paint, 'color', variable)` (renvoie un **nouveau** paint à réassigner)
   - espacement/rayon → `node.setBoundVariable('itemSpacing' | 'paddingLeft' | 'topLeftRadius' | …, variable)`
 - **Style** : `await figma.importStyleByKeyAsync(key)`, charger `style.fontName` via `loadFontAsync`, puis `node.setTextStyleIdAsync(style.id)`.
 - **Composant** :
-  - `componentSet` → `(await figma.importComponentSetByKeyAsync(componentKey)).defaultVariant.createInstance()`
-  - `component` → `(await figma.importComponentByKeyAsync(componentKey)).createInstance()`
+  - set de variants → `(await figma.importComponentSetByKeyAsync(key)).defaultVariant.createInstance()`
+  - composant simple → `(await figma.importComponentByKeyAsync(key)).createInstance()`
 
 Ces séquences sont déjà encapsulées dans [`../scripts/_prelude.js`](../scripts/_prelude.js) — préfère les helpers.
 
@@ -51,7 +47,7 @@ Ces séquences sont déjà encapsulées dans [`../scripts/_prelude.js`](../scrip
 
 Ne repasse par le MCP (`search_design_system`, `get_libraries`, import-pour-lire-les-props) **que si** :
 
-- la clé n'est pas dans le cache, **ou**
+- la clé n'est pas dans la knowledge, **ou**
 - un import / `setProperties` échoue (le DS a pu changer depuis le snapshot).
 
-Dans ce cas, récupère la valeur à jour via MCP **et mets à jour le fichier de cache** pour la fois suivante.
+Dans ce cas, récupère la valeur à jour via MCP **et mets à jour le fichier de knowledge** pour la fois suivante.

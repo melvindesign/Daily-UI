@@ -19,12 +19,12 @@ Un composant custom est un **dernier recours**, jamais un raccourci. Avant d'en 
 ## Typographie
 
 - Ne crée jamais de style typographique custom — applique toujours un style du DS via `setTextStyleIdAsync`.
-- Choisis le style selon le **rôle sémantique** du texte (titre de page/héros, titre de section, label, corps…). Les styles, leur nomenclature et leur usage sont dans `typography.json` : réfère-t'y avant de choisir.
+- Choisis le style selon le **rôle sémantique** du texte (titre de page/héros, titre de section, label, corps…). Les styles, leur nomenclature et leur usage sont dans la **foundation typographique** déclarée par le manifeste : réfère-t'y avant de choisir.
 - Après avoir créé un nœud texte, vérifie que `textStyleId` est bien appliqué (non vide) — un texte sans style est hors design system.
 
 ## Couleurs
 
-- **Jamais de valeur de couleur en dur** (hex, `#FFFFFF`, `#000000`…) — lie toujours chaque couleur à une variable sémantique. La palette et ses conventions sont dans `colors.json`.
+- **Jamais de valeur de couleur en dur** (hex, `#FFFFFF`, `#000000`…) — lie toujours chaque couleur à un **token de couleur sémantique**. La palette et ses conventions sont dans la **foundation couleur** déclarée par le manifeste.
 - S'applique à **TOUS les nœuds avec un fill** : frame racine, frames enfants, conteneurs de sections, backgrounds internes.
 - **Piège `createFrame`** : Figma applique un fill blanc opaque par défaut. Ne le laisse jamais tel quel — soit le frame est transparent (aucun fill), soit son fill est lié à une variable de fond sémantique.
 - Après avoir créé un frame, **vérifie son fill** : aucun, ou une variable sémantique. Un fill blanc/noir non lié casse le rendu dès qu'on change de thème/mode.
@@ -47,8 +47,19 @@ Dernier recours, réservé à une intention **très particulière** qu'aucun tok
 
 ## Spacing & Layout
 
-- **Jamais de valeur d'espacement en dur** (gap, padding, rayon, tailles fixes) — lie chaque valeur à un token `Sizes/*`. L'échelle et ses conventions (ex. rayons concentriques) sont dans `spacing.json`.
+- **Jamais de valeur d'espacement en dur** (gap, padding, rayon, tailles fixes) — lie chaque valeur à un **token d'espacement/dimension**. L'échelle, ses valeurs et ses conventions sont dans la **foundation d'espacement** déclarée par le manifeste : choisis le token par **magnitude relative** (degré d'espace voulu), jamais par une valeur px visée.
 - Pour structurer, instancie les composants prévus (séparateur, carte, feuille, dialogue…) plutôt que des formes dessinées — ne jamais dessiner un trait ou un rectangle pour séparer deux sections, toujours instancier le composant séparateur.
+
+### Proximité & rythme vertical
+
+L'espace encode l'appartenance : plus deux éléments sont liés, plus ils sont proches. Garde un rythme cohérent sur trois niveaux, du plus serré au plus large, selon le degré d'appartenance — **appartenance directe** (label→champ, champ→message d'erreur, icône→texte) < **même famille** (champ→champ, bouton→bouton) < **bascule de contexte** (titre→bloc, séparateur, changement de section).
+
+- Un même niveau d'appartenance = un même espace (rythme régulier entre éléments de même niveau).
+- **Un message d'erreur doit être plus proche de son champ que les champs ne le sont entre eux** — sinon il flotte et perd son rattachement. La même logique vaut pour tout élément « collé » à son parent (label, aide inline, icône).
+
+### Coins concentriques
+
+Quand un élément arrondi est imbriqué dans un conteneur arrondi, les rayons doivent être **concentriques** (coins parallèles) : **rayon externe = rayon interne + padding** qui les sépare. Inversement, **rayon interne = rayon externe − padding** ; si le résultat est ≤ 0, l'enfant reste à angles droits.
 
 ## États
 

@@ -20,16 +20,10 @@
   "description": "Échelle de tokens d'espacement/dimension Sizes/* à lier aux gaps, paddings, rayons et tailles. Les valeurs réelles sont résolues automatiquement selon le Screen (desktop/mobile) — ne pas régler de valeur en dur. Choisir le token par magnitude relative (plus n est grand, plus l'espace est grand).",
   "doAndDont": {
     "do": [
-      "Espacer via les tokens Sizes/* (gap, padding via itemSpacing/paddingX).",
-      "Choisir le token par magnitude relative, pas par une valeur px visée.",
-      "Garder un rythme vertical cohérent (mêmes gaps entre éléments de même niveau).",
-      "Imbriquer les radius en concentrique : rayon externe = rayon interne + padding.",
-      "Pour les dimensions de conteneurs, préférer fill container / hug content ; valeur en dur en dernier recours, voir 'exception'."
+      "Espacer via les tokens Sizes/* (gap → itemSpacing, padding → paddingLeft/Right/Top/Bottom, rayon → cornerRadius)."
     ],
     "dont": [
-      "Ne pas hardcoder gaps, paddings ou rayons — toujours lier un token Sizes/*.",
-      "Ne pas utiliser de valeurs arbitraires hors échelle par confort (réserver aux tailles fixes sans token).",
-      "Ne pas coller les éléments (gap 0) ni sur-espacer (rompre la hiérarchie)."
+      "Ne pas sortir de l'échelle Sizes/* par confort — réserver une valeur hors échelle aux tailles fixes réellement sans token (voir 'exception')."
     ]
   },
   "exception": "Par défaut, n'utiliser que des tokens Sizes/*. Mais pour les dimensions de conteneurs, privilégier d'abord les modes de redimensionnement auto-layout — fill container (s'étirer au parent) ou hug content (s'adapter au contenu) — plutôt qu'une taille en dur. Si aucun de ces modes ni un token ne convient (ex. une dimension de carte réellement fixe, une largeur spécifique), l'agent peut alors déroger et poser une valeur en dur s'il l'estime nécessaire. Les tokens restent toujours à privilégier pour les gaps, paddings et rayons, mais aussi pour width/height quand une taille de l'échelle tombe juste.",

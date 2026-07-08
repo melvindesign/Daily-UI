@@ -1,6 +1,6 @@
 ---
 name: design-with-ds
-description: Designer dans Figma en s'appuyant sur la knowledge d'un design system. À charger avant tout travail de design dans Figma : explique comment lire l'architecture de knowledge (manifeste + foundations + composants), les règles de conception à respecter, et fournit des scripts JS canoniques prêts à coller dans use_figma pour les opérations répétées (section d'itération, liaison de tokens, instanciation, audit de conformité).
+description: Designer dans Figma en s'appuyant sur la knowledge d'un design system. À charger avant tout travail de design dans Figma : explique comment lire l'architecture de knowledge (manifeste + foundations + composants), les règles de conception à respecter, et fournit des scripts JS canoniques prêts à coller dans use_figma pour les opérations répétées (liaison de tokens, instanciation de composants, audit de conformité).
 ---
 
 # Design avec le design system dans Figma
@@ -23,11 +23,10 @@ Tu es en mode **Product Designer AI**. Ce skill décrit **comment exploiter la k
 | Fichier | Usage |
 |---|---|
 | [`scripts/_prelude.js`](scripts/_prelude.js) | Bloc de helpers (`applyColor`, `applyText`, `bindSpacing`, `instantiate`) à **coller en tête** d'un `use_figma`, puis à appeler. C'est le mode d'emploi quotidien. |
-| [`scripts/new-iteration-section.js`](scripts/new-iteration-section.js) | Crée la **section d'itération** suivante (positionnée sans chevauchement, ≥3000², sans fond, nommée `#X - iteration Y`). Édite les 3 constantes en tête. |
-| [`scripts/audit-conformance.js`](scripts/audit-conformance.js) | **Audit de conformité** : scanne une section et remonte texte sans style, fills non liés, espacements en dur. À lancer avant de conclure une itération. |
+| [`scripts/audit-conformance.js`](scripts/audit-conformance.js) | **Audit de conformité** : scanne un nœud racine et remonte texte sans style, fills non liés, espacements en dur. À lancer avant de conclure une maquette. |
 | [`scripts/snippets.md`](scripts/snippets.md) | Les mêmes opérations en **snippets autonomes documentés** (pour comprendre/déboguer, sans le prelude). |
 
-Un exemple complet de bout en bout : [examples/iteration-walkthrough.md](examples/iteration-walkthrough.md).
+Un exemple complet de bout en bout : [examples/walkthrough.md](examples/walkthrough.md).
 
 > Règle : préfère toujours ces scripts. Ne re-dérive une séquence à la main que si le cas sort du cadre couvert ici.
 
@@ -36,10 +35,12 @@ Un exemple complet de bout en bout : [examples/iteration-walkthrough.md](example
 Le détail et les procédures sont dans [references/design-rules.md](references/design-rules.md). En condensé :
 
 - **Composants** — TOUJOURS instancier depuis la bibliothèque, jamais redessiner. Custom = dernier recours, seulement après recherche exhaustive **et** accord de l'utilisateur.
-- **Couleurs** — jamais de hex en dur ; chaque fill lié à une variable sémantique `Palette/*`. Attention au fill blanc par défaut de `createFrame`.
+- **Couleurs** — jamais de hex en dur ; chaque fill lié à un token de couleur sémantique. Attention au fill blanc par défaut de `createFrame`.
 - **Typo** — jamais de style custom ; toujours un style du DS via `setTextStyleIdAsync`, choisi par rôle sémantique.
 - **Sizing** — `fill-container` / `hug-content` par défaut ; dimensions fixes rares.
-- **Spacing** — jamais de valeur en dur ; chaque gap/padding/rayon lié à un token `Sizes/*`. Séparateurs = composant, jamais un trait dessiné.
+- **Spacing** — jamais de valeur en dur ; chaque gap/padding/rayon lié à un token d'espacement. Séparateurs = composant, jamais un trait dessiné.
+- **Proximité** — l'espace encode l'appartenance ; rythme cohérent sur trois niveaux ; l'erreur plus proche de son champ que les champs entre eux.
+- **Coins concentriques** — élément arrondi dans un conteneur arrondi : rayon externe = rayon interne + padding.
 - **États** — au minimum `Default` ; formulaires : `Default` + `Invalid` + `Disabled`.
 
 ## Checklist avant de commencer

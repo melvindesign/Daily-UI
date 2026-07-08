@@ -2,12 +2,12 @@
 
 Blocs **autonomes** (sans le prelude), à copier-coller pour comprendre ou déboguer une opération. Pour le travail quotidien, préfère [`_prelude.js`](./_prelude.js) qui encapsule ces séquences en helpers.
 
-Toutes les `key` viennent du cache `.claude/knowledge/` (voir [../references/knowledge-cache.md](../references/knowledge-cache.md)). Rappels `use_figma` : couleurs en 0–1, fills = tableaux read-only (cloner + réassigner), charger la font avant toute mutation de texte, tout Promise `await`é, `return` les IDs.
+Toutes les `key` viennent de la knowledge (voir [../references/knowledge-cache.md](../references/knowledge-cache.md)) : chaque ressource porte sa clé d'import, résolue par rôle sémantique. Rappels `use_figma` : couleurs en 0–1, fills = tableaux read-only (cloner + réassigner), charger la font avant toute mutation de texte, tout Promise `await`é, `return` les IDs.
 
 ## Lier une couleur sémantique à un fill
 
 ```js
-// colorKey : foundation/colors.json -> tokens['Palette/…'].key
+// colorKey : clé d'un token de couleur du DS (résolue dans la knowledge)
 const variable = await figma.variables.importVariableByKeyAsync(colorKey);
 const fills = node.fills.slice();                       // clone (read-only)
 fills[0] = figma.variables.setBoundVariableForPaint(    // renvoie un NOUVEAU paint
@@ -21,7 +21,7 @@ node.fills = fills;                                     // réassignation obliga
 ## Appliquer un style de texte
 
 ```js
-// styleKey : foundation/typography.json -> textStyles[Famille].items[i].key
+// styleKey : clé d'un style de texte du DS (résolue dans la knowledge)
 const style = await figma.importStyleByKeyAsync(styleKey);
 await figma.loadFontAsync(style.fontName);   // sinon "Cannot write to node with unloaded font"
 await node.setTextStyleIdAsync(style.id);
@@ -31,7 +31,7 @@ await node.setTextStyleIdAsync(style.id);
 ## Lier un token d'espacement / rayon
 
 ```js
-// spacingKey : foundation/spacing.json -> tokens['Sizes/…'].key
+// spacingKey : clé d'un token d'espacement du DS (résolue dans la knowledge)
 const variable = await figma.variables.importVariableByKeyAsync(spacingKey);
 node.setBoundVariable('itemSpacing', variable);
 // props valides : itemSpacing | paddingLeft | paddingRight | paddingTop |
@@ -39,19 +39,19 @@ node.setBoundVariable('itemSpacing', variable);
 //                 bottomLeftRadius | bottomRightRadius
 ```
 
-## Instancier un composant du DS (croisement des deux objets du cache)
+## Instancier un composant du DS
 
 ```js
-// 1) components/*.json -> components[] : trouver la componentKey par name
-// 2) components/*.json -> instanceSchemas[name] : instantiate + defaultVariant + properties
-const componentKey = 'CLE_INPUT_TEXT';       // components[].componentKey
+// 1) Résous la clé d'import du composant par son rôle (voir la knowledge)
+// 2) Résous son type d'instanciation, son variant par défaut et ses properties
+const componentKey = 'CLE_COMPOSANT_CHAMP';  // clé d'import du composant
 
-const set = await figma.importComponentSetByKeyAsync(componentKey); // si instantiate === 'componentSet'
+const set = await figma.importComponentSetByKeyAsync(componentKey); // si type === 'componentSet'
 const input = set.defaultVariant.createInstance();
-// component simple : (await figma.importComponentByKeyAsync(key)).createInstance()
+// composant simple : (await figma.importComponentByKeyAsync(key)).createInstance()
 
 figma.currentPage.appendChild(input);        // parenter AVANT de régler HUG/FILL
-input.setProperties({                          // clés exactes de instanceSchemas[name].properties
+input.setProperties({                          // clés exactes déclarées par la knowledge
   'Label#9341:8': 'Email',
   'Placeholder#9341:3': 'name@example.com',
   '[State]': 'Default',                        // VARIANT : une des options
@@ -69,7 +69,7 @@ const bg = await figma.variables.importVariableByKeyAsync(bgKey);
 card.fills = [figma.variables.setBoundVariableForPaint(
   { type: 'SOLID', color: { r: 1, g: 1, b: 1 } }, 'color', bg
 )];
-// gap + padding liés à des tokens Sizes/*
+// gap + padding liés à des tokens d'espacement du DS
 card.setBoundVariable('itemSpacing', await figma.variables.importVariableByKeyAsync(gapKey));
 card.setBoundVariable('paddingTop', await figma.variables.importVariableByKeyAsync(padKey));
 ```
