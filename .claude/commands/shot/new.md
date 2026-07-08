@@ -4,13 +4,14 @@ Tu es en mode **Product Manager AI**. Ton rôle est de créer le dossier et le P
 
 ## Étape 1 — Collecte des informations
 
-Si l'utilisateur n'a pas fourni le numéro et le nom du challenge, demande-les.  
-Si une description fonctionnelle n'a pas été fournie, demande-la.
+Si l'utilisateur n'a pas fourni le numéro et le nom du challenge, demande-les.
+Récupère aussi une description fonctionnelle initiale si elle est fournie (le skill
+`/write-prd` complètera l'élicitation à l'étape 3).
 
 Format attendu :
 - Numéro : entier (ex. `1`)
 - Nom : en kebab-case anglais (ex. `sign-up`)
-- Description : ce que l'utilisateur veut pouvoir faire dans ce challenge
+- Description (facultative ici) : ce que l'utilisateur veut pouvoir faire dans ce challenge
 
 ## Étape 2 — Création du dossier
 
@@ -24,51 +25,18 @@ Exemple : `shots/#1-sign-up/`
 
 Utilise le numéro et le nom tels que fournis (kebab-case, minuscules).
 
-## Étape 3 — Rédaction du PRD
+## Étape 3 — Rédaction du PRD (déléguée au skill `/write-prd`)
 
-Crée le fichier `shots/#X-name/PRD.md`.
+Ne rédige pas le PRD à la main : **invoque le skill `/write-prd`** pour porter toute
+la compétence de rédaction. Passe-lui le contexte Daily UI :
 
-### Règles de rédaction du PRD
+- le dossier de sortie `shots/#X-name/` (titre attendu : `# PRD — #X Name`) ;
+- la description initiale collectée à l'étape 1, si elle existe.
 
-Le PRD décrit **uniquement le besoin fonctionnel** — ce que l'utilisateur doit pouvoir faire, pas comment c'est réalisé visuellement.
-
-**À inclure :**
-- Les actions disponibles
-- Les champs d'information à saisir et leur nature
-- Les flux alternatifs
-- Les validations fonctionnelles si pertinentes
-- Les états critiques
-
-**À ne pas inclure :**
-- La description visuelle des composants (pas de "bouton bleu", "input avec bordure", etc.)
-- Le layout, les espacements, les couleurs
-- Toute référence au design system ou aux tokens
-
-### Structure du PRD
-
-```markdown
-# PRD — #X Name
-
-## Objectif
-[Une phrase : ce que l'utilisateur doit pouvoir accomplir avec ce challenge]
-
-## Fonctionnalités
-
-### [Nom du flux 1]
-- [Action ou information attendue]
-- [Action ou information attendue]
-- …
-
-### [Nom du flux 2]
-- …
-
-## Règles fonctionnelles
-- [Contrainte ou validation à respecter]
-- …
-
-## Hors scope
-- Toute considération visuelle ou de design
-```
+Le skill élicite le besoin fonctionnel (complète les trous par quelques questions),
+puis écrit `shots/#X-name/PRD.md` en respectant sa structure et sa barre de qualité
+(Objectif · User stories · Fonctionnalités · Critères d'acceptation · Hors scope,
+fonctionnel uniquement).
 
 ## Étape 4 — Benchmark du PRD (recommandé)
 

@@ -36,7 +36,7 @@ shots/
   …
 ```
 
-- **`/shot:new`** — crée le dossier et le PRD d'un nouveau challenge (specs fonctionnelles uniquement, sans détails visuels)
+- **`/shot:new`** — crée le dossier d'un nouveau challenge, puis délègue la rédaction du PRD au skill `/write-prd` (specs fonctionnelles uniquement, sans détails visuels) et propose de lancer `/benchmark`
 - **`/shot:iterate`** — démarre ou continue une itération sur un challenge existant (lit le PRD, vérifie l'état Figma, demande un brief, puis lance le design)
 
 ## Solar UI Design System
