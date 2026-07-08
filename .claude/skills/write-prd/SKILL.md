@@ -6,7 +6,7 @@ description: >
   Guide l'élicitation du besoin (bonnes questions), la structuration (objectif,
   user stories, flux, critères d'acceptation légers, hors-scope) et le contrôle
   qualité (fonctionnel-only, ni trop vague ni trop lourd). Pensé pour être
-  challengé ensuite par /benchmark. À charger quand l'utilisateur veut « rédiger
+  challengé ensuite par des références réelles. À charger quand l'utilisateur veut « rédiger
   un PRD », « spécifier une fonctionnalité », « écrire une spec », « cadrer le
   besoin fonctionnel » ou « créer le document de spécification » d'un écran/parcours.
 ---
@@ -25,9 +25,9 @@ décrit le **quoi** (ce que l'utilisateur doit pouvoir accomplir), jamais le
 deux choses : il ne laisse pas de zone d'ombre fonctionnelle, et il tient sur une
 page.
 
-Le PRD est un **premier jet d'intention** : il sera ensuite **challengé par
-`/benchmark`** (qui confronte les partis-pris à des références réelles), puis
-designé via `/shot:iterate`. Ne sur-spécule donc pas ; pose une base claire.
+Le PRD est un **premier jet d'intention** : il sera ensuite **challengé** (par
+confrontation à des références réelles), puis designé. Ne sur-spécule donc pas ;
+pose une base claire.
 
 ## Ordre de travail
 
@@ -46,20 +46,16 @@ designé via `/shot:iterate`. Ne sur-spécule donc pas ; pose une base claire.
    trop lourd, chaque critère d'acceptation réellement vérifiable, user stories
    orientées bénéfice.
 
-4. **Enchaînement.** Rappeler la suite : `/benchmark` pour challenger le PRD avec
-   des références réelles, puis `/shot:iterate` pour designer.
+4. **Enchaînement.** Rappeler la suite : challenger le PRD avec des références
+   réelles (p. ex. `/benchmark` si disponible), puis passer au design.
 
-## Intégration Daily UI (workflow `shots/`)
+## Sortie
 
-Quand le sujet est un Daily UI challenge :
-
-- Écrire le PRD dans `shots/#X-name/PRD.md`, titre `# PRD — #X Name`.
-- Le contexte (numéro, nom, description initiale) est généralement passé par
-  `/shot:new`, qui délègue la rédaction à ce skill. Compléter l'élicitation si la
+- Le **dossier et le nom de fichier de sortie** sont des paramètres. Les demander
+  s'ils ne sont pas précisés ; ne jamais présumer un emplacement.
+- Le contexte (sujet, description initiale) peut être passé directement par
+  l'utilisateur ou délégué par un skill appelant. Compléter l'élicitation si la
   description initiale laisse des trous fonctionnels.
-
-En mode générique (hors Daily UI), le **dossier de sortie** est un paramètre : le
-demander si non précisé. Ne jamais présumer `shots/`.
 
 ## Règles condensées
 
@@ -82,4 +78,5 @@ Le détail est dans [references/writing-rules.md](references/writing-rules.md). 
 - [ ] Zéro fuite visuelle (aucune mention de composant / couleur / layout / token)
 - [ ] Chaque critère d'acceptation est vérifiable
 - [ ] Tient sur une page ; rien de superflu
-- [ ] Suite rappelée : `/benchmark` puis `/shot:iterate`
+- [ ] Dossier/fichier de sortie confirmé (jamais présumé)
+- [ ] Suite rappelée : challenge par références réelles, puis design
