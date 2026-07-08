@@ -43,6 +43,6 @@ shots/
 ## Solar UI Design System
 
 Contexte JSON local : `.claude/knowledge/` (manifeste `figma.json`, foundations, components).  
-Les règles de design, la checklist et l'exploitation de la knowledge sont dans le skill `/stellar-figma-use`.
+Les règles de design, la checklist et l'exploitation de la knowledge sont dans le skill `/design-with-ds`.
 
-**Toujours invoquer `/stellar-figma-use` avant tout travail de design dans Figma.**
+**Toujours invoquer `/design-with-ds` avant tout travail de design dans Figma.**

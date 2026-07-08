@@ -45,7 +45,9 @@ Attends la réponse avant de continuer. L'utilisateur peut répondre « non » /
 
 ## Étape 5 — Conception
 
-Charge le skill `/stellar-figma-use`.
+Charge les skills :
+- `/design-with-ds` — designer avec le design system (knowledge, règles, scripts).
+- `/ux-writing` — rédiger la microcopie de l'écran (labels, boutons, messages d'erreur, états vides…) : tout texte d'interface doit passer par ces principes, pas être improvisé.
 
 ### Règles de process (critiques)
 
