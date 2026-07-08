@@ -37,7 +37,6 @@ shots/
 ```
 
 - **`/shot:new`** — crée le dossier et le PRD d'un nouveau challenge (specs fonctionnelles uniquement, sans détails visuels)
-- **`/shot:benchmark`** — challenge le PRD d'un challenge existant avec des références connues trouvées via le MCP Mobbin (analyse fonctionnelle), enregistre les références dans `ref/` et propose d'enrichir le PRD
 - **`/shot:iterate`** — démarre ou continue une itération sur un challenge existant (lit le PRD, vérifie l'état Figma, demande un brief, puis lance le design)
 
 ## Solar UI Design System

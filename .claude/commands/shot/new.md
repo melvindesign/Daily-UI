@@ -70,9 +70,24 @@ Le PRD décrit **uniquement le besoin fonctionnel** — ce que l'utilisateur doi
 - Toute considération visuelle ou de design
 ```
 
-## Étape 4 — Confirmation
+## Étape 4 — Benchmark du PRD (recommandé)
 
-Une fois le dossier et le PRD créés, confirme à l'utilisateur :
+Le PRD fraîchement rédigé repose sur les seules intuitions de l'utilisateur. Avant
+de designer, **propose de le challenger** avec des références réelles du marché.
+
+- Propose à l'utilisateur de lancer le benchmark : « Veux-tu que je confronte ce
+  PRD à des références connues avant d'itérer ? »
+- **S'il accepte**, invoque le skill `/benchmark` sur ce shot (contexte Daily UI,
+  lentille **UX** par défaut) : il relira le `PRD.md`, cherchera des références via
+  la meilleure source disponible, les filtrera au gate visuel, écrira
+  `shots/#X-name/BENCHMARK.md` et **proposera** des enrichissements fonctionnels du
+  PRD (appliqués seulement si l'utilisateur valide).
+- **S'il refuse**, passe directement à la confirmation.
+
+## Étape 5 — Confirmation
+
+Une fois le dossier et le PRD créés (et le benchmark éventuellement passé), confirme à l'utilisateur :
 - Le chemin du dossier créé
 - Un résumé en 2-3 lignes du PRD
-- Rappelle qu'il peut lancer `/shot:iterate` pour commencer à designer ce challenge
+- Si un benchmark a été fait : le chemin du `BENCHMARK.md` et un résumé des enrichissements
+- Rappelle la suite : `/benchmark` (si pas encore fait) pour challenger le PRD, puis `/shot:iterate` pour commencer à designer
