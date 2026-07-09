@@ -1,7 +1,7 @@
 {
   "category": "Navigation",
   "page": { "id": "2135:641", "name": "Navigation" },
-  "description": "Composants de navigation : fil d'Ariane, pagination, onglets, liens, menus.",
+  "description": "Composants de navigation : fil d'Ariane, pagination, onglets, liens, menus, stepper de progression.",
   "components": [
     {
       "name": "Breadcrumb",
@@ -83,6 +83,44 @@
         "do": ["Utiliser Variant=Trigger pour un sous-menu déroulant, Variant=Link pour un lien direct"],
         "dont": ["Ne pas mélanger plus de 5-6 items en top-level (surcharge cognitive)"]
       }
+    },
+    {
+      "name": "Stepper Horizontal",
+      "componentKey": "29eb9643594eef22a1dc962b33f0037412b4960b",
+      "description": "Indicateur de progression horizontal d'un parcours en plusieurs étapes numérotées (2 à 6). Chaque étape est le sous-composant privé _Step Label (dot numéroté + libellé) ; les étapes sont reliées par un séparateur chevron (Carret) ou par un trait extensible (Divider).",
+      "variants": {
+        "Steps": ["2", "3", "4", "5", "6"],
+        "Separator": ["Carret", "Divider"]
+      },
+      "variantGuidance": {
+        "Steps": "Nombre d'étapes affichées (2 à 6). Choisir la variante égale au nombre réel d'étapes du parcours.",
+        "Separator=Carret": "Étapes séparées par un chevron « › » : séquence directionnelle compacte, largeur qui hugge le contenu.",
+        "Separator=Divider": "Étapes séparées par un trait horizontal extensible (flex) : occupe toute la largeur disponible, adapté à un header/bandeau de progression."
+      },
+      "subComponent": {
+        "name": "_Step Label",
+        "componentKey": "1bec56d064f86c07d51062d7b51e06c1404bdbda",
+        "description": "Étape unitaire du stepper (composant privé, préfixe _). L'avancement se pilote via ses variantes Step, non exposées au niveau du stepper.",
+        "variants": {
+          "State": ["Default", "Disabled"],
+          "Step": ["Default", "Active", "Error", "Checked"]
+        },
+        "variantGuidance": {
+          "Step=Default": "Étape à venir, non encore atteinte (dot contour, texte low-contrast).",
+          "Step=Active": "Étape courante, en cours de traitement.",
+          "Step=Checked": "Étape complétée / validée.",
+          "Step=Error": "Étape en erreur (validation échouée).",
+          "State=Disabled": "Étape non atteignable / désactivée."
+        },
+        "textProps": {
+          "Label#9387:0": "Libellé de l'étape (défaut « Label »)",
+          "Number#9387:9": "Numéro affiché dans le dot (défaut « N »)"
+        }
+      },
+      "doAndDont": {
+        "do": ["Refléter l'avancement réel : étapes passées en Step=Checked, étape courante en Step=Active, étapes suivantes en Step=Default", "Réserver aux parcours linéaires et bornés (2 à 6 étapes)", "Garder des libellés courts (1-2 mots)"],
+        "dont": ["Ne pas dépasser 6 étapes (limite du composant)", "Ne pas utiliser pour une navigation libre non séquentielle (préférer Tabs ou Navigation Menu)", "Ne pas laisser plusieurs étapes en Step=Active simultanément"]
+      }
     }
   ],
   "instanceSchemas": {
@@ -93,6 +131,7 @@
     "Link": { "instantiate": "componentSet", "defaultVariant": "[State]=Default, Visited=False, Compact=False", "properties": { "Text#9314:22": {"type":"TEXT","default":"Forgot password ?"}, "[State]": {"type":"VARIANT","options":["Default","Hover"]}, "Visited": {"type":"VARIANT","options":["False","True"]}, "Compact": {"type":"VARIANT","options":["False","True"]} } },
     "Dropdown Menu": { "instantiate": "component", "properties": {} },
     "Menubar": { "instantiate": "component", "properties": {} },
-    "Navigation Menu": { "instantiate": "component", "properties": { "NavigationMenuList#2264:135": {"type":"SLOT"} } }
+    "Navigation Menu": { "instantiate": "component", "properties": { "NavigationMenuList#2264:135": {"type":"SLOT"} } },
+    "Stepper Horizontal": { "instantiate": "componentSet", "defaultVariant": "Steps=2, Separator=Carret", "properties": { "Steps": {"type":"VARIANT","options":["2","3","4","5","6"]}, "Separator": {"type":"VARIANT","options":["Carret","Divider"]} }, "_note": "Libellés, numéros et états (Active/Checked/Error/Disabled) des étapes NON exposés au niveau du stepper. Après instanciation, atteindre les instances imbriquées _Step Label (componentKey 1bec56d064f86c07d51062d7b51e06c1404bdbda ; variantes State + Step via setProperties ; textes Label#9387:0 et Number#9387:9) pour personnaliser chaque étape." }
   }
 }

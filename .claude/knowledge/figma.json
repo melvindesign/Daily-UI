@@ -57,7 +57,7 @@
     {
       "id": "2135:641",
       "name": "Navigation",
-      "role": "Composants de navigation (Breadcrumb, Pagination, Tabs, Link, Dropdown Menu, Menubar, Navigation Menu)",
+      "role": "Composants de navigation (Breadcrumb, Pagination, Tabs, Link, Dropdown Menu, Menubar, Navigation Menu, Stepper Horizontal)",
       "spec": "components/navigation.json"
     },
     {
