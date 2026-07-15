@@ -38,7 +38,7 @@ Le détail et les procédures sont dans [references/design-rules.md](references/
 - **Patterns répétés** — dès qu'un assemblage se répète dans la maquette (entre breakpoints, entre étapes d'un flow, dans un même écran), en faire un **composant local** (un par pattern ou un à variantes) instancié partout : une seule source de vérité, jamais de copier-coller de calques.
 - **Couleurs** — jamais de hex en dur ; chaque fill lié à un token de couleur sémantique. Attention au fill blanc par défaut de `createFrame`.
 - **Typo** — jamais de style custom ; toujours un style du DS via `setTextStyleIdAsync`, choisi par rôle sémantique.
-- **Sizing** — `fill-container` / `hug-content` par défaut ; dimensions fixes rares.
+- **Sizing** — `fill-container` / `hug-content` par défaut ; dimensions fixes rares. `clipsContent` reste `false` par défaut, activé seulement si le rognage est réellement voulu (page, média, zone scrollable).
 - **Spacing** — jamais de valeur en dur ; chaque gap/padding/rayon lié à un token d'espacement. Séparateurs = composant, jamais un trait dessiné.
 - **Proximité** — l'espace encode l'appartenance ; rythme cohérent sur trois niveaux ; l'erreur plus proche de son champ que les champs entre eux.
 - **Coins concentriques** — élément arrondi dans un conteneur arrondi : rayon externe = rayon interne + padding.
@@ -55,5 +55,6 @@ Le détail et les procédures sont dans [references/design-rules.md](references/
 **Contrôles de conformité pendant la conception :**
 - [ ] Aucun fill par défaut laissé : chaque frame transparent ou lié à une variable de fond
 - [ ] Aucune valeur en dur : couleurs, typos et espacements liés à des variables / styles / tokens
+- [ ] Aucun `clipsContent` activé sans raison : `false` par défaut, `true` seulement si le rognage est voulu (page, média, zone scrollable)
 - [ ] Tout assemblage répété (breakpoints, étapes d'un flow, éléments récurrents) est un **composant local** instancié, pas un copier-coller de calques
 - [ ] `scripts/audit-conformance.js` lancé sur la section → `ok: true`

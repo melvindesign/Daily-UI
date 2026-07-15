@@ -90,19 +90,33 @@
           "Light",
           "Dark"
         ],
+        "modeIds": {
+          "Light": "1:2",
+          "Dark": "1:3"
+        },
         "note": "Contient les primitives de couleur Radix (792 variables masquées du publish). Ne jamais référencer ces primitives directement : passer par les tokens sémantiques Palette/* (foundation/colors.json). Le mode Light/Dark détermine la luminance finale des couleurs.",
         "published": false
       },
       "Screen": {
         "collection": "Screen",
         "collectionId": "VariableCollectionId:2145:1050",
-        "controls": "Tailles responsives (51 variables masquées du publish).",
+        "controls": "Tailles responsives (51 variables masquées du publish). Le mode Screen résout les valeurs réelles des tokens Sizes/* (foundation/spacing.json).",
         "default": "Desktop",
         "modes": [
           "Desktop",
           "Mobile"
         ],
-        "published": false
+        "modeIds": {
+          "Desktop": "2145:0",
+          "Mobile": "2145:1"
+        },
+        "published": false,
+        "applyMode": {
+          "rule": "Chaque frame/section d'écran doit porter EXPLICITEMENT le mode Screen correspondant à son breakpoint. Un écran mobile => appliquer le mode 'Mobile' sur son frame racine ; un écran desktop => 'Desktop' (défaut hérité, mais l'appliquer explicitement lève toute ambiguïté). Sans ça, un écran conçu comme mobile hérite du mode Desktop et les tokens Sizes/* résolvent aux mauvaises valeurs.",
+          "note": "Les modeIds (Desktop 2145:0 / Mobile 2145:1) sont STABLES entre le fichier Solar UI et les fichiers consommateurs. En revanche, l'id de la collection DIFFÈRE dans un fichier consommateur (ex. 'VariableCollectionId:eb1d74e9…/2145:107') : ne pas coder l'id de collection en dur — le résoudre à l'exécution.",
+          "how": "Dans un fichier consommateur, la collection Screen n'est pas locale : la récupérer via une variable Sizes/* importée, puis appliquer le mode par modeId sur le frame. Snippet : const v = await figma.variables.importVariableByKeyAsync('<uneCleSizes>'); const coll = await figma.variables.getVariableCollectionByIdAsync(v.variableCollectionId); frame.setExplicitVariableModeForCollection(coll, '2145:1'); // '2145:1' = Mobile, '2145:0' = Desktop. Vérifié 2026-07-15.",
+          "apiSignature": "SceneNode.setExplicitVariableModeForCollection(collection: VariableCollection, modeId: string) — l'ancienne forme (collectionId: string, modeId) est dépréciée."
+        }
       },
       "Theme": {
         "collection": "Theme",
@@ -113,6 +127,10 @@
           "Theme 1",
           "Theme 2"
         ],
+        "modeIds": {
+          "Theme 1": "1:4",
+          "Theme 2": "15:0"
+        },
         "presets": {
           "Theme 1": {
             "brandHue": "Sand / Orange (#f76b15 solid)",

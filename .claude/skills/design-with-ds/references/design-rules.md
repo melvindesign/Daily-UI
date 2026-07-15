@@ -60,6 +60,14 @@ Dernier recours, réservé à une intention **très particulière** qu'aucun tok
 - Nœuds texte multi-lignes : `textAutoResize = "HEIGHT"` (largeur fill-container, hauteur hug).
 - Signal d'alerte : `node.resize(w, h)` sur un conteneur intermédiaire est probablement une erreur — vérifie qu'un sizing auto-layout ne conviendrait pas mieux.
 
+### Clip content (rognage) — désactivé par défaut
+
+`clipsContent` **doit rester `false` par défaut**. Ne l'active jamais par réflexe : sur un conteneur en `hug-content` bien construit, le contenu tient dans ses bornes et le rognage est inutile ; activé à tort, il masque silencieusement des débordements (ombres, focus rings, contenu qui dépasse) et provoque de petites erreurs difficiles à diagnostiquer.
+
+- Laisse `clipsContent = false` sur la quasi-totalité des conteneurs et sections.
+- **Ne l'active que si le rognage est réellement nécessaire**, quand c'est l'intention : cadre de page / viewport qui borne la maquette, image ou média à recadrer, carrousel / zone scrollable, masque à coins arrondis sur un visuel. Dans ces cas, le clip fait partie du design.
+- Si tu constates un débordement, corrige d'abord le **sizing / l'auto-layout** (le vrai problème) plutôt que de le cacher avec un clip.
+
 ## Spacing & Layout
 
 - **Jamais de valeur d'espacement en dur** (gap, padding, rayon, tailles fixes) — lie chaque valeur à un **token d'espacement/dimension**. L'échelle, ses valeurs et ses conventions sont dans la **foundation d'espacement** déclarée par le manifeste : choisis le token par **magnitude relative** (degré d'espace voulu), jamais par une valeur px visée.
