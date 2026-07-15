@@ -16,6 +16,21 @@ Un composant custom est un **dernier recours**, jamais un raccourci. Avant d'en 
    - **Oui** → réalise-le en custom en t'appuyant sur **toutes les variables et styles des fondations** et en respectant au maximum les conventions du DS (mêmes tokens, mêmes patterns d'auto-layout, mêmes états).
    - **L'utilisateur indique qu'un composant existe** → **relance une recherche** ciblée pour le retrouver. Ne pars pas en custom.
 
+### Patterns répétés dans la maquette → composant local (source de vérité unique)
+
+Dès que tu conçois un **parcours** plutôt qu'un écran isolé, un même assemblage se répète : le même bloc réapparaît à plusieurs endroits de la maquette. Les cas typiques :
+
+- **Entre breakpoints** — la version desktop et la version mobile d'un écran partagent le même formulaire / la même carte / le même en-tête.
+- **Entre étapes d'un flow** — un panneau, un bandeau latéral, un pied d'action, un gabarit d'étape identiques d'un écran à l'autre du parcours.
+- **Répétition dans un même écran** — une ligne de liste, une cellule, un item récurrents.
+
+Règle : **chaque assemblage réutilisé doit être un composant local** (`createComponent` / `createComponentSet` dans le fichier), instancié à chaque occurrence — **jamais** copié-collé en calques indépendants. L'assemblage n'existe alors **qu'une seule fois** dans la maquette : c'est la source de vérité unique. Une correction se propage à toutes les instances ; deux instances ne peuvent pas diverger par accident.
+
+- **Un composant par pattern, ou un composant à variantes** — au choix selon le cas. Si les occurrences ne diffèrent que par un état ou un contenu discret (étape du flow, breakpoint, état de validation), préfère **un seul composant à variantes** (`createComponentSet`) piloté par des propriétés, plutôt que N composants séparés. L'objectif est toujours le même : une seule définition à maintenir.
+- **Ce que tu factorises**, c'est le pattern propre à cette maquette — l'assemblage de composants du DS, pas un composant du DS lui-même. Les briques atomiques restent instanciées depuis la bibliothèque à l'intérieur du composant local (cette règle ne remplace pas « toujours instancier depuis la bibliothèque », elle s'applique au **niveau au-dessus**).
+- **N'anticipe pas à l'excès** : un assemblage vu une seule fois n'a pas besoin d'être un composant. Le déclencheur est la **répétition réelle** (≥ 2 occurrences) ou la certitude qu'elle arrive (un flow multi-écrans / multi-breakpoints décidé dès le départ).
+- **Distingue le pattern de son application** : le composant local porte le pattern (la structure, les propriétés) ; chaque instance porte son application dans le contexte (position, breakpoint, contenu de l'étape). Ne fige pas dans le composant ce qui relève de l'instance, et inversement.
+
 ## Typographie
 
 - Ne crée jamais de style typographique custom — applique toujours un style du DS via `setTextStyleIdAsync`.

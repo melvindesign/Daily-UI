@@ -35,6 +35,7 @@ Un exemple complet de bout en bout : [examples/walkthrough.md](examples/walkthro
 Le détail et les procédures sont dans [references/design-rules.md](references/design-rules.md). En condensé :
 
 - **Composants** — TOUJOURS instancier depuis la bibliothèque, jamais redessiner. Custom = dernier recours, seulement après recherche exhaustive **et** accord de l'utilisateur.
+- **Patterns répétés** — dès qu'un assemblage se répète dans la maquette (entre breakpoints, entre étapes d'un flow, dans un même écran), en faire un **composant local** (un par pattern ou un à variantes) instancié partout : une seule source de vérité, jamais de copier-coller de calques.
 - **Couleurs** — jamais de hex en dur ; chaque fill lié à un token de couleur sémantique. Attention au fill blanc par défaut de `createFrame`.
 - **Typo** — jamais de style custom ; toujours un style du DS via `setTextStyleIdAsync`, choisi par rôle sémantique.
 - **Sizing** — `fill-container` / `hug-content` par défaut ; dimensions fixes rares.
@@ -54,4 +55,5 @@ Le détail et les procédures sont dans [references/design-rules.md](references/
 **Contrôles de conformité pendant la conception :**
 - [ ] Aucun fill par défaut laissé : chaque frame transparent ou lié à une variable de fond
 - [ ] Aucune valeur en dur : couleurs, typos et espacements liés à des variables / styles / tokens
+- [ ] Tout assemblage répété (breakpoints, étapes d'un flow, éléments récurrents) est un **composant local** instancié, pas un copier-coller de calques
 - [ ] `scripts/audit-conformance.js` lancé sur la section → `ok: true`
