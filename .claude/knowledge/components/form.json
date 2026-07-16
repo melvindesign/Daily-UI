@@ -2,8 +2,8 @@
   "category": "Form",
   "components": [
     {
-      "componentKey": "1113ed176829cc33c835595507c0b76b6b6b98ca",
-      "description": "Saisie de code à usage unique (cases séparées).",
+      "componentKey": "069d04d83b3f466bace864e01f3a7b8cf6e223e1",
+      "description": "Saisie de code à usage unique (cases séparées). (Clé revérifiée 2026-07-16 via search_design_system — l'ancienne clé 1113ed17… était périmée.)",
       "doAndDont": {
         "do": [
           "Utiliser un séparateur (_InputOTPSeparator) pour grouper"
