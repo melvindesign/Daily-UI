@@ -9,15 +9,18 @@ Projet de **Daily UI challenges** réalisés en vibe design avec Claude Code + F
 Il y a **un seul fichier Figma** pour tous les challenges :  
 https://www.figma.com/design/Oe0gTY9RsSmKMn8EcEiYan/Daily-UI--1---Sign-up
 
-## Architecture : commands, skills, knowledge (contrat d'étanchéité)
+## Architecture : commands, agents, skills, knowledge (contrat d'étanchéité)
 
-Trois couches **étanches**. Cette séparation est le contrat le plus important du repo : chaque ajout (surtout un nouveau skill) doit la respecter.
+Quatre couches **étanches**. Cette séparation est le contrat le plus important du repo : chaque ajout (surtout un nouveau skill ou agent) doit la respecter.
 
 | Couche | Emplacement | Contient | Ne contient JAMAIS |
 |---|---|---|---|
 | **Commands** | `.claude/commands/` | Ce qui est **propre au projet Daily UI** : orchestration des étapes, conventions du fichier Figma (pages `#X`, itérations, canvas), chemins `shots/`. Jetable hors de ce projet. | — |
+| **Agents** | `.claude/agents/` | Un **métier générique d'une équipe produit** (ex. `ux-researcher`) : positionnement dans l'équipe, skills qu'il charge, standards du poste. Destinés au même plugin que les skills — à terme, une équipe produit complète. | Tout nom Solar UI, tout concept Daily UI. Le contexte spécifique (sujet, chemins de sortie) lui est injecté par la command dans le brief de mission. |
 | **Skills** | `.claude/skills/` | Une **compétence générique de designer**, valable pour n'importe quel projet/DS. Destinés à devenir un plugin. Principes, comportements, mécaniques Figma génériques. | Tout nom Solar UI (`Palette/*`, `Sizes/*`, fichiers foundation, familles, steps), tout concept Daily UI (itération, `#X`, `shots/`). |
 | **Knowledge** | `.claude/knowledge/` | La **donnée du design system Solar UI** : manifeste (`figma.json`), foundations, specs de composants, clés de bibliothèque, conventions propres au DS. À terme servie par un MCP maison. | Impératifs de design universels (ils vivent dans le skill), mention Daily UI. |
+
+**Agent vs skill** : le skill porte une *méthode* (comment benchmarker, comment écrire un PRD) ; l'agent porte un *métier* (qui fait quoi dans l'équipe, avec quels standards) et charge les skills correspondant à sa mission. Un agent s'exécute dans son propre contexte : on y délègue les tâches autonomes et gourmandes en contexte (ex. recherche avec beaucoup d'images), et il ne restitue qu'un rapport compact.
 
 ### Critère de tri (à appliquer à chaque règle / fichier)
 
@@ -31,7 +34,7 @@ Trois couches **étanches**. Cette séparation est le contrat le plus important 
 
 ### Comment ça s'articule à l'exécution
 
-Une command custom (spécifique au projet) charge les skills de design dont elle a besoin. Le skill `/design-with-ds` lit le manifeste `figma.json` qui décrit la structure du DS ; l'agent y résout tokens, styles et composants, puis conçoit dans Figma en s'appuyant sur les autres skills (ex. `/ux-writing`). Le skill reste muet sur Solar UI et Daily UI : il ne connaît que *comment consommer une knowledge de DS*, pas *quelle* knowledge.
+Une command custom (spécifique au projet) charge les skills de design dont elle a besoin, ou délègue une mission à un agent de l'équipe (ex. `/shot:new` confie le benchmark au `ux-researcher` avec un brief complet — l'agent ne peut pas poser de questions en cours de mission). Le skill `/design-with-ds` lit le manifeste `figma.json` qui décrit la structure du DS ; l'agent y résout tokens, styles et composants, puis conçoit dans Figma en s'appuyant sur les autres skills (ex. `/ux-writing`). Skills et agents restent muets sur Solar UI et Daily UI : ils ne connaissent que *comment consommer une knowledge de DS*, pas *quelle* knowledge.
 
 ## Structure Figma
 
@@ -64,7 +67,7 @@ shots/
   …
 ```
 
-- **`/shot:new`** — crée le dossier d'un nouveau challenge, puis lance d'abord `/benchmark` pour défricher le marché, et enfin délègue la rédaction du PRD au skill `/write-prd` (specs fonctionnelles uniquement, sans détails visuels) nourri par les enseignements du benchmark
+- **`/shot:new`** — crée le dossier d'un nouveau challenge, puis délègue le benchmark à l'agent `ux-researcher` (qui charge le skill `/benchmark`) pour défricher le marché, et enfin délègue la rédaction du PRD au skill `/write-prd` (specs fonctionnelles uniquement, sans détails visuels) nourri par les enseignements du benchmark
 - **`/shot:iterate`** — démarre ou continue une itération sur un challenge existant (lit le PRD, vérifie l'état Figma, demande un brief, puis lance le design)
 
 ## Solar UI Design System

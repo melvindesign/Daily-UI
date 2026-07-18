@@ -68,6 +68,30 @@ Charge les skills :
 
 Conçois directement en conformité avec la checklist ci-dessous — c'est la spec de sortie de l'itération.
 
+## Étape 5b — Variante : explorations parallèles (délégué aux agents `product-designer`)
+
+Si l'utilisateur veut **plusieurs directions** sur le même brief (à proposer quand
+son brief de l'étape 4 hésite entre des partis pris), ne conçois pas toi-même :
+délègue chaque direction à un agent `product-designer`.
+
+1. **Cadre les directions avec l'utilisateur** (2 ou 3 max) : chaque direction en
+   une phrase de parti pris (ex. « mobile-first ultra-dépouillé », « web dense
+   orienté réassurance »).
+2. **Crée une section par direction** : exécute [`new-iteration-section.js`](new-iteration-section.js)
+   une fois par direction (chaque exécution empile une nouvelle section
+   `#X - iteration Y` numérotée à la suite). Note chaque `sectionId`.
+3. **Lance tous les agents en parallèle** (un appel Agent par direction,
+   `subagent_type: "product-designer"`, dans le même tour). Brief de chacun :
+   - le chemin du PRD (`shots/#X-name/PRD.md`) ;
+   - sa **direction** (et uniquement la sienne) ;
+   - le support (mobile / web) et le brief complémentaire de l'étape 4 ;
+   - sa **zone de travail** : fileKey `Oe0gTY9RsSmKMn8EcEiYan` + son `sectionId`
+     — il ne touche à rien d'autre, et ne consulte pas le travail des autres ;
+   - le rappel des contraintes de section (checklist de l'étape 6).
+4. **Au retour**, prends un screenshot de chaque section, présente les directions
+   côte à côte à l'utilisateur et laisse-le choisir celle(s) à garder, affiner
+   (étape 7 possible sur chacune) ou abandonner.
+
 ## Étape 6 — Checklist de conformité (source de vérité)
 
 Une itération n'est terminée que si **tous** ces points sont satisfaits :
@@ -77,3 +101,59 @@ Une itération n'est terminée que si **tous** ces points sont satisfaits :
 - [ ] Dimensions ≥ 3000 × ~3000
 - [ ] **Sans fond** : Figma applique un fill blanc opaque à la création — il doit être **retiré** (section transparente)
 - [ ] Aucun chevauchement avec les itérations précédentes (gap ≥ 200px)
+
+## Étape 7 — Audits (optionnels, délégués aux agents)
+
+Une fois l'itération terminée et la checklist validée, propose les revues :
+**« Je fais passer l'itération en revue ? Audit d'utilisabilité (UX Researcher),
+audit de conformité DS (Design QA), revue de copy (UX Writer), recette
+fonctionnelle (PM) — au choix, ou les quatre. »**
+
+Chaque agent reçoit un brief de mission complet — aucun ne pourra poser de
+question. S'il en accepte plusieurs, **lance-les en parallèle** (plusieurs appels
+Agent dans le même tour) : leurs périmètres ne se chevauchent pas.
+
+**Brief commun aux agents :**
+- le fileKey `Oe0gTY9RsSmKMn8EcEiYan` ;
+- le `nodeId` de la **section de l'itération courante uniquement** (jamais la
+  page entière : les itérations précédentes ne doivent pas entrer dans leur
+  contexte) ;
+- restitution dans leur rapport, pas de fichier.
+
+**Audit d'utilisabilité** — agent `ux-researcher` (`subagent_type:
+"ux-researcher"`) :
+- **Mission** : audit heuristique d'utilisabilité (skill `usability-audit`) ;
+- **Scénario de référence** : la tâche utilisateur principale, déduite du PRD
+  (ex. « créer un compte ») ;
+- **Support** : celui de l'itération (mobile / web).
+
+**Audit de conformité DS** — agent `design-qa` (`subagent_type: "design-qa"`) :
+- **Mission** : contrôle de conformité et d'hygiène de construction (script
+  mécanique + revue experte) ;
+- **Contexte utile** : les états attendus d'après le PRD (pour le contrôle de
+  couverture des états).
+
+**Recette fonctionnelle** — agent `product-manager` (`subagent_type:
+"product-manager"`) :
+- **Mission** : recette du design contre le PRD — couverture des user stories et
+  critères d'acceptation ;
+- **Référentiel** : le chemin du PRD (`shots/#X-name/PRD.md`) ;
+- **Livrable** : taux de couverture, écarts (absent / partiel), fonctionnalités
+  hors-PRD apparues dans le design.
+
+**Revue de copy** — agent `ux-writer` (`subagent_type: "ux-writer"`) :
+- **Mission** : révision de toute la microcopy de l'itération (skill
+  `ux-writing`) ;
+- **Contexte** : langue de l'interface, scénario utilisateur principal et
+  audience déduits du PRD, support de l'itération ;
+- **Livrable** : spec de copy — pour chaque string à changer : nœud, texte
+  actuel, texte proposé, standard justifiant le changement.
+
+Les rapports reviennent — constats d'utilisabilité hiérarchisés, violations DS
+localisées, et/ou spec de copy prête à poser. Présente-les à l'utilisateur et
+laisse-le **décider des retouches** — les agents constatent ou proposent, le
+designer (toi) applique, l'utilisateur arbitre. Applique les retouches demandées
+dans la même itération (pas de nouvelle section) : les réécritures de copy
+acceptées se posent telles quelles (texte exact de la spec), et si des violations
+DS ont été corrigées, relance `audit-conformance.js` pour confirmer le
+`ok: true`.
