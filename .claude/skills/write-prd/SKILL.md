@@ -65,6 +65,9 @@ Le détail est dans [references/writing-rules.md](references/writing-rules.md). 
   supposition. En cas de trou, demander.
 - **MUST — critères d'acceptation vérifiables.** Chaque critère est un énoncé
   qu'on peut trancher vrai/faux.
+- **MUST — flux calibré.** Chaque étape du flux déclare ses **issues** (succès →
+  où ; échec/abandon → quel état, quelle sortie) et ses **états** pertinents
+  (erreur, chargement, vide, succès) formulés en capacités.
 - **SHOULD — rester court.** Viser une page ; couper le superflu.
 - **SHOULD — user stories orientées bénéfice** (« afin de… »), pas solution.
 - **SHOULD — ne pas sur-spéculer** sur les partis-pris discutables : poser un choix
@@ -75,6 +78,8 @@ Le détail est dans [references/writing-rules.md](references/writing-rules.md). 
 - [ ] Besoin élicité (objectif, acteurs, flux, règles, hors-scope) — pas d'invention
 - [ ] PRD structuré : Objectif · User stories · Fonctionnalités · Critères d'acceptation · Hors scope
 - [ ] Zéro fuite visuelle (aucune mention de composant / couleur / layout / token)
+- [ ] Chaque étape du flux déclare ses issues (succès, échecs, abandon)
+- [ ] Chaque étape du flux a ses états pertinents, en capacités
 - [ ] Chaque critère d'acceptation est vérifiable
 - [ ] Tient sur une page ; rien de superflu
 - [ ] Dossier/fichier de sortie confirmé (jamais présumé)

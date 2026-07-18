@@ -135,8 +135,8 @@ Agent dans le même tour) : leurs périmètres ne se chevauchent pas.
 
 **Recette fonctionnelle** — agent `product-manager` (`subagent_type:
 "product-manager"`) :
-- **Mission** : recette du design contre le PRD — couverture des user stories et
-  critères d'acceptation ;
+- **Mission** : recette du design contre le PRD (skill `functional-review`) —
+  couverture des user stories et critères d'acceptation ;
 - **Référentiel** : le chemin du PRD (`shots/#X-name/PRD.md`) ;
 - **Livrable** : taux de couverture, écarts (absent / partiel), fonctionnalités
   hors-PRD apparues dans le design.

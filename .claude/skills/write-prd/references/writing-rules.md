@@ -52,6 +52,25 @@ sur les partis-pris discutables (nombre de champs, ordre des étapes, consenteme
 implicite/explicite…) : pose un choix quand il est nécessaire, et laisse
 explicitement ouvert ce qui n'a pas à être tranché à ce stade.
 
+## Règle 6 — Un flux calibré : chaque étape déclare ses issues et ses états
+
+Une liste d'étapes n'est pas un flux. Une étape n'est spécifiée que si on sait :
+
+- **ses issues** : où mène le succès ; où mènent les échecs et l'abandon (quel
+  état, quelle porte de sortie) ;
+- **ses états** : ce qui se passe en erreur, pendant le chargement, à vide, en
+  succès — formulés en **capacités**, jamais en apparences.
+
+Exemple :
+- ❌ « 4. Vérification de l'email par code. » (et ensuite ? et si le code expire ?)
+- ✅ « 4. Vérification par code — succès → onboarding ; code invalide/expiré →
+  erreur au champ + renvoi possible après délai ; échecs répétés → retour à la
+  saisie d'email. »
+
+C'est ce calibrage qui évite au designer d'inventer le workflow — ou de ne
+concevoir que le chemin nominal. Rester léger : les états d'une étape tiennent en
+une ligne ; s'il n'y a rien à dire (pas de chargement, pas de vide), ne rien dire.
+
 ## Rappel — Hors scope
 
 Toujours clore par une section **Hors scope** qui exclut explicitement au minimum

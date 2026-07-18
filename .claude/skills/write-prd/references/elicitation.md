@@ -13,7 +13,7 @@ et **s'arrêter dès qu'on peut rédiger** sans supposer.
 | **Flux principal** | La séquence nominale d'actions/informations. | « Décris le parcours quand tout se passe bien, étape par étape. » |
 | **Flux alternatifs & méthodes** | Chemins secondaires, méthodes alternatives (SSO, invité, reprise…). | « Y a-t-il d'autres façons d'y arriver ? Des raccourcis ? » |
 | **Règles / validations** | Contraintes fonctionnelles vérifiables. | « Quelles règles doivent tenir ? Qu'est-ce qui bloque la validation ? » |
-| **États critiques** | Vide, chargement, erreur, succès — **évoqués, pas sur-détaillés**. | « Que voit l'utilisateur si ça échoue ? si ça charge ? si c'est vide ? » |
+| **États par étape** | Pour **chaque étape** du flux : erreur, chargement, vide, succès — chaque état pertinent est une **capacité à spécifier**, pas une note globale de fin de document. | « À cette étape : que se passe-t-il si ça échoue ? pendant que ça charge ? s'il n'y a rien à afficher ? et une fois réussi, on va où ? » |
 | **Hors-scope** | Ce qu'on exclut explicitement. | « Qu'est-ce qu'on ne traite volontairement PAS ici ? » |
 
 ## Conduite de l'élicitation

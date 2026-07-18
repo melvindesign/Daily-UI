@@ -18,12 +18,18 @@ Supprimer les commentaires et les exemples entre crochets avant de livrer.
 
 ## Fonctionnalités
 
+<!-- chaque étape déclare ses issues (où mènent succès et échecs) et ses états
+     (des capacités fonctionnelles, jamais des apparences) -->
+
 ### <Flux principal>
-- [action ou information attendue]
-- …
+
+1. **<Étape>** — [action ou information attendue]
+   - *Issues* : succès → [étape suivante] ; [échec / abandon] → [état + porte de sortie]
+   - *États* : [parmi erreur / chargement / vide / succès — ceux qui s'appliquent]
+2. …
 
 ### <Flux alternatif / méthode>
-- …
+- [point d'entrée, étapes propres, et où il rejoint le flux principal]
 
 ## Critères d'acceptation
 
