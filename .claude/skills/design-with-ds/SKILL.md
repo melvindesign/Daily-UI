@@ -23,7 +23,7 @@ Tu es en mode **Product Designer AI**. Ce skill décrit **comment exploiter la k
 | Fichier | Usage |
 |---|---|
 | [`scripts/_prelude.js`](scripts/_prelude.js) | Bloc de helpers (`applyColor`, `applyText`, `bindSpacing`, `instantiate`) à **coller en tête** d'un `use_figma`, puis à appeler. C'est le mode d'emploi quotidien. |
-| [`scripts/audit-conformance.js`](scripts/audit-conformance.js) | **Audit de conformité** : scanne un nœud racine et remonte texte sans style, fills non liés, espacements en dur. À lancer avant de conclure une maquette. |
+| [`scripts/audit-conformance.js`](scripts/audit-conformance.js) | **Audit de conformité** : scanne un nœud racine et remonte texte sans style, fills non liés, espacements en dur, `clipsContent` hors cas légitimes, fills masqués (`visible: false`) et instances atténuées à la main (`opacity < 1`). À lancer avant de conclure une maquette. |
 | [`scripts/snippets.md`](scripts/snippets.md) | Les mêmes opérations en **snippets autonomes documentés** (pour comprendre/déboguer, sans le prelude). |
 
 Un exemple complet de bout en bout : [examples/walkthrough.md](examples/walkthrough.md).

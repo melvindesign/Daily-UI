@@ -47,6 +47,7 @@ règle MUST que consciemment, en sachant ce qu'elle protège.
 | Checkout | [references/checkout.md](references/checkout.md) | Tunnel d'achat, du panier à la confirmation : invité vs compte, coûts totaux, express checkout/wallets, livraison, paiement et ses erreurs. |
 | Dashboard | [references/dashboard.md](references/dashboard.md) | Écran de monitoring/synthèse de données : types (opérationnel/analytique/stratégique), hiérarchie des KPIs, choix des graphiques, états de données. |
 | Empty states | [references/empty-states.md](references/empty-states.md) | Transverse : tout écran de contenu vide. Taxonomie des causes (premier usage, vidé, recherche/filtres, permission, erreur) et réponse adaptée à chacune. |
+| Mockup produit | [references/product-mockup.md](references/product-mockup.md) | Transverse : l'aperçu du produit utilisé comme illustration (panneau de sign-up, landing, onboarding). Registre de contenu (état de croisière rempli), détachement du fond, lisibilité. |
 
 **Pattern absent de la table ?** Le dire explicitement — ne pas improviser des
 « bonnes pratiques » non codifiées comme si elles venaient de ce skill. Deux
