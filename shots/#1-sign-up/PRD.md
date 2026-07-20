@@ -1,4 +1,4 @@
-# PRD — #1 Sign Up (v2)
+# PRD — #1 Sign Up
 
 > Mise en situation : **Klarity**, un outil SaaS de productivité (espace de travail
 > collaboratif pour équipes : tâches et projets). Marque fictive créée pour le

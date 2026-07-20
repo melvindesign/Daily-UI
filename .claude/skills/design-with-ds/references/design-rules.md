@@ -6,15 +6,61 @@
 - Référence-les par leur `componentKey` (cache `components[]`) ou via `search_design_system` avec le `libraryKey`.
 - Choisis le bon composant, le bon variant et la bonne taille selon le **rôle et le contexte d'usage**. Quand le manifeste déclare des specs de composants (variants, do/don't), lis la spec pertinente et réfère-t'y pour arbitrer (quel variant pour l'action principale, quel composant pour un lien selon son contexte).
 
-### Procédure obligatoire avant tout élément custom
+### Passe obligatoire d'inventaire des rôles (AVANT de dessiner quoi que ce soit)
 
-Un composant custom est un **dernier recours**, jamais un raccourci. Avant d'en créer un, sois **certain à 100 %** que le composant n'existe pas.
+Le custom ne s'introduit presque jamais par une décision consciente de partir en
+custom — il s'introduit parce qu'un besoin n'a **jamais été formulé comme une
+recherche de composant**. On ne se dit pas « il me faut un indicateur de
+progression, existe-t-il ? », on se dit « je dessine des ronds numérotés reliés
+par un trait ». Le garde-fou doit donc se déclencher **au cadrage de l'écran**,
+pas au moment de dessiner.
 
-1. **Recherche exhaustive.** Pour chaque brique de l'écran, cherche le composant via `search_design_system` (`libraryKey`) et croise avec les specs déclarées. Essaie plusieurs formulations / synonymes avant de conclure à une absence.
-2. **Si le composant existe** → utilise-le. Interdit de le redessiner.
-3. **Si tu conclus qu'il n'existe pas** et que tu penses devoir ajouter du custom → **NE le crée pas de ta propre initiative**. Demande à l'utilisateur : indique le composant introuvable et demande l'autorisation.
-   - **Oui** → réalise-le en custom en t'appuyant sur **toutes les variables et styles des fondations** et en respectant au maximum les conventions du DS (mêmes tokens, mêmes patterns d'auto-layout, mêmes états).
-   - **L'utilisateur indique qu'un composant existe** → **relance une recherche** ciblée pour le retrouver. Ne pars pas en custom.
+Avant toute création de nœud, une fois l'architecture de l'écran arrêtée :
+
+1. **Liste les rôles UI de l'écran** — un rôle = une fonction pour l'utilisateur,
+   formulée en langage de besoin, pas en langage de forme : « saisir un email »,
+   « valider le formulaire », « **indiquer où j'en suis dans un parcours en N
+   étapes** », « signaler une erreur de validation », « regrouper visuellement le
+   formulaire ».
+2. **Mappe chaque rôle sur un composant du DS.** Un rôle ne « ressemble » pas à
+   une famille du DS : les familles sont une taxonomie de bibliothèque, pas une
+   table des besoins. **Ne présume jamais qu'une famille est hors-sujet pour ton
+   écran** — un composant de progression peut être rangé en navigation, un
+   séparateur en layout, un compteur en données. Balaye l'inventaire **complet**
+   des composants déclarés par le manifeste, pas seulement les familles qui
+   paraissent liées au type d'écran.
+3. **Rôle non couvert ?** Élargis d'abord la recherche : reformule le besoin avec
+   d'autres mots (synonymes, terme anglais, nom générique du pattern) et croise
+   avec `search_design_system` (`libraryKey`). Un composant existant mais nommé
+   autrement est le cas le plus fréquent — de loin plus fréquent qu'un vrai trou.
+4. **Trou confirmé → tu t'arrêtes.** Un composant custom est un dernier recours
+   qui ne se prend **jamais** de ta propre initiative : voir la procédure
+   ci-dessous.
+
+> Un rôle dessiné à la main alors que le DS le couvre est la régression la plus
+> coûteuse du skill : elle est invisible à l'écran (le rendu est correct) et ne
+> se voit qu'en inspectant les calques.
+
+### Procédure obligatoire quand un rôle semble non couvert
+
+**Interdit de créer du custom de ta propre initiative**, quel que soit ton mode
+d'exécution. Le custom est une décision de l'utilisateur, jamais la tienne.
+
+- **Si tu peux interroger l'utilisateur** → décris le rôle non couvert, les
+  recherches déjà faites, et demande l'autorisation.
+  - **Oui** → réalise-le en custom en t'appuyant sur **toutes les variables et
+    styles des fondations** et en respectant au maximum les conventions du DS
+    (mêmes tokens, mêmes patterns d'auto-layout, mêmes états).
+  - **L'utilisateur indique qu'un composant existe** → **relance une recherche**
+    ciblée pour le retrouver. Ne pars pas en custom.
+- **Si tu travailles en autonomie** (mission déléguée, sans interlocuteur) →
+  **ne tranche pas, et ne comble pas le trou**. Une consigne d'autonomie te
+  demande de prendre l'option raisonnable sur les choix de conception ; elle ne
+  t'autorise pas à créer du custom, qui reste une décision de l'utilisateur.
+  Livre le reste et remonte le rôle non couvert comme un **blocage explicite**
+  dans ton rapport (le rôle, tes recherches, ce que tu proposerais) pour que
+  l'appelant pose la question. Un blocage remonté est un résultat correct ; un
+  custom inventé ne l'est pas.
 
 ### Patterns répétés dans la maquette → composant local (source de vérité unique)
 

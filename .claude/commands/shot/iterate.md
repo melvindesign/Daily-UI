@@ -66,7 +66,7 @@ Charge les skills :
 
 > ⚠️ **Dimensionne la section EN DERNIER.** Une section **hug automatiquement son contenu** : si tu la crées en 3200×3200 puis ajoutes des enfants, elle se re-dimensionne à leur bounding box (souvent < 3000 → checklist non respectée). Donc, **après avoir placé tout le contenu**, applique `section.resizeWithoutConstraints(3200, 3200)` en dernier — ça tient et ça ne déplace pas les enfants.
 
-Conçois directement en conformité avec la checklist ci-dessous — c'est la spec de sortie de l'itération.
+Conçois directement en conformité avec la checklist ci-dessous. Elle **s'ajoute** à la checklist de conformité de `/design-with-ds` (règles de conception et hygiène de construction) — elle ne la remplace pas : la spec de sortie de l'itération, c'est **les deux réunies**.
 
 ## Étape 5b — Variante : explorations parallèles (délégué aux agents `product-designer`)
 
@@ -91,10 +91,22 @@ délègue chaque direction à un agent `product-designer`.
 4. **Au retour**, prends un screenshot de chaque section, présente les directions
    côte à côte à l'utilisateur et laisse-le choisir celle(s) à garder, affiner
    (étape 7 possible sur chacune) ou abandonner.
+5. **Si un rapport remonte un blocage** (typiquement : un rôle de l'écran qu'aucun
+   composant du DS ne semble couvrir — le designer n'a pas le droit de le combler
+   en custom), **relaie la question telle quelle à l'utilisateur** avant de
+   présenter les directions. Une fois tranchée, renvoie la réponse à l'agent
+   concerné via `SendMessage` (son contexte est intact) plutôt que de relancer un
+   agent neuf ou de compléter toi-même sa section.
 
-## Étape 6 — Checklist de conformité (source de vérité)
+## Étape 6 — Checklist de la section d'itération
 
-Une itération n'est terminée que si **tous** ces points sont satisfaits :
+Ces contraintes sont **propres au format d'itération de ce projet**. Elles
+complètent la checklist de `/design-with-ds`, qui reste la source de vérité sur
+la conformité au DS et l'hygiène de construction — notamment l'audit
+`audit-conformance.js` à `ok: true`. Une itération n'est terminée que si les
+**deux** checklists sont satisfaites.
+
+Propres à l'itération :
 
 - [ ] C'est une **SECTION** (`figma.createSection`), pas un frame
 - [ ] Nommage exact : `#X - iteration Y`

@@ -23,7 +23,8 @@ Tu es en mode **Product Designer AI**. Ce skill décrit **comment exploiter la k
 | Fichier | Usage |
 |---|---|
 | [`scripts/_prelude.js`](scripts/_prelude.js) | Bloc de helpers (`applyColor`, `applyText`, `bindSpacing`, `instantiate`) à **coller en tête** d'un `use_figma`, puis à appeler. C'est le mode d'emploi quotidien. |
-| [`scripts/audit-conformance.js`](scripts/audit-conformance.js) | **Audit de conformité** : scanne un nœud racine et remonte texte sans style, fills non liés, espacements en dur, `clipsContent` hors cas légitimes, fills masqués (`visible: false`) et instances atténuées à la main (`opacity < 1`). À lancer avant de conclure une maquette. |
+| [`scripts/factor-local-component.js`](scripts/factor-local-component.js) | **Factorisation d'un assemblage répété** en composant local : convertit l'occurrence de référence en composant, range la définition hors du flux et remplace les autres occurrences par des instances (même parent, index, position, sizing). La correction canonique des `repeatedAssemblies` de l'audit. |
+| [`scripts/audit-conformance.js`](scripts/audit-conformance.js) | **Audit de conformité** : scanne un nœud racine et remonte texte sans style, fills non liés, espacements en dur, `clipsContent` hors cas légitimes, fills masqués (`visible: false`), instances atténuées à la main (`opacity < 1`), **assemblages répétés non factorisés** et **rôles du DS redessinés à la main** (renseigner `DS_COMPONENT_NAMES` avec l'inventaire complet lu dans la knowledge). À lancer avant de conclure une maquette. |
 | [`scripts/snippets.md`](scripts/snippets.md) | Les mêmes opérations en **snippets autonomes documentés** (pour comprendre/déboguer, sans le prelude). |
 
 Un exemple complet de bout en bout : [examples/walkthrough.md](examples/walkthrough.md).
@@ -34,7 +35,8 @@ Un exemple complet de bout en bout : [examples/walkthrough.md](examples/walkthro
 
 Le détail et les procédures sont dans [references/design-rules.md](references/design-rules.md). En condensé :
 
-- **Composants** — TOUJOURS instancier depuis la bibliothèque, jamais redessiner. Custom = dernier recours, seulement après recherche exhaustive **et** accord de l'utilisateur.
+- **Composants** — TOUJOURS instancier depuis la bibliothèque, jamais redessiner.
+- **Inventaire des rôles avant de dessiner** — liste les rôles UI de l'écran en langage de besoin, mappe chacun sur un composant du DS en balayant l'inventaire **complet** (une famille qui paraît hors-sujet peut porter le composant : la taxonomie du DS n'est pas une table des besoins). Le custom n'est jamais une initiative : trou confirmé → demander l'autorisation, ou remonter le blocage si tu es en autonomie.
 - **Patterns répétés** — dès qu'un assemblage se répète dans la maquette (entre breakpoints, entre étapes d'un flow, dans un même écran), en faire un **composant local** (un par pattern ou un à variantes) instancié partout : une seule source de vérité, jamais de copier-coller de calques.
 - **Couleurs** — jamais de hex en dur ; chaque fill lié à un token de couleur sémantique. Attention au fill blanc par défaut de `createFrame`.
 - **Typo** — jamais de style custom ; toujours un style du DS via `setTextStyleIdAsync`, choisi par rôle sémantique.
@@ -49,6 +51,7 @@ Le détail et les procédures sont dans [references/design-rules.md](references/
 - [ ] `.claude/knowledge/figma.json` lu (structure du DS + conventions de variables)
 - [ ] Foundations pertinentes lues : au minimum couleurs, typographie, espacement
 - [ ] Spec(s) de composants pertinente(s) lue(s)
+- [ ] **Inventaire des rôles fait** : chaque rôle UI de l'écran mappé sur un composant du DS (inventaire complet balayé), aucun rôle laissé implicite
 - [ ] Skills `/figma-use` et `/figma-generate-design` chargés
 - [ ] Fichier / page Figma de destination identifié
 
@@ -56,5 +59,5 @@ Le détail et les procédures sont dans [references/design-rules.md](references/
 - [ ] Aucun fill par défaut laissé : chaque frame transparent ou lié à une variable de fond
 - [ ] Aucune valeur en dur : couleurs, typos et espacements liés à des variables / styles / tokens
 - [ ] Aucun `clipsContent` activé sans raison : `false` par défaut, `true` seulement si le rognage est voulu (page, média, zone scrollable)
-- [ ] Tout assemblage répété (breakpoints, étapes d'un flow, éléments récurrents) est un **composant local** instancié, pas un copier-coller de calques
+- [ ] Tout assemblage répété (breakpoints, étapes d'un flow, éléments récurrents) est un **composant local** instancié, pas un copier-coller de calques → à corriger avec `scripts/factor-local-component.js`
 - [ ] `scripts/audit-conformance.js` lancé sur la section → `ok: true`
