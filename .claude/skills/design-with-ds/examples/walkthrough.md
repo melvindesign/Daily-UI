@@ -55,7 +55,7 @@ return { createdNodeIds: [title.id, field.id, cta.id] };
 
 ## 4. Couvrir les états
 
-Prévoir au minimum `Default`, et pour un formulaire `Default` + `Invalid` + `Disabled` sur les champs et l'action — soit en dupliquant l'écran, soit en montrant les variants côte à côte. Les états d'un composant viennent de son variant dédié (ex. `[State]`) — voir la spec du composant dans la knowledge.
+Prévoir au minimum `Default`, et pour un formulaire `Default` + `Invalid` + `Disabled` sur les champs et l'action. Représente la couverture selon la règle **« Représentation de la couverture des états »** des [règles de conception](../references/design-rules.md) : un état qui **change la lecture** de l'écran = une **frame pleine bâtie sur instances** (matrice écran × état) ; un **micro-état** (focus / hover) = une **variante du composant**. Les états d'un composant viennent de son variant dédié (ex. `[State]`) — voir la spec du composant dans la knowledge.
 
 ## 5. Auditer
 

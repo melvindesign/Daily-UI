@@ -37,8 +37,12 @@ laisse les partis-pris discutables ouverts plutôt que de les figer arbitraireme
    un PRD non-ambigu.
 
 2. **Rédaction** → [templates/PRD.md](templates/PRD.md). Structurer en :
-   **Objectif** · **User stories** (2-3) · **Fonctionnalités** (flux) ·
-   **Critères d'acceptation** (légers, vérifiables) · **Hors scope**.
+   **Objectif** · **Métriques de succès** · **User stories** (2-3) ·
+   **Fonctionnalités** (flux) · **Critères d'acceptation** (légers, vérifiables, dont
+   **accessibilité**) · **Priorisation** (must / should) · **Hors scope**.
+   Métriques, accessibilité et priorisation sont **recommandées** : les inclure dès
+   qu'elles ont du sens (une fonctionnalité utilisateur en a presque toujours), les
+   omettre seulement si elles ne s'appliquent vraiment pas.
 
 3. **Contrôle qualité** → [references/writing-rules.md](references/writing-rules.md).
    Passer la barre : fonctionnel uniquement (zéro fuite visuelle), ni trop vague ni
@@ -72,6 +76,23 @@ Le détail est dans [references/writing-rules.md](references/writing-rules.md). 
 - **SHOULD — user stories orientées bénéfice** (« afin de… »), pas solution.
 - **SHOULD — ne pas sur-spéculer** sur les partis-pris discutables : poser un choix
   clair sans figer arbitrairement ce qui reste ouvert.
+- **SHOULD — métriques de succès.** Dire comment on saura que le besoin est rempli
+  (complétion, adoption, activation, délai jusqu'à la valeur) — les indicateurs, pas
+  forcément des cibles chiffrées.
+- **SHOULD — accessibilité fonctionnelle.** Exprimer les attentes d'a11y comme des
+  critères (annonce des erreurs à l'assistance, navigation clavier, gestion du focus,
+  claviers / cibles tactiles adaptés sur mobile) — un besoin produit, pas un détail
+  technique hors-scope.
+- **SHOULD — priorisation.** Marquer must / should sur les étapes et options, pour
+  distinguer le cœur du parcours du confort.
+- **SHOULD — valeur = capacité.** Quand le job de l'écran inclut de **communiquer la
+  valeur ou d'instaurer la confiance** (accueil, page d'entrée, arrivée), le déclarer
+  comme une capacité fonctionnelle. La réalisation (visuel, illustration, preuve
+  sociale) reste au design — ne pas la décrire.
+- **SHOULD — ne pas contredire un pattern connu.** Si l'écran relève d'un pattern
+  documenté (formulaire, sign-up, checkout, onboarding…), vérifier la référence
+  correspondante (skill `ui-patterns`) avant de figer un comportement — pour ne pas
+  spécifier l'inverse d'une convention établie (ex. l'état d'un bouton de validation).
 
 ## Checklist avant de conclure
 
@@ -81,6 +102,10 @@ Le détail est dans [references/writing-rules.md](references/writing-rules.md). 
 - [ ] Chaque étape du flux déclare ses issues (succès, échecs, abandon)
 - [ ] Chaque étape du flux a ses états pertinents, en capacités
 - [ ] Chaque critère d'acceptation est vérifiable
+- [ ] Métriques de succès énoncées (si applicables)
+- [ ] Accessibilité couverte par des critères (si l'écran a des saisies / interactions)
+- [ ] Priorisation must / should posée (si le périmètre s'y prête)
+- [ ] Aucun comportement en contradiction avec un pattern connu (`ui-patterns`)
 - [ ] Tient sur une page ; rien de superflu
 - [ ] Dossier/fichier de sortie confirmé (jamais présumé)
 - [ ] Suite rappelée : passage au design

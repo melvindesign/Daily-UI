@@ -43,60 +43,80 @@ Pose la question : **« Y a-t-il des contraintes ou des orientations particuliè
 
 Attends la réponse avant de continuer. L'utilisateur peut répondre « non » / « rien à ajouter ».
 
-## Étape 5 — Conception
+## Étape 5 — Conception (déléguée aux agents `product-designer`)
 
-Charge les skills :
-- `/design-with-ds` — designer avec le design system (knowledge, règles, scripts).
-- `/ux-writing` — rédiger la microcopie de l'écran (labels, boutons, messages d'erreur, états vides…) : tout texte d'interface doit passer par ces principes, pas être improvisé.
+**L'orchestrateur ne conçoit jamais lui-même** et **ne charge pas** les skills de
+design (`/design-with-ds`, `/ux-writing`). Son rôle ici : créer la ou les sections
+vides, puis **déléguer la conception à un agent `product-designer` par direction**.
+C'est l'agent qui, dans son propre contexte, charge `/design-with-ds` (knowledge,
+règles, scripts) et `/ux-writing` (toute la microcopie), conçoit le parcours,
+couvre les états, **rédige la copy** et s'auto-audite avant de livrer.
 
-### Règles de process (critiques)
+> Concevoir une itération complète (parcours multi-étapes, web + mobile, tous les
+> états) est une tâche autonome et gourmande en contexte : c'est exactement ce
+> qu'on isole dans un agent-métier, qui ne restitue qu'un rapport compact. La
+> délégation vaut **même pour une seule direction** — pas seulement en explorations
+> parallèles.
 
-- **Ne jamais consulter le contenu visuel des itérations précédentes** — uniquement leur position et dimensions (lues à l'étape 3).
-- Chaque itération **repart de zéro** visuellement.
+### 5.1 — Cadrer les directions
+Par **défaut, une seule direction**. Ne proposer **2-3 directions** que si le brief
+de l'étape 4 hésite entre des partis pris (ex. « mobile-first ultra-dépouillé » vs
+« web dense orienté réassurance ») — chaque direction en une phrase de parti pris,
+cadrée avec l'utilisateur.
 
-### Placement
+### 5.2 — Créer une section vide par direction
+Exécute [`new-iteration-section.js`](scripts/new-iteration-section.js) **une fois par
+direction** dans un `use_figma`, avec `PAGE_ID` = l'id résolu à l'étape 3a. Chaque
+exécution empile une nouvelle section `#X - iteration Y`, numérotée à la suite,
+sous le contenu existant (gap ≥ 200px), sans lire le contenu visuel des itérations
+précédentes. Note chaque `sectionId`. Si la page est vide, la première section
+démarre à `x: 0, y: 0`.
 
-À partir des dimensions lues à l'étape 3, place la nouvelle **section** d'itération sans chevauchement avec la précédente, avec un gap ≥ 200px. Si la page est vide, commence à `x: 0, y: 0`.
+### 5.3 — Déléguer à un agent `product-designer` par direction
+Lance **un appel Agent par direction** (`subagent_type: "product-designer"`), en
+parallèle dans le même tour si ≥ 2. Aucun agent ne pourra poser de question : le
+brief doit être complet. Brief de chacun :
+- le **chemin du PRD** (`shots/#X-name/PRD.md`) — sa source fonctionnelle ;
+- sa **direction** (et uniquement la sienne), le **support** (web / mobile) et le
+  **brief complémentaire** de l'étape 4 ;
+- sa **zone de travail** : fileKey `Oe0gTY9RsSmKMn8EcEiYan` + son **`sectionId`** —
+  il ne touche à rien d'autre et ne consulte pas le travail des autres directions ;
+- les **contraintes de section** (checklist de l'étape 6) et les **rappels de
+  construction** ci-dessous ;
+- la **convention de couverture des états** : un état qui change la lecture de
+  l'écran = une **frame pleine bâtie sur instances** (règle « États » de
+  `/design-with-ds`).
 
-> Script canonique : colle [`new-iteration-section.js`](new-iteration-section.js) dans un `use_figma`, avec `PAGE_ID` = l'id de page résolu à l'étape 3a. Il lit le numéro de challenge sur la page, calcule le numéro d'itération, empile la nouvelle section sous le contenu existant (sans lire son contenu visuel) et renvoie `sectionId`.
+**Rappels de construction à transmettre dans le brief** (spécifiques au format
+d'itération de ce projet) :
+
+> ⚠️ **Ne jamais consulter le contenu visuel des itérations précédentes** — chaque
+> itération repart de zéro visuellement.
 
 > ⚠️ **Coordonnées d'un enfant de SECTION = RELATIVES à la section, PAS absolues.**
-> Le piège récurrent : après `section.appendChild(frame)`, si tu fais `frame.y = <valeur absolue de la page>` (ex. la même valeur que `section.y`, genre `21907`), Figma l'interprète comme un **offset depuis le coin haut-gauche de la section** → la frame part très loin (des milliers de px plus bas). 
-> **Règle :** positionne toujours l'enfant avec un **petit offset relatif** (ex. `frame.x = 100 ; frame.y = 100`). Ne réutilise jamais la position absolue de la section pour l'enfant.
+> Après `section.appendChild(frame)`, `frame.y = <valeur absolue de la page>` (ex.
+> la même valeur que `section.y`, genre `21907`) est interprété comme un **offset
+> depuis le coin haut-gauche de la section** → la frame part des milliers de px plus
+> bas. Positionne toujours l'enfant avec un **petit offset relatif** (ex.
+> `frame.x = 100 ; frame.y = 100`) ; ne réutilise jamais la position absolue de la
+> section pour l'enfant.
 
-> ⚠️ **Dimensionne la section EN DERNIER.** Une section **hug automatiquement son contenu** : si tu la crées en 3200×3200 puis ajoutes des enfants, elle se re-dimensionne à leur bounding box (souvent < 3000 → checklist non respectée). Donc, **après avoir placé tout le contenu**, applique `section.resizeWithoutConstraints(3200, 3200)` en dernier — ça tient et ça ne déplace pas les enfants.
+> ⚠️ **Dimensionne la section EN DERNIER.** Une section **hug automatiquement son
+> contenu** : après avoir posé tout le contenu, applique
+> `section.resizeWithoutConstraints(3200, 3200)` en dernier — ça tient et ça ne
+> déplace pas les enfants.
 
-Conçois directement en conformité avec la checklist ci-dessous. Elle **s'ajoute** à la checklist de conformité de `/design-with-ds` (règles de conception et hygiène de construction) — elle ne la remplace pas : la spec de sortie de l'itération, c'est **les deux réunies**.
+### 5.4 — Blocage remonté
+Si un rapport remonte un **blocage** (typiquement un rôle de l'écran qu'aucun
+composant du DS ne couvre — l'agent n'a pas le droit de le combler en custom),
+**relaie la question telle quelle à l'utilisateur**. Une fois tranchée, renvoie la
+réponse à l'agent concerné via `SendMessage` (son contexte est intact) — ne relance
+pas un agent neuf et ne complète jamais toi-même sa section.
 
-## Étape 5b — Variante : explorations parallèles (délégué aux agents `product-designer`)
-
-Si l'utilisateur veut **plusieurs directions** sur le même brief (à proposer quand
-son brief de l'étape 4 hésite entre des partis pris), ne conçois pas toi-même :
-délègue chaque direction à un agent `product-designer`.
-
-1. **Cadre les directions avec l'utilisateur** (2 ou 3 max) : chaque direction en
-   une phrase de parti pris (ex. « mobile-first ultra-dépouillé », « web dense
-   orienté réassurance »).
-2. **Crée une section par direction** : exécute [`new-iteration-section.js`](new-iteration-section.js)
-   une fois par direction (chaque exécution empile une nouvelle section
-   `#X - iteration Y` numérotée à la suite). Note chaque `sectionId`.
-3. **Lance tous les agents en parallèle** (un appel Agent par direction,
-   `subagent_type: "product-designer"`, dans le même tour). Brief de chacun :
-   - le chemin du PRD (`shots/#X-name/PRD.md`) ;
-   - sa **direction** (et uniquement la sienne) ;
-   - le support (mobile / web) et le brief complémentaire de l'étape 4 ;
-   - sa **zone de travail** : fileKey `Oe0gTY9RsSmKMn8EcEiYan` + son `sectionId`
-     — il ne touche à rien d'autre, et ne consulte pas le travail des autres ;
-   - le rappel des contraintes de section (checklist de l'étape 6).
-4. **Au retour**, prends un screenshot de chaque section, présente les directions
-   côte à côte à l'utilisateur et laisse-le choisir celle(s) à garder, affiner
-   (étape 7 possible sur chacune) ou abandonner.
-5. **Si un rapport remonte un blocage** (typiquement : un rôle de l'écran qu'aucun
-   composant du DS ne semble couvrir — le designer n'a pas le droit de le combler
-   en custom), **relaie la question telle quelle à l'utilisateur** avant de
-   présenter les directions. Une fois tranchée, renvoie la réponse à l'agent
-   concerné via `SendMessage` (son contexte est intact) plutôt que de relancer un
-   agent neuf ou de compléter toi-même sa section.
+### 5.5 — Au retour
+Prends un screenshot de chaque section, présente la ou les directions à
+l'utilisateur, et laisse-le choisir celle(s) à garder, affiner (étape 7) ou
+abandonner.
 
 ## Étape 6 — Checklist de la section d'itération
 
@@ -105,6 +125,14 @@ complètent la checklist de `/design-with-ds`, qui reste la source de vérité s
 la conformité au DS et l'hygiène de construction — notamment l'audit
 `audit-conformance.js` à `ok: true`. Une itération n'est terminée que si les
 **deux** checklists sont satisfaites.
+
+**Qui satisfait quoi.** La checklist est la **definition of done du
+`product-designer`** : c'est lui qui l'auto-vérifie (y compris `audit-conformance.js`
+à `ok: true`) **avant de rendre la main**, et son rapport de livraison l'atteste.
+L'orchestrateur ne refait pas cet audit en profondeur : il **gate-check** uniquement
+les contraintes de **format d'itération** qu'il contrôle (celles ci-dessous, dont il
+a posé la section) et confirme que le rapport annonce bien le vert. Les audits de
+l'étape 7 sont une revue **indépendante** et distincte — pas cette checklist.
 
 Propres à l'itération :
 
@@ -163,9 +191,11 @@ Agent dans le même tour) : leurs périmètres ne se chevauchent pas.
 
 Les rapports reviennent — constats d'utilisabilité hiérarchisés, violations DS
 localisées, et/ou spec de copy prête à poser. Présente-les à l'utilisateur et
-laisse-le **décider des retouches** — les agents constatent ou proposent, le
-designer (toi) applique, l'utilisateur arbitre. Applique les retouches demandées
-dans la même itération (pas de nouvelle section) : les réécritures de copy
-acceptées se posent telles quelles (texte exact de la spec), et si des violations
-DS ont été corrigées, relance `audit-conformance.js` pour confirmer le
-`ok: true`.
+laisse-le **décider des retouches** : les agents d'audit constatent ou proposent,
+l'utilisateur arbitre, et c'est le **`product-designer`** qui applique. Renvoie les
+retouches retenues à l'agent qui a conçu la section, via `SendMessage` (son contexte
+est intact), pour qu'il les pose **dans la même itération** (pas de nouvelle
+section) — les réécritures de copy acceptées se posent telles quelles (texte exact
+de la spec), et si des violations DS sont corrigées, il **relance
+`audit-conformance.js`** pour reconfirmer le `ok: true`. L'orchestrateur ne dessine
+ni ne réécrit lui-même : il route, présente et suit.

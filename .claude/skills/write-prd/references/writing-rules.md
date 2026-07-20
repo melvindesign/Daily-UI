@@ -38,7 +38,7 @@ Format : **« En tant que \<rôle>, je veux \<action> afin de \<bénéfice>. »*
 Chaque critère est un **énoncé qu'on peut trancher vrai/faux**, quelques-uns par
 flux clé (pas une liste fleuve).
 
-- ✅ « Le bouton de validation reste inactif tant que le formulaire est invalide. »
+- ✅ « Le bouton de validation reste actionnable ; une validation avec des champs invalides affiche les erreurs au niveau des champs. »
 - ✅ « Une erreur s'affiche au niveau du champ email si l'email est invalide. »
 - ❌ « L'expérience doit être fluide. » (non vérifiable)
 
@@ -70,6 +70,39 @@ Exemple :
 C'est ce calibrage qui évite au designer d'inventer le workflow — ou de ne
 concevoir que le chemin nominal. Rester léger : les états d'une étape tiennent en
 une ligne ; s'il n'y a rien à dire (pas de chargement, pas de vide), ne rien dire.
+
+## Règle 7 — Métriques, accessibilité, priorisation (recommandées)
+
+Un PRD fonctionnel ne s'arrête pas au flux. Trois volets, à inclure dès qu'ils ont
+du sens :
+
+- **Métriques de succès.** Comment on saura que le besoin est rempli — les indicateurs
+  (complétion, adoption, activation, délai jusqu'à la valeur), pas forcément des cibles
+  chiffrées. Sans métrique, un objectif comme « le moins de friction possible » n'est
+  pas vérifiable.
+- **Accessibilité, en critères fonctionnels.** Annonce des erreurs aux technologies
+  d'assistance, navigation clavier, gestion du focus, claviers et cibles tactiles
+  adaptés sur mobile. C'est un besoin produit — le mettre dans les critères
+  d'acceptation, pas le reléguer au « technique » hors-scope.
+- **Priorisation must / should.** Distinguer le cœur du parcours (sans quoi le besoin
+  n'est pas rempli) du confort (améliore la conversion, non bloquant).
+
+## Règle 8 — Valeur = capacité, sans décrire le visuel
+
+Quand le job de l'écran inclut de **communiquer la valeur ou d'instaurer la
+confiance** (accueil, page d'entrée, écran d'arrivée), le déclarer comme une
+**capacité fonctionnelle** (« l'écran porte la proposition de valeur et instaure la
+confiance »). Ne jamais décrire *comment* (illustration, panneau, preuve sociale) : la
+réalisation reste au design. C'est le seul moyen d'éviter que le besoin de valeur
+tombe dans l'angle mort entre le PRD (muet sur le visuel) et le design.
+
+## Règle 9 — Ne pas contredire un pattern connu
+
+Si l'écran relève d'un pattern documenté (formulaire, sign-up, checkout,
+onboarding…), vérifier la référence correspondante (skill `ui-patterns`) **avant** de
+figer un comportement. Ne pas spécifier l'inverse d'une convention établie — ex.
+imposer un bouton de validation « désactivé tant qu'invalide » quand la convention
+recommande un bouton actionnable qui révèle les erreurs à la tentative de validation.
 
 ## Rappel — Hors scope
 

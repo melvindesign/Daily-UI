@@ -16,6 +16,19 @@ Permettre à un nouvel utilisateur de créer son compte Klarity et d'arriver sur
 espace de travail prêt à l'emploi, avec le moins de friction possible, depuis
 l'écran d'accueil de sign-up jusqu'à la première action dans la plateforme.
 
+## Métriques de succès
+
+Comment on saura que le parcours remplit son objectif :
+
+- **Taux de complétion du parcours** : part des utilisateurs qui, ayant lancé une
+  inscription, atteignent leur espace de travail.
+- **Taux d'abandon par étape** : repérer les étapes où les utilisateurs décrochent.
+- **Taux d'activation** : part des nouveaux comptes qui réalisent la première action
+  proposée à l'arrivée.
+- **Délai jusqu'à la première valeur** (time-to-value) : temps entre le lancement de
+  l'inscription et la première action dans la plateforme.
+- **Répartition SSO vs email** : indicateur de la friction relative des deux méthodes.
+
 ## User stories
 
 - En tant que **nouvel utilisateur**, je veux créer un compte en quelques étapes
@@ -35,8 +48,11 @@ quel état, quelle sortie) et ses **états** pertinents, formulés en capacités
 
 ### Étape 1 — Accueil sign-up
 
-- **Capacité** : l'utilisateur voit la proposition de valeur de Klarity, peut lancer
-  une inscription par email, choisir une méthode SSO, ou basculer vers la connexion.
+- **Capacité** : l'écran d'accueil **porte la proposition de valeur de Klarity et
+  instaure la confiance** — il communique ce que le produit permet et pourquoi
+  s'inscrire ; ce n'est pas un formulaire de saisie nu. De là, l'utilisateur peut
+  lancer une inscription par email, choisir une méthode SSO, ou basculer vers la
+  connexion. *(Comment cette valeur est portée à l'écran relève du design, hors PRD.)*
 - **Issues** :
   - Succès (entrée email) → étape 2 (saisie de l'email).
   - Succès (SSO) → flux alternatif SSO.
@@ -57,8 +73,9 @@ quel état, quelle sortie) et ses **états** pertinents, formulés en capacités
     alternatif compte existant), sans recréer de compte.
   - Abandon → aucun compte créé ; l'utilisateur peut revenir à l'accueil.
 - **États** :
-  - Vide / invalide : la validation de l'étape reste inactive tant que l'email n'est
-    pas d'un format valide.
+  - Vide / invalide : le bouton de validation reste **actionnable** ; une tentative
+    de validation avec un email vide ou mal formé fait apparaître l'erreur au niveau
+    du champ plutôt que de soumettre.
   - Erreur de saisie : email mal formé → message actionnable au niveau du champ.
   - Chargement : pendant la vérification d'existence du compte, l'action est en cours
     et une double soumission est empêchée.
@@ -76,7 +93,8 @@ quel état, quelle sortie) et ses **états** pertinents, formulés en capacités
 - **États** :
   - Saisie : conformité du mot de passe indiquée en temps réel pendant la frappe.
   - Invalide : mot de passe non conforme → message actionnable au niveau du champ ;
-    la validation de l'étape reste inactive tant que le mot de passe n'est pas conforme.
+    le bouton de validation reste **actionnable** — une tentative de validation avec
+    un mot de passe non conforme affiche l'erreur au champ plutôt que de créer le compte.
   - Marketing refusé : le refus du consentement marketing n'empêche pas de continuer.
   - Chargement : pendant la création du compte, l'action est en cours et une double
     soumission est empêchée.
@@ -110,14 +128,17 @@ quel état, quelle sortie) et ses **états** pertinents, formulés en capacités
 ### Étape 5 — Onboarding léger
 
 - **Capacité** : l'utilisateur fournit les informations minimales pour personnaliser
-  son espace (son nom, puis le nom / objet de son espace de travail).
+  son espace : **son nom** (requis) et **le nom de son espace de travail** (requis).
+  Un **choix d'usage de l'espace** (à quoi il va servir) peut être proposé pour
+  adapter la mise en route, mais il est **optionnel** et ne bloque pas la progression.
 - **Issues** :
   - Succès → étape 6 (arrivée sur la plateforme).
   - Abandon en cours → le compte est déjà créé et vérifié ; au retour, l'utilisateur
     reprend l'onboarding là où il s'est arrêté sans re-vérifier son email.
 - **États** :
-  - Vide / invalide : la validation d'une sous-étape reste inactive tant que les
-    informations minimales requises ne sont pas fournies.
+  - Vide / invalide : le bouton reste **actionnable** ; une tentative de validation
+    sans les informations minimales requises fait apparaître l'erreur au niveau du
+    champ concerné plutôt que d'avancer.
   - Erreur de saisie : information requise manquante ou non valide → message
     actionnable au niveau du champ concerné.
   - Chargement : pendant l'enregistrement des informations et la préparation de
@@ -136,7 +157,8 @@ quel état, quelle sortie) et ses **états** pertinents, formulés en capacités
 
 ### Flux alternatif — inscription par SSO
 
-- L'utilisateur choisit un fournisseur tiers (ex. Google, Microsoft) dès l'accueil.
+- L'utilisateur choisit un fournisseur tiers (ex. Google, Apple) dès l'accueil. *(La
+  liste exacte des fournisseurs proposés est à confirmer — voir « À valider ».)*
 - **Issues** :
   - Succès → l'email étant déjà vérifié par le fournisseur, l'étape 4 (vérification par
     code) est ignorée ; l'utilisateur enchaîne sur l'onboarding léger (étape 5) puis
@@ -158,7 +180,7 @@ quel état, quelle sortie) et ses **états** pertinents, formulés en capacités
 - [ ] La saisie d'un email **déjà associé à un compte** oriente l'utilisateur vers la connexion, de façon explicite et actionnable.
 - [ ] L'action de création de compte **vaut acceptation des CGU** (consentement implicite), sans case bloquante.
 - [ ] Un éventuel **consentement marketing est distinct et optionnel** : le refuser n'empêche pas l'inscription.
-- [ ] L'action de validation d'une étape **reste inactive** tant que les champs requis de l'étape ne sont pas valides.
+- [ ] L'action de validation d'une étape **reste actionnable** ; une tentative de validation avec des champs requis invalides **fait apparaître les erreurs au niveau des champs** plutôt que de soumettre (le bouton n'est jamais un cul-de-sac muet).
 - [ ] Une **erreur au niveau du champ** s'affiche pour un email invalide, un mot de passe non conforme, ou un code incorrect / expiré, avec un message indiquant comment corriger.
 - [ ] Après une erreur de saisie ou serveur, **la saisie de l'utilisateur n'est pas perdue**.
 - [ ] La conformité du **mot de passe** est indiquée en temps réel pendant la saisie.
@@ -170,6 +192,24 @@ quel état, quelle sortie) et ses **états** pertinents, formulés en capacités
 - [ ] L'onboarding ne demande que les informations **minimales** nécessaires à la personnalisation de l'espace.
 - [ ] En fin de parcours, l'utilisateur arrive sur un **accueil nominatif** de son espace, à l'état **premier usage** (non vide), avec une première action proposée.
 - [ ] Le parcours est **fonctionnellement identique sur Web et Mobile**.
+- [ ] L'écran d'accueil **communique la proposition de valeur et instaure la confiance** — il ne se réduit pas à un formulaire de saisie.
+
+### Accessibilité
+
+- [ ] Les **erreurs de champ sont annoncées aux technologies d'assistance** (lecteur d'écran), pas seulement signalées visuellement.
+- [ ] Le parcours est **entièrement utilisable au clavier**, avec un ordre de focus logique ; à l'étape de vérification, le focus se place et progresse correctement dans le champ de code.
+- [ ] Sur mobile, chaque champ déclenche le **clavier adapté** (email ; numérique pour le code) et les **cibles tactiles** de chaque action sont atteignables.
+
+## Priorisation
+
+- **Must** — le cœur du parcours : accueil (email + SSO + accès connexion), saisie de
+  l'email avec routage compte existant, création des identifiants, vérification par
+  code, arrivée nominative à l'état premier usage ; la couverture des états d'erreur,
+  de chargement et de saisie préservée ; la parité Web / Mobile.
+- **Should** — l'onboarding léger (personnalisation de l'espace), le consentement
+  marketing optionnel, le compte à rebours de renvoi de code, le choix d'usage
+  optionnel de l'espace : utiles à la conversion et à l'activation, non bloquants pour
+  créer un compte.
 
 ## À valider (hypothèses en attente d'arbitrage)
 
@@ -185,6 +225,13 @@ l'option la plus standard ; à confirmer.
   attente de vérification et l'utilisateur reprend à l'étape 4 à son retour. À confirmer
   qu'aucun redémarrage complet du parcours n'est souhaité, et jusqu'à quand ce compte
   en attente reste valable.
+- **Liste des fournisseurs SSO.** Hypothèse retenue : Google et Apple (paire standard
+  SaaS). À confirmer selon la cible ; tout fournisseur supplémentaire (ex. Microsoft)
+  est à ajouter explicitement.
+- **État du bouton de validation.** Retenu : bouton toujours actionnable, les erreurs
+  apparaissent à la tentative de validation (aligne le parcours sur la convention de
+  formulaire). Alternative écartée : bouton désactivé tant que le formulaire est
+  invalide.
 
 ## Hors scope
 

@@ -135,3 +135,26 @@ Quand un élément arrondi est imbriqué dans un conteneur arrondi, les rayons d
 
 - Toujours montrer au minimum l'état **Default** du composant.
 - Formulaires : prévoir `Default` + `Invalid` + `Disabled`.
+
+### Représentation de la couverture des états
+
+Un état n'est pas qu'une nuance de composant : c'est souvent **un écran que
+l'utilisateur voit réellement**. Une erreur, ce n'est pas seulement un champ qui
+rougit — c'est aussi le message qui apparaît, l'action qui change, la saisie
+préservée. Deux niveaux, donc deux traitements :
+
+- **Un état qui change la lecture de l'écran = une frame pleine.** Erreur inline,
+  erreur serveur / globale, chargement / soumission, succès / transition, cas de
+  redirection… chacun est un écran à part entière. Présente-les en **matrice** (une
+  ligne par écran du parcours, une colonne par état) pour rendre la couverture
+  lisible d'un coup d'œil.
+- **Un micro-état purement local (focus, hover) = une variante du composant**, pas
+  une frame dédiée. Ne duplique jamais une page pleine juste pour un focus.
+
+**Chaque frame-état est une instance d'un composant local partagé** (le gabarit
+d'écran, le corps d'étape) — jamais un copier-coller de calques : seuls les overrides
+propres à l'état diffèrent d'une frame à l'autre. C'est ce qui réconcilie les deux
+exigences : la **lisibilité** (N frames que l'utilisateur reconnaît comme des écrans)
+et la **source de vérité unique** (cf. « Patterns répétés → composant local »). Les
+états d'un composant viennent toujours de son variant dédié (ex. `[State]`) — voir la
+spec du composant dans la knowledge.

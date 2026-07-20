@@ -10,6 +10,12 @@ Supprimer les commentaires et les exemples entre crochets avant de livrer.
 
 [Une phrase : ce que l'utilisateur doit pouvoir accomplir avec cet écran/parcours.]
 
+## Métriques de succès
+
+<!-- Comment on saura que le besoin est rempli : les indicateurs, pas forcément des
+     cibles chiffrées. Omettre seulement si vraiment sans objet. -->
+- [ex. taux de complétion du parcours, taux d'activation, délai jusqu'à la 1re valeur]
+
 ## User stories
 
 <!-- 2-3 max, orientées bénéfice -->
@@ -36,6 +42,17 @@ Supprimer les commentaires et les exemples entre crochets avant de livrer.
 <!-- énoncés vérifiables vrai/faux ; quelques-uns par flux clé -->
 - [ ] <critère fonctionnel vérifiable>
 - …
+
+### Accessibilité
+
+<!-- l'a11y comme critères fonctionnels, pas comme détail technique -->
+- [ ] [ex. erreurs annoncées à l'assistance ; navigation clavier ; focus géré ; claviers / cibles adaptés sur mobile]
+
+## Priorisation
+
+<!-- distinguer le cœur du confort -->
+- **Must** — [le cœur du parcours, sans quoi le besoin n'est pas rempli]
+- **Should** — [ce qui améliore conversion / confort, non bloquant]
 
 ## Hors scope
 
