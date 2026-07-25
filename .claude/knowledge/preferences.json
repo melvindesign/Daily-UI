@@ -3,7 +3,7 @@
   "description": "Préférences de workflow de l'utilisateur. Lu par les commands et les skills avant toute exécution. Ne contient aucun vocabulaire propre à un design system ou à un projet.",
   "updatedAt": "2026-07-25",
   "agentic": {
-    "_note": "multi-agent = plusieurs agents en parallèle (explorations concurrentes, audits simultanés) | sub-agents = délégation séquentielle, un agent-métier à la fois | mono-agent = aucun appel Agent, l'orchestrateur charge lui-même les skills et fait le travail dans son propre contexte",
+    "_note": "multi-agent = plusieurs agents en parallèle (explorations concurrentes, audits simultanés) | sub-agents = délégation séquentielle, un agent-métier à la fois | mono-agent = aucun appel Agent : l'orchestrateur INCARNE le rôle — il lit le fichier de l'agent concerné, applique ses sections « Métier », ignore ses sections « Exécution en agent » (protocoles de brief, de rapport et de mode dégradé, qui n'existent que parce qu'un sub-agent ne peut pas dialoguer) et charge les skills déclarés dans son frontmatter. Contrepartie du mode : pas d'isolation de contexte, et l'auteur d'un livrable est aussi son relecteur.",
     "mode": "mono-agent",
     "options": ["multi-agent", "sub-agents", "mono-agent"]
   },

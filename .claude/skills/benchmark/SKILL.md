@@ -68,6 +68,27 @@ diverger.
 Ce skill produit l'analyse et s'arrête là : il ne rédige ni n'édite aucune spec.
 L'exploitation des enseignements (cadrage, PRD, design) appartient à l'appelant.
 
+## Contrat de sortie
+
+| Cas | Destination |
+|---|---|
+| Un dossier de sortie est fourni | `<sortie>/BENCHMARK.md` **et** `<sortie>/ref/`, une référence retenue par fichier, nommée `NN-nom-de-la-source.<ext>` |
+| Aucune sortie fournie | Restitution directe à l'appelant, **aucun fichier écrit** |
+
+Écrire des fichiers sans destination fournie, ou écrire ailleurs que dans
+`<sortie>`, est un dépassement de périmètre. Les sections de lentille non
+traitées sont **retirées**, pas laissées vides.
+
+**Motifs de rejet** — un benchmark complet en apparence est renvoyé si :
+
+| Motif | Pourquoi |
+|---|---|
+| Une observation sans référence rattachée | Invérifiable : le livrable ne peut plus être challengé |
+| Une référence citée mais absente de `ref/` | Le lecteur ne peut pas revenir à la source ; l'analyse devient parole d'évangile |
+| Convention et différenciation mélangées | Le livrable ne sert plus à décider où s'aligner et où diverger |
+| Une spec, un PRD ou une reco de design rédigés | Le benchmark a débordé sur le travail de l'appelant |
+| Fichiers écrits sans destination fournie | Dépôt non demandé, hors périmètre |
+
 Un exemple complet de bout en bout : [examples/walkthrough.md](examples/walkthrough.md).
 
 ## Règles condensées
@@ -96,4 +117,7 @@ Le détail est dans les fichiers `references/`. En condensé :
 - [ ] Analyse fondée sur l'observé, pas sur les titres de flow
 - [ ] Conventions (≥3 réfs) séparées des opportunités de différenciation
 - [ ] Restitution faite : dans le chat, ou `BENCHMARK.md` + `ref/` si un fichier de sortie est désigné
+- [ ] Chaque référence citée est présente dans `ref/` et rattachée à sa source
+- [ ] Nombre de références retenues déclaré, pas sous-entendu
 - [ ] Aucune spec/PRD rédigée ou éditée : enseignements restitués à l'appelant
+- [ ] Aucun des cinq motifs de rejet ne s'applique

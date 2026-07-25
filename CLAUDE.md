@@ -17,6 +17,21 @@ Quatre couches **étanches**. Cette séparation est le contrat le plus important
 |---|---|---|---|
 | **Commands** | `.claude/commands/` | Ce qui est **propre au projet Daily UI** : orchestration des étapes, conventions du fichier Figma (pages `#X`, itérations, canvas), chemins `shots/`. Jetable hors de ce projet. | — |
 | **Agents** | `.claude/agents/` | Un **métier générique d'une équipe produit** (ex. `ux-researcher`) : positionnement dans l'équipe, skills qu'il charge, standards du poste. Destinés au même plugin que les skills — à terme, une équipe produit complète. | Tout nom Solar UI, tout concept Daily UI. Le contexte spécifique (sujet, chemins de sortie) lui est injecté par la command dans le brief de mission. |
+
+**Chaque fichier d'agent est coupé en deux sections de premier niveau** :
+
+| Section | Contenu | Portable ? |
+|---|---|---|
+| `# Métier` | Périmètre, frontières du poste, calibrage du jugement, compétences chargées, standards | **Oui** — vrai que le rôle soit tenu par un sub-agent ou incarné par l'orchestrateur |
+| `# Exécution en agent` | Brief reçu, protocoles de relance (ex. élicitation en deux passes), mode dégradé, gabarits de rapport | **Non** — n'existe que parce qu'un sub-agent ne peut pas dialoguer et que son rapport est lu par une machine |
+
+**Déléguer vs incarner.** En `mono-agent`, une command n'appelle aucun agent : elle
+**incarne** le rôle — lit `.claude/agents/<nom>.md`, applique ses sections `Métier`,
+ignore `Exécution en agent`, charge les skills de son frontmatter. Le métier n'est donc
+jamais dupliqué dans une command. Règle de partage : **incarner ce qui dialogue**
+(cadrage d'un PRD, arbitrages en cours de route), **déléguer ce qui consomme du
+contexte** (benchmark, conception Figma) **ou ce qui exige un regard neuf** (challenge
+de spec, audits).
 | **Skills** | `.claude/skills/` | Une **compétence générique de designer**, valable pour n'importe quel projet/DS. Destinés à devenir un plugin. Principes, comportements, mécaniques Figma génériques. | Tout nom Solar UI (`Palette/*`, `Sizes/*`, fichiers foundation, familles, steps), tout concept Daily UI (itération, `#X`, `shots/`). |
 | **Knowledge** | `.claude/knowledge/` | Deux natures de donnée déclarative : **(1)** la **donnée du design system Solar UI** — manifeste (`figma.json`), foundations, specs de composants, clés de bibliothèque, conventions propres au DS (à terme servie par un MCP maison) ; **(2)** les **préférences de workflow de l'utilisateur** (`preferences.json`) — mode agentique, disposition des itérations. | Impératifs de design universels (ils vivent dans le skill), mention Daily UI. |
 
@@ -73,8 +88,35 @@ shots/
   …
 ```
 
+### Deux familles de commands, deux livrables
+
+Les deux familles partagent la même arborescence `shots/`, le même fichier Figma et
+la même convention d'itération. Ce qui change, c'est le **livrable visé** — donc le
+skill de design chargé et la façon dont le résultat est jugé.
+
+| | `shot:*` — image de démonstration | `mockup:*` — maquette exploitable |
+|---|---|---|
+| Livrable | un écran, une idée, jugé en vignette (Dribbble, Instagram, X) | le parcours entier : étapes × états × supports |
+| Skill de design | `/design-shot` | `/design-mockup` |
+| Cadrage | benchmark + PRD via skill `/write-prd` | PRD **cadré par le rôle `product-manager`**, élicitation persistée dans `BRIEF.md` |
+| Forme de la command | orchestration : la command déroule les étapes elle-même | la command apporte le **contexte projet**, le **rôle** fait le travail — délégué ou incarné |
+| Revue par défaut | audits au choix | **recette fonctionnelle** contre le PRD |
+
 - **`/shot:new`** — crée le dossier d'un nouveau challenge, puis fait le benchmark pour défricher le marché (skill `/benchmark` — délégué à l'agent `ux-researcher` ou conduit en direct selon `agentic.mode`), et enfin délègue la rédaction du PRD au skill `/write-prd` (specs fonctionnelles uniquement, sans détails visuels) nourri par les enseignements du benchmark
 - **`/shot:iterate`** — démarre ou continue une itération sur un challenge existant (lit les préférences, lit le PRD, vérifie l'état Figma, demande un brief, puis conçoit — en direct ou via des agents `product-designer` selon `agentic.mode`)
+- **`/mockup:new`** — chaîne de rôles : collecte du trivial → `ux-researcher` (`BENCHMARK.md`, **délégué même en mono-agent** : la recherche sature un contexte) → `product-manager` passe 1 (ses questions structurantes, relayées en dialogue, réponses persistées dans `BRIEF.md`) → `product-manager` passe 2 (`PRD.md`) → `product-manager` **neuf** pour un challenge à froid (optionnel). Le benchmark précède l'élicitation : un PM qui connaît le marché pose de meilleures questions
+- **`/mockup:design`** — résout la page, pose le conteneur d'itération, briefe l'agent `product-designer` (skill `/design-mockup`, matrice de couverture dans `shots/#X-name/COUVERTURE.md`), restitue. Les revues sont appelées à la demande
+
+**Deux formes de command.** `shot:*` **orchestre** : la command déroule les étapes et
+branche sur `agentic.mode`, jusqu'à faire le travail elle-même en `mono-agent`.
+`mockup:*` est un **passe-plat** : la command ne porte que ce que l'agent ne peut pas
+deviner (contexte projet, conventions Figma, brief de l'utilisateur) et lance l'agent —
+le métier, les protocoles et les contrats de sortie restent dans l'agent et ses skills,
+jamais dupliqués dans la command.
+
+Le script de création du conteneur d'itération est partagé :
+`.claude/commands/shot/scripts/new-iteration-container.js` (source unique, référencée
+par les deux familles).
 
 ## Solar UI Design System
 

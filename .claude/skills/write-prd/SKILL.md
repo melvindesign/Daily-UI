@@ -53,11 +53,34 @@ laisse les partis-pris discutables ouverts plutôt que de les figer arbitraireme
 
 ## Sortie
 
-- Le **dossier et le nom de fichier de sortie** sont des paramètres. Les demander
-  s'ils ne sont pas précisés ; ne jamais présumer un emplacement.
+- **Fichier** : `PRD.md`, dans le dossier de sortie **fourni par l'appelant**.
+  Un dossier non fourni se demande ; il ne se présume jamais. Un livrable au
+  mauvais endroit est un livrable perdu.
+- **Titre** : `# PRD — <sujet>`, sauf titre imposé par l'appelant.
+- **Artefacts frères**, quand ils existent, dans le même dossier : le benchmark
+  qui a nourri le cadrage et ses références.
+- **Rien n'est écrit ailleurs.** Le PRD ne dépose aucun fichier annexe hors de
+  son dossier de sortie.
 - Le contexte (sujet, description initiale) peut être passé directement par
   l'utilisateur ou délégué par un skill appelant. Compléter l'élicitation si la
   description initiale laisse des trous fonctionnels.
+
+**Autoportant.** Un lecteur qui n'a pas assisté à l'élicitation doit pouvoir
+agir : ce qui n'a pas été tranché est déclaré comme hypothèse, avec ce qui
+l'aurait tranchée — jamais laissé silencieux.
+
+## Motifs de rejet
+
+Un PRD qui coche sa structure peut quand même être renvoyé. Ces cinq motifs
+suffisent, chacun pour la raison qui l'accompagne :
+
+| Motif | Pourquoi |
+|---|---|
+| Une seule fuite visuelle (composant, couleur, layout, token) | Préempte une décision de design en la déguisant en besoin |
+| Un critère qu'on ne peut pas observer sur le produit | Ce n'est pas un critère, c'est une intention |
+| Hors-scope absent | Le périmètre redevient négociable en silence à chaque étape suivante |
+| Chemin de sortie deviné | Le livrable atterrit là où personne ne l'attend |
+| Contenu inventé pour combler un trou d'élicitation | Fige un malentendu dont tout l'aval héritera |
 
 ## Règles condensées
 
@@ -107,5 +130,7 @@ Le détail est dans [references/writing-rules.md](references/writing-rules.md). 
 - [ ] Priorisation must / should posée (si le périmètre s'y prête)
 - [ ] Aucun comportement en contradiction avec un pattern connu (`product-patterns`)
 - [ ] Tient sur une page ; rien de superflu
-- [ ] Dossier/fichier de sortie confirmé (jamais présumé)
+- [ ] Points non tranchés déclarés en hypothèses, avec ce qui les aurait tranchés
+- [ ] Écrit à `<sortie>/PRD.md`, sous le titre attendu, et nulle part ailleurs
+- [ ] Aucun des cinq motifs de rejet ne s'applique
 - [ ] Suite rappelée : passage au design
