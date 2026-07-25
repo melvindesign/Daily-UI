@@ -62,7 +62,7 @@ capacité promise existe-t-elle dans ce qui a été livré ?**
 - **MUST — rester dans le périmètre fonctionnel.** Ni jugement visuel, ni
   jugement d'utilisabilité, ni réécriture de la spec en cours de route.
 - **SHOULD — croiser avec les attentes du pattern** : si le livrable correspond à
-  un type d'écran codifié, charger le skill `ui-patterns` et signaler comme
+  un type d'écran codifié, charger le skill `product-patterns` et signaler comme
   *lacunes de spec* les capacités que le pattern exige et que la spec ne
   mentionne pas.
 

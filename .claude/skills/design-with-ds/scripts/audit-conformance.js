@@ -1,7 +1,10 @@
 // =============================================================================
 // AUDIT DE CONFORMITÉ — à lancer avant de conclure un écran / une maquette
-// À coller dans un appel use_figma. Renseigne ROOT_ID (id du nœud racine de la
-// zone à auditer : section ou frame). Renvoie les violations aux règles du DS :
+// À coller dans un appel use_figma. Renseigne ROOT_IDS : la liste des racines à
+// auditer. Une maquette livrée, ce n'est pas seulement la zone de travail — c'est
+// AUSSI les définitions des composants locaux, rangées hors du flux. Les oublier
+// laisse la moitié du custom hors du contrôle : mets-les toutes dans ROOT_IDS.
+// Renvoie les violations aux règles du DS :
 //   - texte sans style (textStyleId vide)
 //   - fill SOLID visible non lié à une variable
 //   - espacement/padding en dur (auto-layout non lié à un token)
@@ -22,24 +25,34 @@
 // custom et la composition.
 // =============================================================================
 
-const ROOT_ID = 'PASTE_SECTION_ID';
+// Zone de travail + définitions des composants locaux rangées hors du flux.
+const ROOT_IDS = ['PASTE_SECTION_ID' /* , 'ID_COMPOSANT_LOCAL_1', … */];
 
 // Noms des composants de la bibliothèque, relevés dans la knowledge (specs de
 // composants déclarées par le manifeste). Sert à détecter un rôle du DS redessiné
-// à la main. Renseigne-la avec l'inventaire COMPLET, pas seulement les familles
-// que tu as utilisées : c'est précisément le composant auquel tu n'as pas pensé
-// qui se retrouve redessiné.
+// à la main. Renseigne-la avec l'inventaire COMPLET — parcours CHAQUE spec
+// déclarée par le manifeste et concatène tous les `name`, pas seulement les
+// familles que tu as utilisées : c'est précisément le composant auquel tu n'as
+// pas pensé qui se retrouve redessiné.
 const DS_COMPONENT_NAMES = [/* 'Button', 'Input', 'Stepper Horizontal', … */];
-const root = await figma.getNodeByIdAsync(ROOT_ID);
-if (!root) throw new Error(`Nœud racine introuvable: ${ROOT_ID}`);
+
+const roots = [];
+for (const id of ROOT_IDS) {
+  const r = await figma.getNodeByIdAsync(id);
+  if (!r) throw new Error(`Nœud racine introuvable: ${id}`);
+  roots.push(r);
+}
 
 // Traversée qui n'entre pas dans les instances
 const nodes = [];
-(function walk(node) {
-  nodes.push(node);
-  if (node.type === 'INSTANCE') return; // black box DS
-  if ('children' in node) for (const c of node.children) walk(c);
-})(root);
+const rootSet = new Set(roots.map(r => r.id));
+for (const root of roots) {
+  (function walk(node) {
+    nodes.push(node);
+    if (node.type === 'INSTANCE') return; // black box DS
+    if ('children' in node) for (const c of node.children) walk(c);
+  })(root);
+}
 
 const issues = { unstyledText: [], unboundFills: [], unboundSpacing: [], clippedContainers: [], hiddenFills: [], dimmedInstances: [], repeatedAssemblies: [], redrawnDsRoles: [] };
 
@@ -71,14 +84,14 @@ for (const n of nodes) {
     });
   }
 
-  // 4. clipsContent activé hors cas légitimes. Exemptés : la racine auditée si
+  // 4. clipsContent activé hors cas légitimes. Exemptés : une racine auditée si
   //    c'est un frame (viewport d'écran), les enfants directs d'une SECTION
   //    racine (frames d'écran / composants plein écran), et les nœuds portant
   //    un fill IMAGE visible (masque de média). Même exemptés, le clip doit
   //    être une intention (page, média, zone scrollable) — jamais un défaut.
   if ('clipsContent' in n && n.clipsContent === true) {
-    const isRootViewport = n === root && n.type !== 'SECTION';
-    const isScreenChild = root.type === 'SECTION' && n.parent === root;
+    const isRootViewport = rootSet.has(n.id) && n.type !== 'SECTION';
+    const isScreenChild = n.parent && rootSet.has(n.parent.id) && n.parent.type === 'SECTION';
     const hasImageFill = 'fills' in n && Array.isArray(n.fills) &&
       n.fills.some(p => p.type === 'IMAGE' && p.visible !== false);
     if (!isRootViewport && !isScreenChild && !hasImageFill) {
@@ -146,7 +159,7 @@ for (const n of nodes) {
 
 const bySig = new Map();
 for (const n of nodes) {
-  if (n === root || n.type === 'INSTANCE' || inComponentSet.has(n.id)) continue;
+  if (rootSet.has(n.id) || n.type === 'INSTANCE' || inComponentSet.has(n.id)) continue;
   const { sig, size } = signature(n);
   if (size < SIZE_THRESHOLD) continue;
   if (!bySig.has(sig)) bySig.set(sig, []);
@@ -163,7 +176,10 @@ const groups = [...bySig.values()]
 
 for (const group of groups) {
   const isNested = group.some(n => {
-    for (let p = n.parent; p && p !== root.parent; p = p.parent) if (reportedIds.has(p.id)) return true;
+    for (let p = n.parent; p; p = p.parent) {
+      if (reportedIds.has(p.id)) return true;
+      if (rootSet.has(p.id)) break; // on ne remonte pas au-delà de la racine auditée
+    }
     return false;
   });
   if (isNested) continue;
@@ -190,7 +206,7 @@ const dsIndex = DS_COMPONENT_NAMES.map(n => ({ name: n, words: norm(n).split(' '
 
 if (dsIndex.length) {
   for (const n of nodes) {
-    if (n === root || n.type === 'INSTANCE') continue;
+    if (rootSet.has(n.id) || n.type === 'INSTANCE') continue;
     if (!['FRAME', 'GROUP', 'COMPONENT', 'COMPONENT_SET'].includes(n.type)) continue;
     // Un nœud qui ne contient que des instances du DS assemble légitimement des
     // briques : c'est de la composition, pas un composant redessiné.
@@ -222,6 +238,7 @@ const counts = {
 
 return {
   ok: Object.values(counts).every(c => c === 0),
+  roots: roots.map(r => ({ id: r.id, name: r.name })),
   audited: nodes.length,
   counts,
   issues, // détail par nœud pour corriger de façon ciblée

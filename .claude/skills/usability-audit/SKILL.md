@@ -77,7 +77,7 @@ de retouche appartient à l'appelant.
 - **MUST — signaler les états non couverts** (erreur, vide, chargement, succès)
   plutôt que de les supposer conformes ou défaillants.
 - **SHOULD — si l'écran correspond à un pattern connu** (sign-up, checkout,
-  dashboard…), charger aussi le skill `ui-patterns` et confronter l'écran aux
+  dashboard…), charger aussi le skill `product-patterns` et confronter l'écran aux
   règles MUST/SHOULD/AVOID du pattern.
 - **AVOID — auditer la conformité au design system** (tokens, composants,
   variables) : c'est un autre audit, avec un autre outillage. Ici on évalue

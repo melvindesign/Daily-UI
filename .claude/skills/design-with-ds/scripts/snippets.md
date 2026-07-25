@@ -59,12 +59,28 @@ input.setProperties({                          // clés exactes déclarées par 
 return { createdNodeIds: [input.id] };
 ```
 
+## Écrire dans un nœud texte existant (override d'instance)
+
+```js
+// Charger les fontes COURANTES du nœud, pas une fonte par défaut : le nœud porte
+// déjà un style du DS (ou est imbriqué dans une instance), sa fonte n'est pas Inter.
+for (const s of node.getStyledTextSegments(['fontName'])) await figma.loadFontAsync(s.fontName);
+node.characters = 'Nouveau texte';
+```
+
+> Cas typique : personnaliser une instance (label d'un badge, titre d'un gabarit
+> local) **sans** propriété de composant déclarée — les overrides de texte
+> fonctionnent nativement sur n'importe quel nœud TEXT d'une instance.
+> Pour atteindre un texte imbriqué : `inst.findOne(n => n.type === 'TEXT' && n.name === 'Titre')`.
+
 ## Conteneur auto-layout lié aux tokens
 
 ```js
 const card = figma.createAutoLayout('VERTICAL', { name: 'Card' }); // hug/hug prêt
 figma.currentPage.appendChild(card);
-// fond lié à une variable (jamais le blanc par défaut de createFrame)
+// ⚠️ createAutoLayout pose un fill blanc opaque ET clipsContent = true
+card.clipsContent = false;                              // clip désactivé par défaut
+// fond lié à une variable (ou `card.fills = []` si le conteneur est transparent)
 const bg = await figma.variables.importVariableByKeyAsync(bgKey);
 card.fills = [figma.variables.setBoundVariableForPaint(
   { type: 'SOLID', color: { r: 1, g: 1, b: 1 } }, 'color', bg
@@ -72,4 +88,59 @@ card.fills = [figma.variables.setBoundVariableForPaint(
 // gap + padding liés à des tokens d'espacement du DS
 card.setBoundVariable('itemSpacing', await figma.variables.importVariableByKeyAsync(gapKey));
 card.setBoundVariable('paddingTop', await figma.variables.importVariableByKeyAsync(padKey));
+```
+
+> Sans ces deux corrections, **chaque** conteneur créé produit deux violations
+> (`unboundFills` + `clippedContainers`) à rattraper en fin de maquette. Le helper
+> `autoLayout()` du prelude les neutralise à la création — préfère-le.
+
+## Appliquer un mode d'une collection non locale (breakpoint, thème)
+
+```js
+// L'id de la collection DIFFÈRE entre le fichier du DS et le fichier consommateur :
+// on le résout à l'exécution depuis n'importe quelle variable importée de cette
+// collection. Seuls les modeIds sont stables et se lisent dans la knowledge.
+const v = await figma.variables.importVariableByKeyAsync(anyVariableKey);
+const collection = await figma.variables.getVariableCollectionByIdAsync(v.variableCollectionId);
+screenFrame.setExplicitVariableModeForCollection(collection, modeId);
+```
+
+## Remplir un slot de composant dont la hauteur est figée
+
+Un slot (`type: 'SLOT'`) de composant de bibliothèque n'est **pas** un conteneur
+auto-layout et sa hauteur vient de la définition du composant : le contenu qu'on y
+ajoute déborde et se fait rogner. Trois conséquences, dans l'ordre où elles piègent :
+
+```js
+const slot = instance.children.find(c => c.type === 'SLOT');
+
+// 1. FILL est refusé sur un enfant de slot (le slot n'est pas auto-layout)
+//    → dimensionner en FIXED sur la largeur du slot
+content.layoutSizingHorizontal = 'FIXED';
+content.resize(slot.width, content.height);
+slot.appendChild(content);
+
+// 2. slot.resize(...) et slot.layoutSizingVertical = 'HUG' n'ont AUCUN effet
+//    → faire absorber la hauteur au slot, puis piloter par l'instance parente
+slot.layoutGrow = 1;
+instance.layoutSizingVertical = 'FIXED';
+instance.resize(instance.width, content.height + CHROME); // CHROME = header + paddings
+
+// 3. le slot rogne par défaut — le désactiver comme tout autre conteneur
+slot.clipsContent = false;
+```
+
+> `CHROME` se mesure une fois : `instance.height - slot.height` avant de toucher
+> à quoi que ce soit.
+
+## Ordre des opérations de sizing (piège classique)
+
+```js
+// ❌ resize() REMET les modes de sizing à FIXED — le hug est perdu silencieusement
+frame.primaryAxisSizingMode = 'AUTO';
+frame.resize(1440, 1000);          // la hauteur reste bloquée à 1000
+
+// ✅ dimensionner d'abord, régler le sizing ENSUITE
+frame.resize(1440, 1000);
+frame.primaryAxisSizingMode = 'AUTO';   // hauteur = hug content
 ```

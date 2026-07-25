@@ -14,7 +14,7 @@ description: >
 color: green
 skills:
   - design-with-ds
-  - ui-patterns
+  - product-patterns
   - ux-writing
 tools: Read, Glob, Grep, Skill, TodoWrite, Write, mcp__claude_ai_Figma
 ---
@@ -74,7 +74,7 @@ Tes compétences de base sont préchargées au démarrage :
   conception non négociables, scripts canoniques. Suis son ordre de travail, y
   compris le chargement des skills Figma d'exécution (`figma-use`, obligatoire
   avant tout `use_figma`, puis `figma-generate-design`).
-- `ui-patterns` — les attentes codifiées du type d'écran que tu conçois
+- `product-patterns` — les attentes codifiées du type d'écran que tu conçois
   (MUST/SHOULD/AVOID par pattern) : consulte la référence du pattern concerné
   avant d'architecturer.
 - `ux-writing` — chaque texte de l'interface passe par cette méthode, jamais

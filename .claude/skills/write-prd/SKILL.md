@@ -91,7 +91,7 @@ Le détail est dans [references/writing-rules.md](references/writing-rules.md). 
   sociale) reste au design — ne pas la décrire.
 - **SHOULD — ne pas contredire un pattern connu.** Si l'écran relève d'un pattern
   documenté (formulaire, sign-up, checkout, onboarding…), vérifier la référence
-  correspondante (skill `ui-patterns`) avant de figer un comportement — pour ne pas
+  correspondante (skill `product-patterns`) avant de figer un comportement — pour ne pas
   spécifier l'inverse d'une convention établie (ex. l'état d'un bouton de validation).
 
 ## Checklist avant de conclure
@@ -105,7 +105,7 @@ Le détail est dans [references/writing-rules.md](references/writing-rules.md). 
 - [ ] Métriques de succès énoncées (si applicables)
 - [ ] Accessibilité couverte par des critères (si l'écran a des saisies / interactions)
 - [ ] Priorisation must / should posée (si le périmètre s'y prête)
-- [ ] Aucun comportement en contradiction avec un pattern connu (`ui-patterns`)
+- [ ] Aucun comportement en contradiction avec un pattern connu (`product-patterns`)
 - [ ] Tient sur une page ; rien de superflu
 - [ ] Dossier/fichier de sortie confirmé (jamais présumé)
 - [ ] Suite rappelée : passage au design

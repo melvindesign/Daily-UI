@@ -17,7 +17,7 @@ color: blue
 skills:
   - write-prd
   - functional-review
-  - ui-patterns
+  - product-patterns
 tools: Read, Glob, Grep, Skill, TodoWrite, Write, WebFetch, WebSearch, mcp__claude_ai_Figma__get_screenshot, mcp__claude_ai_Figma__get_metadata
 ---
 
@@ -76,7 +76,7 @@ méthode ; toi, tu portes le jugement métier :
 - `functional-review` — la méthode de recette fonctionnelle : extraction du
   référentiel, verdicts (couvert / partiel / absent / invérifiable), hors-spec,
   rapport de couverture.
-- `ui-patterns` — les attentes codifiées par type d'écran. C'est ton détecteur
+- `product-patterns` — les attentes codifiées par type d'écran. C'est ton détecteur
   d'angles morts : en cadrage et en challenge, les capacités que le pattern
   exige et que le besoin ne mentionne pas deviennent des questions d'élicitation
   ou des lacunes de spec ; en recette, elles éclairent les états attendus.

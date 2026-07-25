@@ -99,7 +99,7 @@ tombe dans l'angle mort entre le PRD (muet sur le visuel) et le design.
 ## Règle 9 — Ne pas contredire un pattern connu
 
 Si l'écran relève d'un pattern documenté (formulaire, sign-up, checkout,
-onboarding…), vérifier la référence correspondante (skill `ui-patterns`) **avant** de
+onboarding…), vérifier la référence correspondante (skill `product-patterns`) **avant** de
 figer un comportement. Ne pas spécifier l'inverse d'une convention établie — ex.
 imposer un bouton de validation « désactivé tant qu'invalide » quand la convention
 recommande un bouton actionnable qui révèle les erreurs à la tentative de validation.

@@ -22,9 +22,10 @@ Tu es en mode **Product Designer AI**. Ce skill décrit **comment exploiter la k
 
 | Fichier | Usage |
 |---|---|
-| [`scripts/_prelude.js`](scripts/_prelude.js) | Bloc de helpers (`applyColor`, `applyText`, `bindSpacing`, `instantiate`) à **coller en tête** d'un `use_figma`, puis à appeler. C'est le mode d'emploi quotidien. |
+| [`scripts/_prelude.js`](scripts/_prelude.js) | Bloc de helpers (`applyColor`, `applyText`, `setText`, `bindSpacing`, `autoLayout`, `applyMode`, `instantiate`) à **coller en tête** d'un `use_figma`, puis à appeler. C'est le mode d'emploi quotidien. |
 | [`scripts/factor-local-component.js`](scripts/factor-local-component.js) | **Factorisation d'un assemblage répété** en composant local : convertit l'occurrence de référence en composant, range la définition hors du flux et remplace les autres occurrences par des instances (même parent, index, position, sizing). La correction canonique des `repeatedAssemblies` de l'audit. |
-| [`scripts/audit-conformance.js`](scripts/audit-conformance.js) | **Audit de conformité** : scanne un nœud racine et remonte texte sans style, fills non liés, espacements en dur, `clipsContent` hors cas légitimes, fills masqués (`visible: false`), instances atténuées à la main (`opacity < 1`), **assemblages répétés non factorisés** et **rôles du DS redessinés à la main** (renseigner `DS_COMPONENT_NAMES` avec l'inventaire complet lu dans la knowledge). À lancer avant de conclure une maquette. |
+| [`scripts/fix-default-containers.js`](scripts/fix-default-containers.js) | **Filet sur les conteneurs laissés par défaut** : repasse `clipsContent` à `false` (hors viewports/masques explicitement préservés) et retire les fills blancs non liés posés par `createFrame` / `createAutoLayout`. La correction canonique des `clippedContainers` et des `unboundFills` de défaut ; les fills non liés qui portent une vraie couleur sont **listés**, pas supprimés — ils doivent être liés à un token. |
+| [`scripts/audit-conformance.js`](scripts/audit-conformance.js) | **Audit de conformité** : scanne les nœuds racines (`ROOT_IDS` — la zone de travail **et** les définitions de composants locaux rangées hors du flux) et remonte texte sans style, fills non liés, espacements en dur, `clipsContent` hors cas légitimes, fills masqués (`visible: false`), instances atténuées à la main (`opacity < 1`), **assemblages répétés non factorisés** et **rôles du DS redessinés à la main** (renseigner `DS_COMPONENT_NAMES` avec l'inventaire complet lu dans la knowledge). À lancer avant de conclure une maquette. |
 | [`scripts/snippets.md`](scripts/snippets.md) | Les mêmes opérations en **snippets autonomes documentés** (pour comprendre/déboguer, sans le prelude). |
 
 Un exemple complet de bout en bout : [examples/walkthrough.md](examples/walkthrough.md).
@@ -60,4 +61,4 @@ Le détail et les procédures sont dans [references/design-rules.md](references/
 - [ ] Aucune valeur en dur : couleurs, typos et espacements liés à des variables / styles / tokens
 - [ ] Aucun `clipsContent` activé sans raison : `false` par défaut, `true` seulement si le rognage est voulu (page, média, zone scrollable)
 - [ ] Tout assemblage répété (breakpoints, étapes d'un flow, éléments récurrents) est un **composant local** instancié, pas un copier-coller de calques → à corriger avec `scripts/factor-local-component.js`
-- [ ] `scripts/audit-conformance.js` lancé sur la section → `ok: true`
+- [ ] `scripts/audit-conformance.js` lancé sur **toutes** les racines (zone de travail + définitions des composants locaux) → `ok: true`

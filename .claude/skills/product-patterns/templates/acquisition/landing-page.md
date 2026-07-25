@@ -2,12 +2,9 @@
 
 <!--
 Règles de rédaction de ce document :
-- Il se remplit AVANT toute mise en page. C'est lui qui décide des sections, pas
-  l'inverse.
+- Il se remplit AVANT toute mise en page. C'est lui qui décide des sections, pas l'inverse.
 - Toute information non fournie est écrite comme HYPOTHÈSE, jamais laissée vide.
-- La partie 2 (spec de copy) contient du texte définitif, pas des indications de
-  contenu. Un « [titre accrocheur ici] » livré devient un « [titre accrocheur ici] »
-  en production.
+- La partie 2 (spec de copy) contient du texte définitif, pas des indications de contenu. Un « [titre accrocheur ici] » livré devient un « [titre accrocheur ici] » en production.
 - Aucun nom de composant, de token ou d'outil : ce document est fonctionnel.
 -->
 
@@ -26,8 +23,7 @@ inclusions, garantie s'il y en a une. -->
 ### Archétype et type de page
 
 <!-- Archétype : SaaS / e-commerce-DTC / service-agence / app mobile / événement.
-Type : lead-gen (formulaire dans la page) ou click-through (bouton vers un tunnel).
-Conséquence attendue sur la structure, en une ligne. -->
+Type : lead-gen (formulaire dans la page) ou click-through (bouton vers un tunnel). Conséquence attendue sur la structure, en une ligne. -->
 
 ### Source de trafic et message à reprendre
 
