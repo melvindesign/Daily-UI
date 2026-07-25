@@ -4,6 +4,14 @@ Tu es en mode **Product Manager AI**. Ton rôle est de créer le dossier d'un no
 Daily UI challenge, de défricher le terrain de jeu avec un benchmark, puis d'en
 rédiger le PRD — dans cet ordre.
 
+## Étape 0 — Préférences de l'utilisateur
+
+Lis **d'abord** `.claude/knowledge/preferences.json`. Une clé pilote le déroulé de
+cette command : **`agentic.mode`** (`multi-agent` | `sub-agents` | `mono-agent`), qui
+conditionne la délégation du benchmark (étape 3).
+
+**Fichier ou champ absent → défaut `sub-agents`, jamais de blocage.**
+
 ## Étape 1 — Collecte des informations
 
 Si l'utilisateur n'a pas fourni le numéro et le nom du challenge, demande-les.
@@ -27,35 +35,41 @@ Exemple : `shots/#1-sign-up/`
 
 Utilise le numéro et le nom tels que fournis (kebab-case, minuscules).
 
-## Étape 3 — Benchmark (déléguée à l'agent `ux-researcher`)
+## Étape 3 — Benchmark
 
 On **benchmarke avant d'écrire la spec** : confronter le sujet à des références
 réelles du marché *avant* de figer le besoin évite d'ancrer le PRD sur les seules
 intuitions de l'utilisateur, et donne un terrain de jeu concret (conventions à
 respecter vs axes de différenciation) pour rédiger un PRD informé.
 
-Cette étape est confiée au **UX Researcher** de l'équipe (agent `ux-researcher`,
-via le tool Agent avec `subagent_type: "ux-researcher"`) : sa recherche — dizaines
-de captures, gate visuel — reste dans son propre contexte ; seuls les enseignements
-reviennent ici.
-
-- Propose de lancer le benchmark : « Avant de cadrer le besoin, je demande au
-  UX Researcher de regarder ce que fait le marché sur ce type d'écran ? » — c'est
-  l'étape par défaut.
-- **S'il accepte**, cadre d'abord le brief : l'agent travaille en autonomie et ne
-  pourra poser aucune question. Vérifie donc auprès de l'utilisateur la
-  **plateforme** (mobile / web) si elle n'est pas évidente. Puis lance l'agent avec
-  un brief de mission complet :
-  - **Sujet** : déduit du nom du challenge et de la description de l'étape 1 ;
-  - **Plateforme** : celle confirmée ci-dessus ;
-  - **Lentille** : UX par défaut (le benchmark nourrit un PRD) ;
-  - **Livrable** : écrire `shots/#X-name/BENCHMARK.md` + les références retenues
-    dans `shots/#X-name/ref/` ;
-  - **Méthode** : charger le skill `benchmark` et le suivre.
-  L'agent te **restitue** les enseignements (conventions / différenciation) et les
-  chemins écrits. Il ne rédige aucune spec.
+- Propose de lancer le benchmark : « Avant de cadrer le besoin, on regarde ce que
+  fait le marché sur ce type d'écran ? » — c'est l'étape par défaut.
 - **S'il refuse**, passe directement à l'étape 4 (le PRD reposera alors sur les
   seules intuitions de l'utilisateur).
+- **S'il accepte**, confirme d'abord la **plateforme** (mobile / web) si elle n'est
+  pas évidente, puis exécute selon `agentic.mode` (étape 0).
+
+**Cadrage commun**, quel que soit le mode :
+- **Sujet** : déduit du nom du challenge et de la description de l'étape 1 ;
+- **Plateforme** : celle confirmée ci-dessus ;
+- **Lentille** : UX par défaut (le benchmark nourrit un PRD) ;
+- **Livrable** : écrire `shots/#X-name/BENCHMARK.md` + les références retenues
+  dans `shots/#X-name/ref/` ;
+- **Méthode** : le skill `benchmark`. Aucune spec n'est rédigée à cette étape.
+
+**En `multi-agent` / `sub-agents`** — délègue au **UX Researcher** de l'équipe
+(agent `ux-researcher`, via le tool Agent avec `subagent_type: "ux-researcher"`) :
+sa recherche — dizaines de captures, gate visuel — reste dans son propre contexte ;
+seuls les enseignements reviennent ici. L'agent travaille en autonomie et ne pourra
+poser aucune question : le cadrage ci-dessus doit être complet avant de le lancer.
+Il te **restitue** les enseignements (conventions / différenciation) et les chemins
+écrits.
+
+**En `mono-agent`** — n'appelle aucun agent : charge le skill `benchmark` et
+conduis la recherche toi-même, avec le même cadrage et le même livrable. Avantage du
+mode : tu peux poser des questions à l'utilisateur en cours de route. Contrepartie à
+garder en tête : la recherche (captures, itérations de tri) occupe ton propre
+contexte au lieu de rester isolée.
 
 ## Étape 4 — Rédaction du PRD (déléguée au skill `/write-prd`)
 

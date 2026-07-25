@@ -1,0 +1,18 @@
+{
+  "$schema": "workflow/preferences",
+  "description": "Préférences de workflow de l'utilisateur. Lu par les commands et les skills avant toute exécution. Ne contient aucun vocabulaire propre à un design system ou à un projet.",
+  "updatedAt": "2026-07-25",
+  "agentic": {
+    "_note": "multi-agent = plusieurs agents en parallèle (explorations concurrentes, audits simultanés) | sub-agents = délégation séquentielle, un agent-métier à la fois | mono-agent = aucun appel Agent, l'orchestrateur charge lui-même les skills et fait le travail dans son propre contexte",
+    "mode": "mono-agent",
+    "options": ["multi-agent", "sub-agents", "mono-agent"]
+  },
+  "layout": {
+    "_note": "container = type de nœud d'une itération (section | frame) | inner = axe de disposition des écrans À L'INTÉRIEUR d'une itération (horizontal | vertical) | between = axe d'empilement ENTRE itérations (vertical | horizontal) | gap = espace en px entre itérations | minSize = dimension minimale d'une itération, largeur = hauteur",
+    "between": "vertical",
+    "container": "section",
+    "gap": 200,
+    "inner": "horizontal",
+    "minSize": 3000
+  }
+}
