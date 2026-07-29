@@ -197,6 +197,69 @@ PRD (lentille visuelle), à reporter au brief de design.
 **PRD v3** : 12 user stories, 11 fonctionnalités, 36 critères d'acceptation, 8 objections,
 12 items en hors-scope, 5 hypothèses restantes.
 
+## Quatrième tour — architecture de la page (PRD v4)
+
+L'utilisateur a proposé une **structure de page** en neuf sections (hero, avant/après,
+« Synchroniser vos sources » avec un visuel de convergence type Supernova, vue tableau des
+tokens + doc composants, « Make your own rules », « Set your workflow », « Connect to
+Agents », « Prompt it! » avec lien vers la doc, bloc final d'inscription). Elle a été
+challengée avant intégration : rôle `product-manager` en mission **challenge**, et
+`ux-researcher` sur une **passe C** de benchmark (8 produits, 11 captures, `ref/18` à `28`).
+
+### Ce que le challenge a établi
+
+| Constat | Conséquence dans le PRD v4 |
+| --- | --- |
+| La proposition est construite **en liste de fonctionnalités**, le PRD impose une construction **par objections** | Une section « Architecture de la page » est créée : 9 parties pour 8 objections, chacune tracée à une capacité |
+| **Inversion du poids argumentatif** : 4 sections aux prérequis (synchro, tokens, connect, prompt) contre 2 au cœur (règles, workflow), et les prérequis en premier tiers lu | Règle d'architecture n°2 : étapes 1 et 4 regroupées en **une** partie, **après** le cœur. C4 fixait le poids, pas la position |
+| Benchmark passe C, Q4 : **2 à 3 parties de fonctionnalité** sur 7 références sur 7, jamais 5+ ; regroupement par intention utilisateur | C8b — trois parties de fonctionnalité au maximum |
+| La **vue tableau tokens + doc composants** ne lève aucune des 8 objections, et montrée seule range Stellar dans la catégorie doc de design system (zeroheight, Storybook) | Retirée en tant que partie, réemployée comme **matériau** de l'étape 2 : on ne peut pas montrer qu'on pose une règle sans montrer sur quoi |
+| **F2, F3, F7, F9, F10 n'étaient portées par aucune section** proposée — F2 étant le manque le plus grave (la page passait du hero à la preuve sans dire de quoi elle est la solution) | Toutes replacées dans l'architecture ; F2 amendée pour être **constatable sur un rendu** |
+| L'**avant/après en position 2** rend C9 et C10 invérifiables : le visiteur ne sait pas encore ce que « avec Stellar » veut dire, et la notion de règle n'est pas introduite | **Dédoublé, pas déplacé** : F2 montre le problème tôt (un seul côté), F6 reste tardive. Cinquième exigence ajoutée à F6, C9b |
+| Le **lien vers la doc** viole C18 et C15, et la doc était déjà en hors-scope | Réaffirmé au hors-scope, avec l'argument qui le rend indolore : en pré-lancement, la doc décrit un produit inaccessible |
+
+### Ce que la proposition a apporté au PRD
+
+Trois capacités fonctionnelles nouvelles, absentes de v3 :
+
+- **Trois voies de définition des règles** (pré-faites, éditeur Stellar, agent propre via le
+  MCP) → F4 étape 2. Renforce F3 : le geste de calibration est offert, jamais imposé.
+- **Préférences de travail** au lieu de « préférences de rendu » (organisation du livrable,
+  mono/multi-agent, intégrations) → F4 étape 3, plus différenciant que la formulation v3.
+  **La persistance entre sessions** y est ajoutée : c'est le contrepoint direct de F2.
+- **F12 — montrer le produit sans le surestimer**, capacité transversale créée pour encadrer
+  les maquettes d'intention face à C14 et à « F6 est la seule preuve ».
+
+### Arbitrages de l'utilisateur
+
+| Question | Arbitrage | Conséquence |
+| --- | --- | --- |
+| Cursor dans le visuel de convergence, alors que v3 ne l'annonce pas | **Cursor entre, avec statut** | F5, C11, C24, hors-scope amendés. Statut « à venir » **supposé** par symétrie avec Codex → hypothèse déclarée |
+| Les écrans de l'interface montrés existent-ils ? | **Maquettes d'intention** | F12 créée, C37, C37b |
+| F10 (qualification) absente de la proposition | **Gardée** | Inchangée, rattachée à la partie 9 |
+| Le visuel de convergence type Supernova | **Maintenu tôt et fort**, contre la recommandation | Risque **traité, pas supprimé** : C5 et C6 étendus au dispositif (ce qui traverse le point central est nommé, et ce sont les règles), C38 (la géométrie ne porte jamais le statut). Hypothèse déclarée au PRD |
+
+Arbitrage de cohérence pris par l'orchestrateur, faute d'être dans la question : « convergence
+tôt » et « prérequis tardifs » s'annulaient. Le **visuel** monte dans la partie 1 ; la
+**partie compatibilité** reste en 6. Le motif est en haut sans que la synchronisation reprenne
+le poids argumentatif que C4 lui refuse.
+
+### Enseignements de benchmark qui contraignent le PRD
+
+- **Q1 — convergence** : sur 2 occurrences réelles du motif (Supernova, Segment), aucune ne
+  porte de statut par intégration ; Fivetran, qui en a besoin, bascule sur un **tableau**.
+  Convergence et statut sont deux artefacts, pas un.
+- **Q2 — montrer le produit** : le seuil qui sépare la preuve du décor est la **lisibilité**
+  du contenu de la capture, pas sa taille. Une capture unique et lisible prouve mieux que
+  plusieurs vignettes recadrées. Limite déclarée : aucun pré-lancement pur trouvé dans la
+  catégorie (Onlook, Subframe, Granola sont passés publics).
+- **Q3 — personnalisation** : elle occupe bien une partie de landing (Raycast, Obsidian,
+  Zed), mais **toujours incarnée par un artefact concret**, jamais par un adjectif. Réserve :
+  les trois précédents sont des produits installés, qui ont des utilisateurs à citer.
+
+**PRD v4** : 12 user stories, 12 fonctionnalités, 44 critères d'acceptation, 8 objections,
+9 parties d'architecture, 13 items en hors-scope, 8 hypothèses restantes.
+
 ## Points laissés non structurants → section « À valider » du PRD
 
 - Contenu exact des options de qualification (liste des agents, des rôles).

@@ -425,3 +425,310 @@ les statu quo lancés.
    attentes déjà installées chez la cible (DS manager, PM), ou s'en démarquer
    délibérément pour ne pas paraître suiveur ? Question de positionnement, pas de
    fonctionnel pur, mais directement issue de ce complément.
+
+---
+
+# Complément — passe C : sections de fonctionnalité et visuel de convergence
+
+Quatre questions précises, posées après les compléments précédents. Méthode : capture
+réelle de chaque landing via un navigateur headless (Playwright, piloté en Bash — le
+navigateur intégré au poste s'est révélé disponible en tout début de session mais la
+suite de la collecte a été menée via ce second outil pour fiabiliser les captures
+longues ; mêmes règles de gate visuel qu'ailleurs dans ce document : chaque référence
+citée ci-dessous a été réellement ouverte et observée, capture à l'appui dans `ref/`).
+**8 nouveaux produits observés, 11 nouvelles captures (`ref/18` à `ref/28`).**
+
+## Références nouvellement observées
+
+- [Supernova — supernova.io](https://www.supernova.io/) — déjà cité (textuel) en section 8 ;
+  **observé en image pour la première fois** ici — `ref/18-supernova-convergence-visual.webp`
+- [Segment / Twilio — segment.com](https://segment.com/) — `ref/19-segment-connections-diagram.png`
+- [zeroheight — zeroheight.com](https://zeroheight.com/) — déjà cité (textuel) en section 8 ;
+  **observé en image pour la première fois** ici — `ref/20-zeroheight-hero-product-screenshot.png`
+- [Fivetran — fivetran.com](https://www.fivetran.com/) — `ref/21-fivetran-source-status-table.png`,
+  `ref/22-fivetran-logo-grid-sources.png`
+- [Raycast — raycast.com](https://www.raycast.com/) — cité comme piste au benchmark initial,
+  **non capturable à l'époque (Mobbin ne l'indexait pas)** ; capturé ici directement —
+  `ref/23-raycast-extensions-marketplace.png`, `ref/24-raycast-automate-workflow-section.png`
+- [Obsidian — obsidian.md](https://obsidian.md/) — `ref/25-obsidian-plugins-personal-workflow.png`
+- [Zed — zed.dev](https://zed.dev/) — `ref/26-zed-ai-extensions-section.png`
+- [Onlook — onlook.com](https://onlook.com/) — `ref/27-onlook-feature-capsules-annotated.png`,
+  `ref/28-onlook-feature-capsules-2.png`
+
+**Références tentées et écartées du gate** — déclarées, pas passées sous silence :
+Zapier (zapier.com) et n8n (n8n.io) ont été ouverts pour Q1 : leur hero ne montre **pas**
+le motif sources→hub→destinations (Zapier : illustration abstraite d'un portail ; n8n :
+capture de canvas de workflow) — écartés de l'analyse Q1, pas forcés à y rentrer.
+Merge.dev a été ouvert pour Q1 (positionnement "connect to every API" très proche du
+motif recherché) mais son diagramme hub-and-spoke annoncé par le texte de la page
+("Merge provides the connective infrastructure...") ne s'est jamais rendu dans la
+capture statique (contenu déclenché au scroll, resté blanc après plusieurs tentatives) —
+écarté, non halluciné à partir du texte seul. Cognition/Devin (page produit demandée)
+renvoie une 404 au moment de la collecte. Granola, Onlook et Subframe ont été ouverts en
+espérant des pages encore gated : les trois sont aujourd'hui en accès public (Download /
+Start for free) — Onlook est conservé pour Q2 (densité de captures produit, pertinent
+même hors gate), Granola et Subframe écartés de Q2 faute d'apporter un angle nouveau par
+rapport à Onlook.
+
+## Q1 — Le visuel de convergence (sources → hub → destinations)
+
+**Ce qui a été réellement vu :**
+
+- **Supernova** (`ref/18`) — le visuel exact décrit par le commanditaire : à gauche un
+  bloc "Design & engineering knowledge and skills" avec 4 logos (Figma, un logo rose non
+  identifié avec certitude, GitHub, un badge Markdown), une ligne qui converge vers un
+  cercle central orné du logo Supernova, puis une ligne qui repart vers un bloc à droite
+  "Your AI agents, powered by curated context" avec 4 logos (un logo façon soleil/astre —
+  Claude/Anthropic vraisemblablement selon la charge sémantique du texte, mais **non
+  confirmé par un texte alt lisible dans la capture** — un cube, un logo multicolore façon
+  Copilot, un logo à quatre cercles façon OpenAI). **Aucun texte de statut n'accompagne ces
+  logos** — ni "available", ni "coming soon", ni compteur. Le cercle central est vide de
+  toute information : ni texte, ni chiffre, seulement le monogramme de la marque. En
+  dessous, trois bénéfices textuels seuls (Improve agents quality / Cut token usage cost /
+  Self-healing contexts), sans lien visuel avec le diagramme au-dessus.
+- **Segment / Twilio** (`ref/19`) — le même squelette structurel (SOURCES à gauche,
+  connecteur central, DESTINATIONS à droite) mais **rempli de données fonctionnelles
+  réelles** : le hub central est nommé ("Connections"), porte un **compteur** ("550+
+  Destinations"), et une deuxième version du même diagramme montre un **contenu qui
+  traverse** le hub (un profil "Nicola Davis" avec ses attributs, une prédiction, un
+  déclencheur de journey) — le hub n'est pas un point neutre, il **transforme** la donnée
+  visiblement.
+- **Fivetran** (`ref/21`, `ref/22`) — **aucun diagramme de convergence animé** : à la
+  place, une **grille de logos** (900+ sources listées comme un mur d'icônes carrées,
+  sans ligne ni point de fuite) sous le texte "All the context your AI needs — Explore
+  900+ sources and destinations →", et plus haut dans le hero, un **tableau littéral**
+  (Source / Status / Last synced, avec des lignes "SAP ERP — Active — 30 secs ago",
+  "Snowflake — Active", "Salesforce — Active") superposé à une photo de camion Coca-Cola
+  scrollytelling. C'est la preuve la plus directe que **le statut par intégration
+  s'affiche mieux dans un tableau que dans un diagramme radial** : au-delà de 3-4 icônes
+  par côté, un hub-and-spoke devient illisible, alors qu'une liste scroll parfaitement à
+  n'importe quelle volumétrie.
+
+**Réponse à la question posée :**
+
+Ce que le motif communique **effectivement** dépend entièrement de ce qu'on met dedans,
+pas de sa géométrie. La géométrie seule (sources convergent vers un point, qui ressort
+vers des destinations) communique une seule chose de façon fiable : **il existe une
+étape intermédiaire entre la donnée brute et l'agent qui l'utilise** — une promesse de
+médiation, pas une preuve de compatibilité. Chez Supernova, c'est tout ce qu'il
+communique : le diagramme est un **logo de logos**, une reformulation visuelle du titre,
+pas une donnée. Chez Segment, le même squelette communique davantage parce qu'il est
+**rempli de vraies données** (un nom, un compteur, un statut) — c'est le contenu du hub,
+pas sa forme, qui porte l'information.
+
+**Limite connue, observée directement** : dans aucune des deux occurrences réelles du
+motif (Supernova, Segment) le statut *par intégration individuelle* (disponible vs à
+venir) n'est porté par le diagramme lui-même. Supernova ne distingue à l'oeil aucun des
+4 logos de son bloc droit ("Your AI agents") — Claude Code, Codex, ou un autre, seraient
+rendus de façon identique, seul le logo change. Segment ne montre pas non plus de statut
+différencié parmi les icônes de destinations (Analytics, Messaging, Warehouse, Facebook,
+Zendesk) — elles sont toutes traitées à égalité visuelle. **Aucune des deux références ne
+prouve que ce motif peut porter un statut par intégration** — c'est une extension que
+Stellar devrait inventer, pas reproduire.
+
+**Condition pour porter l'info de statut (F5)** — à la lumière de Fivetran : le motif
+"convergence" et le motif "statut par intégration" sont **deux besoins différents** qui
+n'ont, dans l'échantillon observé, jamais cohabité dans le même artefact visuel. Quand un
+produit veut vraiment communiquer un statut par intégration (comme Fivetran le fait pour
+la synchronisation), il bascule sur un **tableau/liste**, pas sur un diagramme radial.
+Un diagramme de convergence à la Supernova peut coexister sur la même page qu'un tableau
+de statut à la Fivetran (rien n'empêche les deux), mais **demander au même artefact
+visuel de porter à la fois l'idée de centralisation et le détail du statut par agent
+(Claude Code pris en charge / Codex à venir) dépasse ce que les deux occurrences
+observées font** — c'est un problème de lisibilité au-delà de 3-4 éléments par côté, pas
+un simple choix graphique.
+
+## Q2 — Montrer une vue produit sans produit disponible
+
+**Limite à déclarer d'abord** : aucune landing **réellement pré-lancement** (produit non
+accessible, mécanique de type waitlist) n'a pu être trouvée dans la catégorie dev/design
+tool actuellement — Onlook, Subframe, Granola sont passés en accès public depuis leur
+phase de gate ; Devin (Cognition) est en 404 sur l'URL attendue. Le seul waitlist pur
+avec capture produit reste **Cron**, déjà dans le rapport initial (une seule capture,
+sous le fold). Les observations ci-dessous portent donc sur des produits **déjà lancés**
+dans la même catégorie fonctionnelle que Stellar (design system, dev tool, éditeur) —
+utiles pour la question de densité et de forme, pas comme preuve de ce qui se fait
+*en pré-lancement*.
+
+**Ce qui a été réellement vu :**
+
+- **zeroheight** (`ref/20`) — **une seule capture produit dans le hero**, pleine largeur,
+  non recadrée sur un détail : une vraie page de documentation de composant ("Buttons"),
+  avec sa navigation latérale complète (Overview / Style / Components), ses onglets
+  (Overview / States / Usage / Code) et son contenu réel (règles d'usage des boutons
+  primaires/secondaires). C'est très exactement le type d'écran que Stellar veut montrer
+  (liste de composants avec page de doc) — précédent direct. Statique, non annotée,
+  jouant sur le fait qu'elle est **authentique et complète** plutôt que sur un montage.
+- **Supernova** (déjà en section 8, revu en image ici) — **4 captures produit
+  distinctes**, une par bloc nommé (Context Intelligence, Code components, Skills &
+  Exporters), chacune recadrée sur un panneau UI précis (liste de contextes avec compteurs
+  "106 of 284", un extrait de code avec une question de chat en incrustation, une liste de
+  fichiers markdown avec un menu de skills) — jamais une capture pleine app, toujours un
+  recadrage qui isole *une* preuve par bloc de texte adjacent.
+- **Onlook** (`ref/27`, `ref/28`) — le cas le plus dense observé : **au moins 6 captures
+  distinctes** rien que dans les deux premiers écrans sous le hero, chacune minuscule
+  (occupe un quart d'écran ou moins), recadrée sur un détail hyper précis (une palette de
+  couleurs de marque, un mini calendrier, une liste de composants, un réglage de police).
+  Une capture montre une **annotation explicite** : un cercle rouge et des poignées de
+  sélection superposés sur un visuel (un smiley dans une illustration), signalant
+  "ceci est l'élément que l'IA vient de modifier" — la seule occurrence d'annotation
+  visuelle trouvée dans tout ce complément.
+- **Fivetran** (`ref/21`) — une capture produit unique mais **littéralement
+  fonctionnelle** (un tableau de statut de synchronisation), superposée en incrustation
+  sur une photo de camion Coca-Cola scrollytelling — mélange capture UI + photo de preuve
+  client, jamais vu ailleurs dans ce complément.
+
+**Réponse à la question posée :**
+
+Il n'y a pas de nombre universel, mais un **ordre de grandeur qui se dégage nettement** :
+les références qui montrent **1 seule capture, pleine et non recadrée** (zeroheight) le
+font pour prouver l'authenticité d'un seul écran représentatif — c'est le choix le plus
+proche du besoin de Stellar (montrer *que* l'écran de règles/préférences existe, sans
+sur-vendre). Les références qui montrent **4 à 6+ captures** le font toujours en les
+**recadrant serré sur un détail minuscule et en les associant chacune à une seule phrase
+de bénéfice** (Supernova, Onlook) : dans ce mode, chaque capture n'a plus vocation à être
+lue comme un écran complet, elle devient une **icône illustrée** plutôt qu'une preuve.
+
+**Ce qui distingue une capture qui prouve d'une capture qui décore, observé
+directement :** une capture qui prouve montre du **contenu réel et spécifique**
+(des noms de composants réels, des chiffres réels comme "106 of 284" ou "550+
+Destinations", des libellés d'onglets qu'on peut suivre) — zeroheight et Supernova le
+font. Une capture qui décore est **illisible à la taille où elle est montrée** (texte non
+lisible, juste des blocs de couleur et une forme reconnaissable) — plusieurs des
+vignettes Onlook basculent dans ce registre dès qu'elles descendent sous ~200px de
+large : on reconnaît "il y a une UI ici" mais pas ce qu'elle dit. **Le seuil de bascule
+observé est la lisibilité du texte à l'intérieur de la capture, pas sa taille en
+pourcentage d'écran** — une petite capture avec un gros libellé net ("550+
+Destinations") prouve encore ; une capture large mais pleine de texte à 8px ne prouve
+plus rien.
+
+**Combien avant catalogue illisible** — au-delà de 4 captures **si chacune n'est pas
+rattachée à une phrase de bénéfice propre et à un contenu lisible**, la section bascule
+en catalogue. Onlook tient à 6+ uniquement parce que chaque capture est minuscule et
+fonctionne comme pictogramme, pas comme preuve — un registre que le PRD de Stellar
+n'a pas choisi (F6 exige que l'écart soit **nommable**, donc lisible). Pour Stellar,
+l'enseignement actionnable est : **une capture unique, pleine, lisible et authentique
+(zeroheight) est mieux couverte par le contrat fonctionnel de F6 que plusieurs vignettes
+décoratives** — le nombre importe moins que la lisibilité de ce que chaque capture
+prouve.
+
+## Q3 — La personnalisation comme argument de vente
+
+**Limite à déclarer** : Linear (déjà benchmarké en section 7, captures hero uniquement)
+n'a montré aucune section de personnalisation dans les crops disponibles — silence, pas
+absence prouvée. Arc (browser) n'a pas été rouvert dans ce complément (le sujet est déjà
+suffisamment couvert par 3 références solides ci-dessous) ; Warp a été ouvert mais son
+contenu sous le hero ne s'est pas rendu dans la capture statique (site fortement
+scroll-animé) — écarté, pas remplacé par une supposition.
+
+**Ce qui a été réellement vu :**
+
+- **Raycast** (`ref/23`, `ref/24`) — **deux sections** portent un message de
+  personnalisation, à deux endroits différents de la page et formulées différemment :
+  1. Une section "There's an extension for that. Use your favorite tools without even
+     opening them." — un carrousel de cartes d'extensions tierces (Linear, Google
+     Translate, Spotify observées), filtrable par catégorie (Productivity, Engineering,
+     Design, Writing) — la personnalisation vendue comme **étendue de l'écosystème**, pas
+     comme réglage.
+  2. Une section "Don't repeat yourself. Automate the things you do all the time." —
+     Snippets, Quicklinks, Hotkeys and Aliases — la personnalisation vendue comme
+     **automatisation de gestes propres à l'utilisateur**, illustrée par un exemple concret
+     de combinaison de touches (option + command + L).
+  3. **Preuve sociale directement liée à la personnalisation** — une section testimonials
+     où chaque personne cite littéralement sa **"Favorite Feature"** et son **"Top
+     Extension"** avec une justification personnelle ("I forked the Notion Search
+     extension so I can easily paste 'tokenized' doc links into Slack") — la
+     personnalisation n'est pas décrite abstraitement, elle est **incarnée par un usage
+     réel et spécifique**.
+- **Obsidian** (`ref/25`) — la formulation la plus directe observée : *"Build your ideal
+  thinking space. With thousands of plugins and our open API, it's easy to tailor
+  Obsidian to fit **your personal workflow**."* — accompagnée d'une **UI réelle de
+  réglages** : une liste de plugins avec des interrupteurs on/off visibles à l'écran
+  (Calendar activé, Dataview désactivé) — la personnalisation n'est pas racontée, elle est
+  **montrée en train de se configurer**.
+- **Zed** (`ref/26`) — une section "Growing extensions ecosystem" : *"Boost your Zed
+  experience by choosing from hundreds of extensions that broaden language support,
+  offer different themes, and more."* — même registre que Raycast (extensions comme
+  vecteur de personnalisation), plus discrète (pas de section dédiée aussi développée
+  que chez Raycast ou Obsidian, une seule phrase avec liens).
+
+**Réponse à la question posée :**
+
+Sur les 3 produits où le motif est réellement présent, la personnalisation **occupe
+sans ambiguïté une section de landing** — ce n'est pas cantonné à la documentation. Mais
+dans les 3 cas, **elle n'est jamais vendue comme "vous pourrez configurer vos
+préférences"** au sens abstrait : elle est toujours reformulée en **bénéfice concret et
+déjà incarné** :
+- chez Raycast, par un **usage réel montré** (screenshots d'extensions existantes,
+  testimonial nommé avec sa configuration précise) ;
+- chez Obsidian, par une **UI de réglage visible** (interrupteurs, pas une promesse de
+  texte) ;
+- jamais par une simple affirmation ("c'est agréable parce que c'est personnel") sans
+  preuve à l'appui.
+
+**Ce que ça vend, et à quelle condition** — la personnalisation **vend sur une landing**
+quand elle est démontrée par un **artefact concret** (une vraie capture de réglage, un
+vrai témoignage nommé avec sa config, une vraie liste de plugins avec bascules), parce
+que l'artefact convertit la promesse abstraite ("c'est personnalisable") en preuve
+("voici ce qu'une vraie personne a réellement configuré"). **Sans cet artefact, la même
+promesse reformulée en adjectif seul ("personnel", "sur-mesure") n'a aucun précédent
+observé dans cet échantillon** — aucune des 3 références ne se contente d'un mot, toutes
+montrent un geste ou un témoignage. C'est directement actionnable pour la section "Set
+your workflow" envisagée par Stellar : le PRD devra prévoir **un artefact montré** (un
+état d'écran réel de préférences configurées, ou une citation d'utilisateur nommant sa
+config), pas seulement l'argument nu.
+
+**Limite de la généralisation** — les 3 produits qui vendent la personnalisation
+(Raycast, Obsidian, Zed) sont tous des **outils déjà installés, utilisés quotidiennement,
+avec une base d'utilisateurs existante à citer en témoignage**. Stellar, en
+pré-lancement, n'a ni utilisateurs à citer ni produit à montrer en train de se
+configurer réellement — la condition de crédibilité identifiée ci-dessus (artefact
+concret) est **plus difficile à remplir en pré-lancement** qu'elle ne l'est pour ces
+trois références déjà lancées. C'est un rappel, pas une invalidation : si Stellar ne
+peut pas produire cet artefact honnêtement aujourd'hui, mieux vaut une formulation plus
+modeste que le calquer sans preuve.
+
+## Q4 — Combien de sections de fonctionnalité
+
+**Ce qui a été réellement vu, compté section par section (chaque section = un titre de
+niveau supérieur distinct, pas un sous-item) :**
+
+| Produit | Sections de fonctionnalité comptées après le hero | Regroupement observé |
+| --- | --- | --- |
+| Supernova | 3 (bénéfices génériques + diagramme ; Context Intelligence ; Code components + Skills & Exporters en paire) | Une section = un thème (ex. "Context Intelligence"), qui peut elle-même contenir 2-4 capacités déclinées en points à puces |
+| zeroheight | 1 section à onglets ("Your entire design system workflow, covered") qui agrège 4 capacités (Documentation / Delivery / Measurement / Management) | Agrégation forte : 4 capacités dans une seule section, choisies au clic, pas déroulées l'une après l'autre |
+| Raycast | 3 (Extensions ; AI — qui agrège 3 sous-usages ; Automation — qui agrège 3 capacités : Snippets/Quicklinks/Hotkeys) | Une section = un thème qui regroupe 3 capacités concrètes, jamais une section par capacité isolée |
+| Zed | 3 (grille de 6 tuiles atomiques sous un même bandeau ; AI — qui agrège 4 sous-usages ; Extensions) | Un thème peut regrouper jusqu'à 6 tuiles très courtes (titre + 1 phrase), toutes sous un seul intitulé implicite |
+| Obsidian | 3 ("Spark ideas" agrège Links + Graph ; une section agrège Canvas + Plugins ; "Sync securely" seule) | Regroupement par intention utilisateur ("spark ideas"), pas par mécanique produit |
+| Fivetran | 2 (mur de logos + lien "explore 900+ sources" ; "The Fivetran platform" qui agrège Move/Manage/Transform + Context layer) | Regroupement par étape de pipeline, présentées comme un diagramme unique plutôt que des blocs séparés |
+| Segment/Twilio | 1 section qui compare 2 offres (Connections vs Connections+Unify+Engage) côte à côte | Regroupement par offre commerciale, pas par capacité |
+
+**Réponse à la question posée** — l'ordre de grandeur qui se dégage est **2 à 3 sections
+de fonctionnalité de premier niveau** après le hero, jamais 5 ou plus dans cet
+échantillon. Ce qui varie fortement, c'est **combien de capacités chaque section
+regroupe en son sein** (de 2 chez Obsidian à 6 chez Zed) — c'est cette variable qui
+absorbe la richesse de l'offre, pas la multiplication du nombre de sections. **Aucune des
+7 références observées n'aligne 5 sections de premier niveau consacrées chacune à une
+seule capacité** — le motif dominant est l'inverse : peu de sections, chacune nommée par
+un **thème ou une intention** ("Context Intelligence", "AI that works the way you code",
+"Spark ideas"), qui agrège ensuite 2 à 6 capacités déclinées en sous-blocs plus courts
+(titre + une phrase, parfois une micro-capture).
+
+**Critère de regroupement observé, récurrent d'un produit à l'autre** — les capacités
+sont groupées par **ce qu'elles permettent à l'utilisateur de faire ou de ressentir**
+(Obsidian : "Spark ideas" — Zed : "AI that works the way you code" — Raycast : "Don't
+repeat yourself"), pas par la mécanique technique qui les sous-tend. Une section qui
+s'intitulerait par une fonctionnalité isolée et technique (ex. "Le tri des tokens", "Les
+préférences de rendu" pris séparément) n'a **aucun précédent direct** dans cet
+échantillon — l'attente installée est de regrouper sous une intention lisible, quitte à
+ce que la section détaille ensuite plusieurs mécaniques à l'intérieur.
+
+**Conséquence pour le PRD de Stellar** — F4 (comprendre le fonctionnement, 4 étapes) et
+F5 (vérifier la compatibilité) pourraient rester deux sections distinctes sans s'écarter
+de la convention (leur objet est réellement différent : un enchaînement séquentiel vs.
+une liste de statuts). En revanche, si la proposition actuelle empile 5 sections
+consacrées chacune à une seule capacité en registre plat, c'est un point de divergence
+par rapport à ce que ces 7 références font toutes : elles **regroupent**. Le point ne
+relève pas du fonctionnel (hors du périmètre de ce document) mais mérite d'être signalé
+à qui conçoit la page : le nombre de sections observées ailleurs est plus bas que 5, la
+densité par section est plus haute.

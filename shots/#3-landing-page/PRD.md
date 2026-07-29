@@ -4,13 +4,14 @@ Landing page de pré-lancement de **Stellar**, un SaaS + plugin qui rend un agen
 au design system de l'équipe. Objectif unique : convertir un visiteur en inscrit à la bêta.
 
 Supports : **web desktop et mobile**, chacun traité pour lui-même.
-Artefacts frères : `BENCHMARK.md` (13 références, 17 captures), `BRIEF.md` (élicitation et
-challenge), `ref/`.
+Artefacts frères : `BENCHMARK.md` (21 références, 28 captures, trois passes), `BRIEF.md`
+(élicitation et challenge), `ref/`.
 
-> **Version 3.** v2 avait repositionné le document après un complément de benchmark qui
-> invalidait son statu quo comparé. v3 intègre les arbitrages de l'utilisateur sur la
-> compatibilité, la légitimité et les valeurs de qualification. Historique complet dans
-> `BRIEF.md`.
+> **Version 4.** v3 avait tranché la compatibilité, la légitimité et les valeurs de
+> qualification. v4 ajoute l'**architecture de la page** — absente jusqu'ici — après le
+> challenge d'une proposition de structure formulée par le commanditaire, et intègre les
+> capacités fonctionnelles nouvelles qu'elle apportait (trois voies de définition des règles,
+> préférences de travail élargies). Historique complet dans `BRIEF.md`.
 
 ## Objectif
 
@@ -102,6 +103,64 @@ C'est la liste qui donne le contenu et la longueur de la page. Chaque capacité 
 | US11 | En tant que visiteur qui se décide tard dans sa lecture, je veux pouvoir m'inscrire sans revenir en arrière, afin de ne pas perdre ma décision. | must |
 | US12 | En tant que visiteur mobile, je veux parcourir l'intégralité de l'argumentaire et m'inscrire aussi facilement que sur desktop. | must |
 
+## Architecture de la page
+
+L'ordre des parties est **fonctionnel, pas graphique** : il découle de la liste des objections
+et de leur ordre. Le PRD fixe **quelle objection est levée où** et **ce que le visiteur doit
+pouvoir en retirer** ; il ne prescrit ni la forme, ni la longueur, ni le découpage visuel
+d'une partie.
+
+| # | Partie | Objection | Capacités | Ce que le visiteur doit pouvoir en retirer |
+| --- | --- | --- | --- | --- |
+| 1 | Entrée + inscription | 1 · 8 | F1, F8, F11 | Ce que fait Stellar, pour qui, qu'il n'est pas encore disponible, et où laisser son email — sans défiler |
+| 2 | Le problème, montré | 2 | F2 | « C'est exactement ce que mon agent me fait » : un rendu qui dérive, l'écart nommé, et le fait que la correction ne survit pas à la session |
+| 3 | Ce que personne ne fait | 3 | F3 | Les autres donnent la donnée du design system à l'agent ; ici c'est **lui** qui pose les règles avant que l'agent produise |
+| 4 | Poser ses règles | 3 · 4 | F4 étape 2, F12 | Il trie sa matière et écrit ses règles d'usage — par règles pré-faites, par l'éditeur, ou par son propre agent via le MCP |
+| 5 | Travailler à sa façon | 3 · 4 | F4 étape 3, F12 | L'agent produit selon sa méthode, et ce réglage persiste d'une session à l'autre |
+| 6 | Ce que ça exige de son environnement | 4 · 5 | F4 étapes 1 et 4, F5 | Ce que Stellar ingère, quels agents il équipe **avec le statut de chacun**, et ce qu'il obtient au bout de la chaîne |
+| 7 | Avant / après | 6 | F6 | Deux résultats du même point de départ, chaque écart rattaché à une règle qu'il vient d'apprendre à nommer |
+| 8 | Qui construit Stellar | 7 | F7 | Un design engineer qui vit le problème de la partie 2 et construit l'outil qui lui manquait |
+| 9 | Rejoindre la bêta | 8 | F8, F9, F10, F11 | S'inscrire avec son seul email, savoir que c'est gratuit et sans engagement, et ce qui se passe ensuite |
+
+**Neuf parties pour huit objections**, l'entrée en portant deux. La longueur est justifiée par
+le compte d'objections, jamais par le compte de fonctionnalités (C8).
+
+### Trois règles d'architecture, opposables
+
+1. **Trois parties de fonctionnalité au maximum** (4, 5, 6). Le benchmark (passe C, 7
+   références sur 7) n'observe jamais plus de deux à trois parties de premier niveau après
+   l'entrée ; ce qui varie est la densité d'une partie, pas leur nombre. Le regroupement se
+   fait **par intention utilisateur**, jamais par mécanique technique isolée.
+2. **Les prérequis sont regroupés et viennent après le cœur.** Synchroniser les sources
+   (étape 1) et connecter l'agent (étape 4) répondent à la même question — « qu'est-ce que ça
+   exige de mon environnement ? » — et forment **une seule** partie, placée après les parties
+   4 et 5. C4 fixe leur poids ; cette règle fixe leur position, parce que le poids seul ne
+   protège pas de l'inversion.
+3. **La preuve arrive après son référentiel de lecture** (voir F6). Le problème est montré tôt
+   (partie 2), la comparaison démonstrative reste tardive (partie 7) : ce sont deux parties
+   distinctes, pas la même déplacée.
+
+### Le dispositif de convergence
+
+Arbitrage du commanditaire, pris en connaissance du risque : un dispositif de **convergence**
+— des sources qui rejoignent un point unique, d'où sortent les agents équipés — est **maintenu
+en position haute**, dans la partie 1, et non dégradé en illustration de prérequis.
+
+Le benchmark (passe C, Q1) impose alors trois garde-fous, sans lesquels ce dispositif
+travaille contre la page :
+
+- **Ce qui traverse le point central est nommé, et ce sont les règles de l'utilisateur** — pas
+  la donnée du design system. Sans cette qualification, le dispositif énonce le message de
+  catégorie déjà tenu par les plateformes concurrentes, et un visiteur solution-aware classe
+  la page comme redite (C5, C6 amendés).
+- **La géométrie ne porte jamais le statut de disponibilité.** Des logos qui sortent à égalité
+  d'un point unique affirment implicitement que tout est disponible. Sur les deux occurrences
+  réelles du motif observées au benchmark, aucune ne porte de statut par intégration ; la
+  référence qui en a besoin bascule sur un registre tabulaire. Le statut vit donc en F5,
+  partie 6, dans un dispositif distinct (C38).
+- **La liste des agents montrée dans la convergence est exactement celle de F5**, ni plus, ni
+  moins.
+
 ## Fonctionnalités
 
 ### F1 — Comprendre l'offre (lève 1) · must
@@ -115,6 +174,17 @@ l'accès soit restreint à une bêta est une information affichée, pas une déd
 Le visiteur peut lire la formulation du problème : un agent IA qui ignore les règles du
 design system produit des rendus qui en dérivent, et l'humain corrige à la main, à chaque
 fois, sans que la correction survive à la session suivante.
+
+Le problème est **constatable sur un rendu**, pas seulement énoncé : le visiteur voit un
+résultat qui dérive, avec **au moins un écart nommé** (une valeur hors échelle, un composant
+recréé, un token absent de la palette).
+
+Deux exigences qui le distinguent de F6 :
+
+- **C'est un seul côté, jamais une comparaison.** F6 est le seul endroit où deux résultats
+  sont confrontés. Ici, il n'y a rien à comparer : il y a une situation à reconnaître.
+- **La non-persistance de la correction est lisible** — c'est la moitié du problème, et c'est
+  elle que F4 étape 3 vient résoudre.
 
 ### F3 — Comprendre ce qui distingue Stellar (lève 3) · must
 
@@ -135,13 +205,53 @@ dont il peut restituer l'enchaînement après une seule lecture :
 1. **Synchroniser** le fichier Figma du design system, la codebase et/ou la documentation.
 2. **Définir les règles** d'usage des tokens, composants et patterns, à partir de la matière
    synchronisée et triée.
-3. **Définir ses préférences** de rendu avec son agent.
+3. **Définir ses préférences de travail** avec son agent.
 4. **Connecter le plugin** à son agent, qui dispose alors d'un MCP, de skills, d'agents et de
    commands prêts à l'emploi.
 
 **Les étapes 2 et 3 portent la différenciation** énoncée en F3 : elles doivent se lire comme
 le cœur de la proposition, pas comme deux maillons parmi quatre. Les étapes 1 et 4 sont des
-prérequis techniques et se traitent comme tels.
+prérequis techniques, se traitent comme tels, et sont **regroupées en une seule partie placée
+après le cœur** (voir « Architecture de la page »).
+
+**Étape 2 — trois voies, au choix du visiteur.** Le visiteur peut identifier qu'il n'y a pas
+une seule manière de poser ses règles :
+
+| Voie | Ce que le visiteur y voit |
+| --- | --- |
+| **Règles pré-faites** | Il démarre sans rien écrire |
+| **Éditeur de règles** | Il écrit lui-même ses règles, dans Stellar |
+| **Son propre agent, via le MCP** | Il fait produire ses règles par l'agent qu'il utilise déjà |
+
+Cette pluralité **renforce F3** : le geste de calibration est offert, jamais imposé — ce que
+la catégorie ne propose sous aucune forme.
+
+L'étape 2 s'exerce sur une matière que le visiteur peut constater : les **tokens** et les
+**composants** issus de la synchronisation, consultables et documentés. Cette matière n'est
+pas une capacité à vendre en soi (elle ne lève aucune des huit objections, et montrée seule
+elle range Stellar dans la catégorie des outils de documentation de design system) : elle
+existe à l'écran **parce qu'on ne peut pas montrer qu'on pose une règle sans montrer sur
+quoi**.
+
+**Étape 3 — préférences de travail, pas seulement de rendu.** Le périmètre est plus large que
+le seul rendu produit. Le visiteur peut identifier qu'il définit **comment il travaille** :
+
+- l'**organisation du livrable** produit par l'agent (par exemple la disposition des écrans
+  dans le fichier de design) ;
+- le **mode d'orchestration** de l'agent (un seul agent, ou plusieurs en parallèle) ;
+- les **intégrations** dont il dispose.
+
+Deux exigences fonctionnelles sur cette étape :
+
+- **La persistance est explicite.** Ces préférences valent d'une session à l'autre. C'est le
+  contrepoint direct du problème énoncé en F2 (« la correction ne survit pas à la session
+  suivante ») : sans la persistance, l'étape 3 est un confort ; avec elle, c'est la réponse.
+- **Le bénéfice est incarné, jamais adjectivé.** Le benchmark (passe C, Q3) observe que la
+  personnalisation ne vend sur une landing qu'adossée à un artefact concret — un réglage
+  réellement visible, une configuration nommée. Un adjectif seul (« personnel »,
+  « sur-mesure ») n'a aucun précédent qui convertisse. Réserve déclarée : les trois précédents
+  observés sont des produits déjà installés, qui disposent d'utilisateurs à citer ; en
+  pré-lancement, cette condition est plus dure à remplir honnêtement (voir F12).
 
 Chaque étape énonce ce que l'utilisateur fait, pas comment l'outil est construit. Le visiteur
 peut identifier ce qu'il obtient au bout de la chaîne : maquettes, prototypes ou intégrations
@@ -165,7 +275,13 @@ sait équiper, avec pour chaque agent son **statut de disponibilité**.
 | Documentation de design system | pris en charge |
 | Claude Code | pris en charge |
 | Codex | **à venir** |
+| Cursor | **à venir** |
 | Tout autre agent | non annoncé — ne figure pas dans la liste |
+
+**Le statut est attaché à chaque agent, individuellement, et il est affiché.** Il n'est jamais
+déduit d'un contexte, d'une note globale ni d'une position dans une énumération. Aucun
+dispositif de la page — la convergence de la partie 1 au premier chef — ne peut laisser
+déduire une compatibilité qui n'est pas annoncée (C38).
 
 Un visiteur dont l'agent est « à venir » doit pouvoir le constater et s'inscrire quand même :
 c'est une raison de rejoindre la liste, pas un motif de partir. Un visiteur dont l'agent
@@ -193,6 +309,12 @@ au design :
   Le visiteur doit pouvoir dire *ce qui* n'allait pas, pas seulement *que* c'était moins bien.
 - Le nombre d'écarts montrés reste **lisible d'un coup d'œil** : la démonstration porte sur
   la nature du problème, pas sur son exhaustivité.
+- La comparaison intervient **après que la notion de règle a été introduite** (partie 7, après
+  les parties 4 et 5). Avant cela, le visiteur ne sait pas ce que « avec Stellar » veut dire,
+  et n'a pas le vocabulaire pour rattacher un écart à une règle : C9 et C10 deviennent
+  invérifiables et la démonstration se dégrade en jugement esthétique — ce que le point
+  précédent interdit. Le besoin de montrer tôt est satisfait par F2, qui n'est pas une
+  comparaison.
 
 C'est la seule preuve de la page : en pré-lancement, ni logo client, ni témoignage, ni
 métrique d'usage n'est disponible — et aucune des 13 références n'en affiche.
@@ -265,7 +387,7 @@ Trois informations, chacune avec son usage déclaré au visiteur :
 | Information | Valeurs proposées | Ce qu'on en fait |
 | --- | --- | --- |
 | **Rôle** | Product designer · Design system manager · Product manager · Design engineer · Autre | Prioriser les profils pour lesquels le produit est prêt |
-| **Agent utilisé** | Claude Code · Codex · Autre · Aucun pour l'instant | Séquencer les invitations selon les agents pris en charge |
+| **Agent utilisé** | Claude Code · Codex · Cursor · Autre · Aucun pour l'instant | Séquencer les invitations selon les agents pris en charge |
 | **Design system existant** | Figma seul · Figma + code · Code seul · Documentation publiée · Pas de design system formalisé | Vérifier que les sources ingérables couvrent le cas |
 
 Chaque question admet une réponse « autre » ou « je ne sais pas » : aucune ne peut bloquer
@@ -282,7 +404,33 @@ revenir en arrière**, et cela vaut sur les deux supports. Sur mobile, l'accès 
 reste atteignable en permanence sans masquer de contenu.
 
 Le PRD n'impose ni le nombre ni l'emplacement des points d'entrée : il exige que la décision,
-où qu'elle tombe, trouve immédiatement où s'exercer.
+où qu'elle tombe, trouve immédiatement où s'exercer. Sur une page de neuf parties, **deux
+points de capture ne suffisent pas** : l'entrée et le bloc final laisseraient tout le milieu
+— plusieurs écrans en mobile — sans endroit où exercer une décision. Il en faut au moins un
+au point de décision naturel, après la preuve (partie 7), ou un accès permanent.
+
+### F12 — Montrer le produit sans le surestimer (transversal) · must
+
+**Le produit n'est pas construit.** Les parties 4, 5 et 6 s'appuient sur des représentations
+de l'interface Stellar qui sont des **maquettes d'intention** : ce à quoi le produit
+ressemblera, pas ce qu'il fait aujourd'hui.
+
+Cette capacité existe parce que ces représentations entrent en tension avec deux règles déjà
+posées : F6 énonce que la comparaison avant/après est **la seule preuve de la page**, et C14
+interdit tout ce qui n'est pas vérifiable en pré-lancement. Contrat :
+
+- Une maquette d'intention n'est **jamais présentée comme une capture d'un produit en
+  fonctionnement** : ni chiffre d'usage, ni nom de client, ni marqueur temporel, ni élément
+  qui suggère un état réel du système.
+- Leur **nombre est limité** : une représentation par partie au plus. Le benchmark (passe C,
+  Q2) établit le critère qui sépare la preuve du décor — une représentation prouve tant que
+  son contenu reste **lisible** ; elle décore dès que son texte devient illisible à la taille
+  affichée. Le seuil est la lisibilité, pas la taille.
+- Elles **n'entrent pas en concurrence avec F6** : aucune ne doit pouvoir être lue comme une
+  démonstration de résultat. Elles montrent ce que le visiteur **fera**, F6 montre ce qu'il
+  **obtiendra**.
+- Ce qu'elles affichent est **cohérent avec ce que la page annonce par ailleurs** : mêmes
+  agents qu'en F5 avec les mêmes statuts, mêmes voies qu'en F4 étape 2.
 
 ## Critères d'acceptation
 
@@ -296,22 +444,30 @@ où qu'elle tombe, trouve immédiatement où s'exercer.
 - [ ] C4 — Les étapes 2 et 3 (règles d'usage, préférences de rendu) sont identifiables comme
       le cœur de la proposition, et non comme deux maillons équivalents aux deux autres.
 - [ ] C5 — La page ne contient nulle part la promesse générique « connecter votre design
-      system à l'IA » sans la qualifier immédiatement par la calibration humaine.
+      system à l'IA » sans la qualifier immédiatement par la calibration humaine. Cela vaut
+      pour le **dispositif de convergence** de la partie 1 : ce qui traverse le point central
+      est nommé, et ce sont les règles de l'utilisateur.
 - [ ] C6 — L'entrée de la page n'emploie aucune expression de catégorie déjà captée par les
       plateformes concurrentes ; le vocabulaire du geste (règles, préférences, calibrer) y
-      domine.
+      domine — y compris dans les libellés portés par le dispositif de convergence.
 - [ ] C7 — Aucun concurrent n'est nommé.
 - [ ] C8 — Chaque partie de l'argumentaire est rattachable à l'une des 8 objections listées ;
       une partie sans objection assignée est retirée.
+- [ ] C8b — La page compte **au plus trois parties de fonctionnalité** ; les étapes 1 et 4 du
+      fonctionnement sont regroupées dans une seule partie, placée après celles qui portent
+      les étapes 2 et 3.
 
 **Preuve, compatibilité, légitimité**
 
 - [ ] C9 — La comparaison de F6 est identifiable comme deux résultats du **même** point de
       départ : même intention, même design system, même agent.
+- [ ] C9b — La comparaison de F6 intervient **après** les parties qui introduisent les règles
+      et les préférences ; le problème montré tôt (F2) est un seul rendu, pas une comparaison.
 - [ ] C10 — Chaque écart montré dans la comparaison est rattachable à une règle de design
       system nommable, pas à une impression de qualité.
 - [ ] C11 — Les sources ingérables et les agents sont énumérés explicitement, chacun avec son
-      statut ; Codex apparaît comme **à venir**, distinct de ce qui est déjà pris en charge.
+      statut ; Codex et Cursor apparaissent comme **à venir**, distincts de ce qui est déjà
+      pris en charge.
 - [ ] C12 — Un visiteur dont l'agent est « à venir » peut s'inscrire sans obstacle ni message
       dissuasif.
 - [ ] C13 — La page dit qui construit Stellar et à quel titre, en s'appuyant sur l'expérience
@@ -343,6 +499,23 @@ où qu'elle tombe, trouve immédiatement où s'exercer.
       en F5.
 - [ ] C25 — Quitter l'étape de qualification laisse l'inscription acquise : aucun message ne
       laisse penser le contraire.
+
+**Convergence, produit montré, personnalisation**
+
+- [ ] C38 — Aucun dispositif de la page ne laisse déduire qu'un agent est disponible : le
+      statut de chaque agent est **affiché**, individuellement, et la géométrie de la
+      convergence ne le porte jamais. La liste d'agents montrée dans la convergence est
+      exactement celle de F5.
+- [ ] C37 — Aucune représentation de l'interface Stellar n'est présentée comme une capture
+      d'un produit en fonctionnement : ni chiffre d'usage, ni nom de client, ni marqueur
+      temporel. Il y a au plus une représentation par partie, et son contenu reste lisible à
+      la taille affichée.
+- [ ] C37b — Aucune de ces représentations ne peut être lue comme une démonstration de
+      résultat : F6 reste la seule preuve de la page.
+- [ ] C39 — Le bénéfice des préférences de travail est porté par un réglage constatable, pas
+      par un adjectif ; la persistance entre sessions est énoncée.
+- [ ] C40 — Les trois voies de définition des règles (pré-faites, éditeur, agent via MCP) sont
+      identifiables comme un choix offert, pas comme un parcours imposé.
 
 **Accessibilité**
 
@@ -384,7 +557,7 @@ recette :
 
 ## Priorisation
 
-**Must** — F1 à F9, F11, et l'ensemble des critères d'accessibilité. C'est le parcours
+**Must** — F1 à F9, F11, F12, et l'ensemble des critères d'accessibilité. C'est le parcours
 minimal qui convertit un visiteur qui a déjà croisé la promesse ailleurs.
 
 **Should** — F10 (qualification post-inscription) seule. Retirée, la page convertit encore ;
@@ -401,8 +574,14 @@ son absence coûte en séquencement des invitations.
 - **La comparaison nommée à des concurrents** — écartée : la différenciation se joue contre
   le comportement de la catégorie, pas contre des marques citées, pour ne pas faire découvrir
   d'alternatives établies à une audience froide.
-- **Les agents non annoncés** — tout agent autre que Claude Code (pris en charge) et Codex
-  (à venir) est absent de la page. Aucune roadmap de compatibilité n'est promise.
+- **Les agents non annoncés** — tout agent autre que Claude Code (pris en charge), Codex et
+  Cursor (à venir) est absent de la page. Aucune roadmap de compatibilité n'est promise, et
+  aucune date n'est associée à un « à venir ».
+- **La documentation produit** — déjà hors scope, et **réaffirmée** : aucun lien vers la doc
+  depuis la page, y compris pour appuyer le workflow fourni avec le plugin. C18 l'interdit,
+  et en pré-lancement une doc publique décrirait un produit auquel le visiteur n'a pas accès.
+  Ce que ce lien devait obtenir — « il existe un workflow complet, pas trois commandes » — se
+  dit dans la page, sans en sortir.
 - **Le parcours et le CV de l'auteur** — F7 établit la légitimité par l'expérience du
   problème, pas par un profil professionnel détaillé.
 - **CTA « réserver un call »** — écarté pour préserver un objectif de conversion unique.
@@ -428,6 +607,9 @@ pourtant s'appuyer.
 | La comparaison de preuve (F6) porte sur un **design system anonymisé non identifié** à ce stade. Le contrat fonctionnel est posé, le cas concret reste à choisir — et le cas choisi change la force de la preuve. | Le choix du design system de démonstration (relève du contenu, pas du cadrage). |
 | **Aucune observation mobile réelle** n'a nourri ce PRD, aux deux passes de benchmark (navigateur indisponible). Les critères C33-C36 viennent du pattern `landing-page`, pas du marché observé. Des captures seront fournies séparément. | Un benchmark mobile sur captures réelles. |
 | **Raycast**, cité comme inspiration de mise en page, n'a pas pu être benchmarké. Sans conséquence sur ce PRD (lentille visuelle), mais le brief de design en héritera. | Des captures fournies séparément. |
+| Le statut de **Cursor** est fixé à « à venir » par défaut, par symétrie avec Codex : le commanditaire a décidé de l'annoncer, sans préciser son statut. Si le support est en réalité plus lointain, la page annonce une compatibilité que l'audience vérifiera. | La décision sur le support réel de Cursor. |
+| Le **dispositif de convergence est maintenu en position haute** contre la recommandation issue du benchmark : le motif est celui d'un concurrent direct, il n'informe que faiblement, et il ne sait pas porter le statut par agent. Le risque est traité par C5, C6 et C38, **pas supprimé** — un visiteur solution-aware peut encore classer l'entrée de la page comme une redite. | Un test de compréhension de l'entrée de page auprès de lecteurs solution-aware. |
+| Les représentations de l'interface sont des **maquettes d'intention** (F12) : le produit n'est pas construit. Elles montrent un état qui n'existe pas encore, ce que C37 encadre sans l'annuler. | La disponibilité d'écrans réels de Stellar. |
 
 ## Suite
 
