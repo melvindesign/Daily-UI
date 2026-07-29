@@ -3,6 +3,13 @@
 // puis appeler les helpers dans ton code. use_figma est isolé : rien ne persiste
 // entre appels, donc ce bloc doit être présent dans CHAQUE script qui les utilise.
 //
+// Deux blocs, à coller SÉPARÉMENT selon le besoin de l'appel — le prelude est
+// repayé à chaque appel, ne colle pas ce que tu n'utilises pas :
+//   1. NOYAU — couleur, texte, espacement, conteneur, mode, instanciation,
+//      préchargement des fontes. Présent dans la quasi-totalité des appels.
+//   2. TEXTE LONG & OVERRIDES D'INSTANCE — à ajouter quand l'appel pose un
+//      paragraphe ou personnalise le contenu d'une instance.
+//
 // Les `key` viennent de la knowledge (voir ../references/knowledge-cache.md) :
 // chaque token de couleur / d'espacement, chaque style de texte et chaque
 // composant y porte sa propre clé d'import. Résous-la par rôle sémantique.
@@ -11,6 +18,29 @@
 // charger la font avant toute mutation de texte, tout Promise `await`é,
 // et `return` les IDs créés/mutés.
 // =============================================================================
+
+// -----------------------------------------------------------------------------
+// 1. NOYAU
+// -----------------------------------------------------------------------------
+
+// Précharge TOUS les styles des familles de police du DS. À appeler en PREMIÈRE
+// instruction de tout appel qui instancie un composant ou écrit du texte.
+// Pourquoi ce helper existe : applyText/setText chargent la fonte du nœud qu'on
+// manipule, mais une fonte arrive AUSSI avec une instance importée — et
+// `parent.appendChild(instance)` lève alors « unloaded font "<famille> <style>" »
+// avant tout accès au texte. Le cas se produit dès le premier composant posé.
+// Les familles se lisent dans la foundation typographique de la knowledge (jamais
+// codées ici) ; les styles inexistants sont ignorés sans faire échouer l'appel.
+async function preloadFonts(families, styles = ['Regular', 'Medium', 'SemiBold', 'Bold']) {
+  const loaded = [];
+  for (const family of families) {
+    for (const style of styles) {
+      try { await figma.loadFontAsync({ family, style }); loaded.push(`${family} ${style}`); }
+      catch (e) { /* style absent de cette famille : sans conséquence */ }
+    }
+  }
+  return loaded;
+}
 
 // Lie une couleur sémantique (clé d'un token de couleur du DS) au fill (défaut)
 // ou au stroke d'un nœud. field: 'fills' | 'strokes'. Renvoie l'id de la variable.
@@ -107,7 +137,60 @@ async function instantiate({ componentKey, kind = 'componentSet', properties }) 
 }
 
 // -----------------------------------------------------------------------------
+// 2. TEXTE LONG & OVERRIDES D'INSTANCE
+// À ajouter au noyau quand l'appel pose un paragraphe ou personnalise le contenu
+// d'une instance.
+// -----------------------------------------------------------------------------
+
+// Crée un nœud texte qui RETOURNE À LA LIGNE (titre sur deux lignes, chapô,
+// paragraphe) dans un conteneur auto-layout.
+// L'ordre des opérations est le piège : un nœud texte naît en
+// textAutoResize = 'WIDTH_AND_HEIGHT', qui IGNORE le sizing FILL — poser FILL
+// avant d'écrire réduit le nœud à une colonne d'une lettre par ligne, et le bug
+// ne se voit qu'à la capture. Il faut donc écrire, figer une largeur, passer en
+// 'HEIGHT', et seulement ensuite laisser le parent piloter la largeur.
+// `fill = true` : la largeur suit le conteneur ; `false` : elle reste à `width`.
+async function wrapText(parent, styleKey, chars, colorKey, width, { fill = false } = {}) {
+  const t = figma.createText();
+  parent.appendChild(t);
+  await applyText(t, styleKey);
+  await setText(t, chars);
+  if (colorKey) await applyColor(t, colorKey);
+  t.textAutoResize = 'NONE';
+  t.resize(width, 24);          // hauteur provisoire, reprise juste après
+  t.textAutoResize = 'HEIGHT';  // largeur figée, hauteur = contenu
+  if (fill) t.layoutSizingHorizontal = 'FILL';
+  return t;
+}
+
+// Récupère les nœuds TEXT d'une instance, en profondeur, pour les overrides.
+// Pourquoi pas findAll / query / findOne : sous les SLOT d'une instance, ces
+// méthodes renvoient des handles INVALIDES — `Node with id "I…;…;…" not found`
+// dès qu'on lit `characters` ou qu'on appelle getStyledTextSegments. Seule la
+// descente explicite par `.children` donne des nœuds manipulables.
+// Limite connue : si le slot appartient à une instance IMBRIQUÉE dans l'instance
+// (composant fait de sous-composants), son contenu n'est éditable par AUCUNE
+// méthode. Ce n'est pas un bug d'accès mais un composant fermé : compose une
+// surface liée aux tokens plutôt que de forcer l'override.
+function instanceTexts(node, acc = []) {
+  for (const c of node.children || []) {
+    if (c.type === 'TEXT') acc.push(c);
+    else if ('children' in c) instanceTexts(c, acc);
+  }
+  return acc;
+}
+
+// Enfant direct d'une instance répondant à un prédicat (même raison que
+// ci-dessus : pas de query/findOne sur l'intérieur d'une instance).
+// Ex. instanceChild(row, c => c.type === 'INSTANCE' && c.name === 'Badge')
+function instanceChild(node, pred) {
+  return (node.children || []).find(pred);
+}
+
+// -----------------------------------------------------------------------------
 // EXEMPLE d'usage (à adapter, puis à coller sous le prelude) :
+//
+// await preloadFonts(['FAMILLE_CORPS', 'FAMILLE_MONO']);  // TOUJOURS en premier
 //
 // const card = await autoLayout(figma.currentPage, 'VERTICAL', {
 //   name: 'Card', bgKey: 'CLE_COULEUR_FOND',                  // fond de carte
@@ -128,5 +211,12 @@ async function instantiate({ componentKey, kind = 'componentSet', properties }) 
 // });
 // card.appendChild(input);
 //
-// return { createdNodeIds: [card.id, title.id, input.id] };
+// // bloc 2 : paragraphe + personnalisation du contenu d'une instance
+// const chapo = await wrapText(card, 'CLE_STYLE_CORPS', 'Deux lignes de contexte…',
+//                             'CLE_COULEUR_TEXTE_SECONDAIRE', 480, { fill: true });
+// const badge = await instantiate({ componentKey: 'CLE_COMPOSANT_BADGE' });
+// card.appendChild(badge);
+// await setText(instanceTexts(badge)[0], 'Nouveau libellé');
+//
+// return { createdNodeIds: [card.id, title.id, input.id, chapo.id, badge.id] };
 // -----------------------------------------------------------------------------

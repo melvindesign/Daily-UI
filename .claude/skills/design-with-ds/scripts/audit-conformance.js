@@ -236,10 +236,28 @@ const counts = {
   redrawnDsRoles: issues.redrawnDsRoles.length,
 };
 
+// La correction canonique voyage AVEC le constat : au moment où on lit une
+// violation, on est loin du sommaire du skill, et le réflexe est de recorriger à
+// la main un cas déjà outillé — ce qui reproduit les bugs que le script évite.
+const CORRECTIONS = {
+  repeatedAssemblies: 'scripts/factor-local-component.js — mémorise parent, index et sizing AVANT createComponentFromNode ; une factorisation improvisée repose l\'instance au mauvais endroit.',
+  clippedContainers: 'scripts/fix-default-containers.js (renseigner KEEP_CLIP_IDS pour les rognages voulus : viewport, média, zone scrollable).',
+  unboundFills: 'scripts/fix-default-containers.js pour les fills blancs de défaut ; les autres se lient à un token via applyColor() du prelude.',
+  unboundSpacing: 'bindSpacing() du prelude, un token par gap / padding / rayon.',
+  unstyledText: 'applyText() du prelude, style choisi par rôle sémantique.',
+  hiddenFills: 'trancher : soit le conteneur est transparent (fills = []), soit le fill est visible et lié.',
+  dimmedInstances: 'retirer l\'opacité et passer par le variant d\'état du composant.',
+  redrawnDsRoles: 'chercher le composant existant (search_design_system) et l\'instancier ; le custom est une décision de l\'utilisateur, jamais la tienne.',
+};
+
 return {
   ok: Object.values(counts).every(c => c === 0),
   roots: roots.map(r => ({ id: r.id, name: r.name })),
   audited: nodes.length,
   counts,
   issues, // détail par nœud pour corriger de façon ciblée
+  // Uniquement pour les violations réellement remontées.
+  corrections: Object.fromEntries(
+    Object.entries(counts).filter(([, c]) => c > 0).map(([k]) => [k, CORRECTIONS[k]])
+  ),
 };

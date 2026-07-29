@@ -71,7 +71,56 @@ node.characters = 'Nouveau texte';
 > Cas typique : personnaliser une instance (label d'un badge, titre d'un gabarit
 > local) **sans** propriété de composant déclarée — les overrides de texte
 > fonctionnent nativement sur n'importe quel nœud TEXT d'une instance.
-> Pour atteindre un texte imbriqué : `inst.findOne(n => n.type === 'TEXT' && n.name === 'Titre')`.
+
+**Atteindre un texte imbriqué : pas de `findAll` / `query` / `findOne`.** Sous les
+`SLOT` d'une instance, ces méthodes renvoient des handles **invalides** — lire
+`characters` ou appeler `getStyledTextSegments` lève `Node with id "I…;…;…" not
+found`. Seule la descente explicite par `.children` donne des nœuds manipulables
+(helper `instanceTexts()` du prelude) :
+
+```js
+function instanceTexts(node, acc = []) {
+  for (const c of node.children || []) {
+    if (c.type === 'TEXT') acc.push(c);
+    else if ('children' in c) instanceTexts(c, acc);
+  }
+  return acc;
+}
+```
+
+> **Limite qui n'est pas un problème d'accès** : si le slot appartient à une
+> instance **imbriquée** dans l'instance (composant construit à partir de
+> sous-composants), son contenu n'est éditable par **aucune** méthode. Le
+> composant est fermé : compose une surface liée aux tokens (fond, bordure, rayon)
+> avec tes propres nœuds texte, plutôt que de forcer l'override. Réserve alors le
+> composant aux cas où son contenu par défaut convient.
+
+## Colorer une icône instanciée depuis la bibliothèque
+
+La couleur d'une icône n'est en général **pas** une propriété de composant : elle
+vit sur les vecteurs. Il faut donc les parcourir et lier chacun à un token —
+sinon l'icône garde sa couleur d'origine et échappe à la règle « aucune couleur
+non liée ».
+
+```js
+// colorKey : clé d'un token de couleur du DS (rôle : texte secondaire, accent…)
+for (const v of iconInstance.findAllWithCriteria({
+  types: ['VECTOR', 'BOOLEAN_OPERATION', 'RECTANGLE', 'ELLIPSE'],
+})) {
+  if (!Array.isArray(v.fills) || !v.fills.length) continue;
+  const fills = v.fills.slice();
+  fills[0] = figma.variables.setBoundVariableForPaint(
+    fills[0], 'color', await figma.variables.importVariableByKeyAsync(colorKey)
+  );
+  v.fills = fills;
+}
+```
+
+> `findAllWithCriteria` fonctionne ici parce que les vecteurs d'une icône ne sont
+> pas dans un `SLOT` — c'est le cas particulier qui échappe à la limite décrite
+> plus haut. Régler aussi la **taille** au contexte d'usage (les tailles
+> recommandées sont dans la foundation des assets), l'icône naissant à la taille
+> de sa définition.
 
 ## Conteneur auto-layout lié aux tokens
 
